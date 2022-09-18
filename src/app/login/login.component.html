@@ -1,0 +1,38 @@
+<div class="container-fluid body">
+  <div class="overlay">
+    <div class="text">
+      <img class="dasta_img" src="../../assets/Dastawhitelogo.png" alt="DastaLogo.png" />
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <form>
+    <h5 class="retrievals">ავტორიზაცია</h5>
+    <div class="form-group">
+      <label for="company">ორგანიზაცია</label>
+      <select class="form-control form-control-sm" placeholder="Client*" id="company" name="companyId" required [(ngModel)]="loginUser.companyId">
+        <option *ngFor="let Organization of Organizations" [value]="Organization.id">
+          {{Organization.name}}
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputEmail1">მომხმარებელი</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+        placeholder="მომხმარებელი" name="username" required [(ngModel)]="loginUser.username" />
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">პაროლი</label>
+      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="პაროლი" name="password"
+        required [(ngModel)]="loginUser.password" />
+    </div>
+
+    <button class="btn btn-success" (click)="login()">
+      შესვლა
+    </button>
+  </form>
+  <p *ngIf="errorMessage">{{errorMessage}}</p>
+</div>
+<simple-notifications></simple-notifications>

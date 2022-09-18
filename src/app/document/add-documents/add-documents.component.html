@@ -1,0 +1,122 @@
+<div mat-dialog-header >
+  <div class="dialogHeader">
+    <h3>დოკუმენტის დამატება</h3>
+    <button mat-button (click)="onNoClick()" class="removeDialog">
+      <i class="fa fa-times"></i>
+    </button>
+  </div>
+<!--  <mat-error class="error" *ngIf="isRequired">გთხოვთ შეავსოთ: {{errorValues}}</mat-error>-->
+</div>
+<mat-form-field appearance="outline" style="width:100% !important;margin-top:10px;">
+  <mat-label>დამატებითი ინფორმაცია</mat-label>
+  <input
+    matInput type="text"
+    name="clientName"
+    [(ngModel)]="comment"
+  >
+</mat-form-field>
+<!-- <mat-form-field appearance="outline" style="width:100% !important;margin-top:10px;">
+    <textarea matInput placeholder="დასტას კომენტარი" [(ngModel)]="UnableToCheckComment"
+              ></textarea>
+</mat-form-field>
+
+
+<section class="example-section">
+  <mat-checkbox class="example-margin" [(ngModel)]="NotInBox"  color="primary">არ დევს საქმეში</mat-checkbox>
+</section> -->
+
+
+
+<!-- <mat-form-field  style="width:100% !important;margin-top:10px;"> -->
+    <!-- <mat-label>საბუთის ტიპი</mat-label>
+    <mat-select [(ngModel)]="id">
+      <mat-option *ngFor="let documet of documentType" [value]="documet.id" (click)="onChange(documet.id)">
+        {{documet.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field> -->
+  <form class="example-form">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>საბუთის ტიპი</mat-label>
+      <input type="text"
+             placeholder="აირჩიეთ"
+             matInput
+             [formControl]="myControl"
+             [matAutocomplete]="auto">
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option" (click)="onChange(option)">
+          {{option.name}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+  
+ 
+  
+<mat-error class="error" *ngIf="errorMessage">საბუთის ტიპი სავალდებულოა</mat-error>
+
+
+<!--<div *ngIf="documentsFilds != null">-->
+<!--<div *ngFor="let data of documentsFilds">-->
+<!--<mat-form-field class="mt-3"  *ngIf="data.fieldFormatTypeId == 1" appearance="outline" style="width:100% !important;margin-top:10px;">-->
+<!--  <mat-label  [ngClass]="{'required': data.isRequired}">{{data.name}}</mat-label>-->
+<!--  <input type="text"-->
+<!--    maqwtInput-->
+<!--         [(ngModel)]="documentsFilds.value"-->
+<!--  >-->
+<!--</mat-form-field>-->
+
+<!--  <mat-form-field *ngIf="data.fieldFormatTypeId == 2" appearance="outline" style="width:100% !important;margin-top:10px;">-->
+<!--    <mat-label [ngClass]="{'required': data.isRequired}">{{data.name}}</mat-label>-->
+<!--    <input type="number"-->
+<!--      matInput-->
+
+<!--    >-->
+<!--  </mat-form-field>-->
+<!--  <div class="bs_datepicker mt-1" *ngIf="data.fieldFormatTypeId == 4" matTooltipPosition="after" >-->
+<!--    <mat-label [ngClass]="{'required': data.isRequired}">{{data.name}}</mat-label>-->
+<!--    <input type="text"-->
+<!--           class="form-control"-->
+<!--           #itemDate-->
+<!--           placeholder="&#xf073;  {{data.name}}"-->
+<!--           style="font-size: 12.5px; font-family: Arial, FontAwesome"-->
+<!--           bsDatepicker-->
+
+<!--    >-->
+<!--  </div>-->
+
+<!--  <section class="example-section" *ngIf="data.fieldFormatTypeId == 5">-->
+<!--    <mat-checkbox class="example-margin" color="primary" [ngClass]="{'required': data.isRequired}">{{data.name}}</mat-checkbox>-->
+<!--  </section>-->
+
+<!--</div>-->
+<!--  <mat-error class="error" *ngIf="errorMessageInput">შეავსეთ სავალდებულო ველები</mat-error>-->
+<!--</div>-->
+
+<!--<div mat-dialog-actions class="mt-3">-->
+<!--  <button mat-button (click)="onNoClick()">გაუქმება</button>-->
+<!--  <button class="confirm" mat-button  (click)="onSubmit()">დადასტურება</button>-->
+<!--</div>-->
+
+
+<div class="aditionalValue">
+  <div class="additionalFields" *ngFor="let field of documentsFilds" >
+    <label>{{field.name}}
+      <strong class="text-danger" *ngIf="field.isRequired">*</strong>
+    </label>
+
+    <div [ngSwitch]="field.fieldFormatTypeId" >
+      <!-- <input  type="text" *ngSwitchCase="1" [required]="field.isRequired" (change)="onAdd(field.id, $event)" [ngModel]="fulladditionalValues(field.id)"> -->
+      <input  type="text" *ngSwitchCase="1" [required]="field.isRequired" (change)="onAdd(field.id, $event)">
+      <input  type="number" *ngSwitchCase="2" [required]="field.isRequired" (change)="onAdd(field.id, $event)">
+      <input  type="text" *ngSwitchCase="3" [required]="field.isRequired"  (change)="onAdd(field.id, $event)">
+      <input  type="date" *ngSwitchCase="4" [required]="field.isRequired"  (change)="onAdd(field.id, $event)">
+      <input type="checkbox" *ngSwitchCase="5" [required]="field.isRequired" (change)="onAdd(field.id, $event)">
+    </div>
+  </div>
+</div>
+
+<div mat-dialog-actions class="mt-3">
+  <button mat-button (click)="onNoClick()">გაუქმება</button>
+  <button class="confirm" mat-button  (click)="onSubmit()">დადასტურება</button>
+</div>

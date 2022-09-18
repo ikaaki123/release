@@ -1,0 +1,28 @@
+<mat-card-content>
+    <form>
+      <div class="form-group">
+        <label class="h6">კომენტარი</label>
+        <div class="input-group" style="margin-top:5px">
+            <mat-form-field appearance="outline" style="width:100% !important;margin-top:10px;">
+                <mat-label>კლიენტის დასახელება</mat-label>
+                <input
+                  matInput type="text"
+                  name="clientName"
+                  [(ngModel)]="clientInfo.clientName"
+                >
+              </mat-form-field>
+              <mat-form-field appearance="outline" style="width:100% !important;margin-top:10px;">
+                <mat-label>პირადი ნომერი</mat-label>
+                <input
+                  matInput type="text"
+                  name="clientId"
+                  [(ngModel)]="clientInfo.clientId"
+                >
+              </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+  <mat-card-footer>
+    <button type="button" class="btn" (click)="addClient(clientInfo)">დამატება</button>
+  </mat-card-footer>

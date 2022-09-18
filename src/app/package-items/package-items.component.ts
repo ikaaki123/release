@@ -1,0 +1,145 @@
+import { Component, OnInit,OnDestroy } from '@angular/core';
+import { PackageItemService } from '../services/package-item/package-item.service';
+import { Packages } from '../Models/package.model';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { AddClientsComponent } from './add-clients/add-clients.component';
+
+@Component({
+  selector: 'app-package-items',
+  templateUrl: './package-items.component.html',
+  styleUrls: ['./package-items.component.css']
+})
+
+
+export class PackageItemsComponent implements OnInit {
+
+  item:any = [];
+  filter:any = [];
+  packageInfo!: Packages;
+  fileTable: boolean = false;
+  packageTable: boolean = true;
+  totalRecords?: number = 0;
+  totalItemsPerPage?: number = 0;
+  changeItemsPerPage?: number = 10;
+  show:boolean = true
+  pageSize!: number;
+  previousPageIndex!: number;
+   pageIndex!: number;
+   pagenations:any= {
+    pageSize: 10,
+    pageNumber: 1
+   }
+   fileStatus:any = [];
+
+   test:number =1;
+
+filterText?:any;
+
+
+  constructor(
+    private packageService: PackageItemService,
+    private router: Router,
+    public dialog: MatDialog
+  ) {
+   }
+
+  ngOnInit(): void {
+   
+    this.filter = this.packageService.packgeGridFilter;
+     
+      if(this.filter == null) {
+        this.getPackageItem();
+      } else {
+        this.onFilter(this.filter)
+      }
+  
+    this.getFileStatus();
+    this.packageService.receiveMessage().subscribe(res=> {
+      this.fileTable = res;
+    })
+  this.packageService.documntID
+  }
+  displayedColumns: string[] =
+  ['boxNumber',
+                                'packageNumber',
+                                // 'caseId',
+                                'caseNumber',
+                                'clientName',
+                                'clientId',
+                                'checkerDate',
+                                 'dateOfInspection',
+                                 'creator',
+                                'checkingUser',
+                                'caseStatur',
+                                'actionIcons',
+                              ];
+  getPackageItem(){
+    if(this.filterText){
+      this.onFilter(this.filterText)
+    }else{
+      this.packageService.getPackageItem(this.pagenations).subscribe(res=>{
+      this.item = res;
+      this.totalRecords = this.item.totalCount;
+    })
+  }
+}
+getFileStatus(){
+    this.packageService.getFileStatus().subscribe(res=>{
+      this.fileStatus = res;
+    })
+}
+
+
+  onFilter(filter :any) {
+    
+    this.filterText = filter;
+    
+    this.packageService.searchPackage(this.filter,this.pagenations)
+      .subscribe(response => {
+        this.item = response;
+        this.totalRecords = this.item.totalCount;
+      });
+  }
+pagenation(e:any){
+  this.pagenations.pageSize = e.pageSize;
+  this.pagenations.pageNumber = e.pageIndex + 1;
+  this.totalRecords = this.item.totalCount;
+  this.getPackageItem();
+}
+
+
+shows(){
+  this.show = false;
+}
+
+
+
+  packageinfo(fileId: any){
+    this.router.navigate(['home/packageDetail'])
+     localStorage.setItem('fID', fileId);
+    this.packageService.fileID = fileId;
+  }
+  showPackages() {
+    this.packageTable = true;
+    this.fileTable = false;
+  }
+
+  addClient(packageId: number){
+    let dialogRef = this.dialog.open(AddClientsComponent
+      , {
+        width: '500px',
+        data: { packageId: packageId }
+        }
+      );
+      dialogRef.afterClosed().subscribe(result => {
+      
+        if(this.filter == null) {
+          this.getPackageItem();
+        } else {
+          this.onFilter(this.filter)
+        }
+      });
+  }
+}

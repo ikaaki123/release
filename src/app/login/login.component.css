@@ -1,0 +1,360 @@
+h1 {
+    text-align: center;
+    margin-top: 40px;
+    font-weight: 100;
+  }
+  
+  .buttons-section {
+    width: 100%;
+    text-align: center;
+  }
+  .buttons-section a {
+    margin: 30px;
+    width: 140px;
+    height: 140px;
+  
+    padding: 10px;
+  }
+  
+  .buttons-section a span {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 55%;
+    padding: 27px;
+    /* margin: 15px auto; */
+    border-radius: 10px;
+  }
+  .container {
+    height: 60vh;
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    /* border: 1px solid #a1a7a1; */
+    /* box-shadow: black; */
+    /* box-shadow: 3px 3px #888888; */
+    background-color: white;
+    box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24),
+      0 17px 50px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
+  }
+  .container_text {
+    height: 60vh;
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    border-radius: 5px;
+  }
+  .form-group{
+      margin-top: 20px;
+  }
+  /* label{
+      margin-top: 10px;
+  } */
+  .overlay {
+    background-color: #68b54f;
+    /* transition: 0.5s ease; */
+    opacity: 0.8;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    height: 100vh;
+    width: 40%;
+    /* transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%); */
+  }
+  .dasta_img {
+    width: 200px;
+    /* vertical-align: middle;
+    align-items: center; */
+    position: absolute;
+    top: 40vh;
+    left: 18vw;
+  }
+ 
+  .retrievals {
+    color: #68b54f;
+    font-size: 35px;
+    margin: 10px 0px;
+    align-items: center;
+  }
+  
+  @media only screen and (max-width: 1600px) {
+    .form-group {
+      margin-bottom: 0.5rem !important;
+    }
+  }
+  @media only screen and (max-width: 1300px) {
+    .dasta_img {
+      left: 16vw;
+    }
+  }
+  @media (max-width: 1600px) and (max-height: 700px) {
+    .container {
+      height: 68vh;
+    }
+    form {
+      padding: 20px;
+    }
+  }
+  @media (max-width: 1600px) and (max-height: 590px) {
+    .container {
+      margin-top: 70px;
+      height: 75vh;
+    }
+    form {
+      padding: 20px;
+    }
+  }
+  @media (max-width: 1600px) and (max-height: 550px) {
+    .container {
+      margin-top: 30px;
+      height: 80vh;
+    }
+    form {
+      padding: 15px;
+    }
+    .retrievals {
+      font-size: 25px;
+    }
+  }
+  @media (max-width: 1600px) and (max-height: 480px) {
+    .container {
+      margin-top: 20px;
+      height: 80vh;
+    }
+    form {
+      padding: 10px;
+    }
+    .retrievals {
+      font-size: 22px;
+    }
+    .form-group {
+      margin-bottom: 0.5rem;
+    }
+  }
+  @media (max-width: 1600px) and (max-height: 450px) {
+    .container {
+      margin-top: 20px;
+      height: 81vh;
+    }
+    form {
+      padding: 10px;
+    }
+    .retrievals {
+      font-size: 20px;
+    }
+    .form-group {
+      margin-bottom: 0.2rem;
+    }
+  }
+  @media (max-width: 1600px) and (max-height: 400px) {
+    .container {
+      margin-top: 20px;
+      height: 81vh;
+    }
+    form {
+      padding: 5px;
+    }
+    .retrievals {
+      font-size: 20px;
+    }
+    .form-group {
+      margin-bottom: 0rem;
+    }
+  }
+  @media (max-width: 1600px) and (max-height: 380px) {
+    .container {
+      margin-top: 10px;
+      height: 83vh;
+    }
+    form {
+      padding: 5px;
+    }
+    .retrievals {
+      font-size: 18px;
+    }
+    .form-group {
+      margin-bottom: 0rem;
+    }
+    label {
+      margin-bottom: 0.3rem;
+    }
+  }
+  @media only screen and (max-width: 1300px) {
+    .form-group {
+      margin-bottom: 0.7rem;
+    }
+  }
+  @media only screen and (max-width: 1100px) {
+    .dasta_img {
+      left: 14vw;
+    }
+    .form-group {
+      margin-bottom: 0.7rem;
+    }
+  }
+  @media only screen and (max-width: 980px) {
+    .dasta_img {
+      left: 12vw;
+    }
+    .retrievals {
+      width: 180px;
+      font-size: 25px;
+      margin-top: 0px;
+    }
+  }
+  @media only screen and (max-width: 770px) {
+    .dasta_img {
+      width: 130px;
+      left: 18vw;
+    }
+    form {
+      width: 60%;
+    }
+    h2 {
+      font-size: 30px;
+    }
+  }
+  @media only screen and (max-width: 680px) {
+    .dasta_img {
+      width: 130px;
+      left: 14vw;
+    }
+    form {
+      width: 60%;
+    }
+    .retrievals {
+      font-size: 22px;
+    }
+    h2 {
+      font-size: 25px;
+    }
+  }
+  @media only screen and (max-width: 580px) {
+    .dasta_img {
+      width: 100px;
+      left: 14vw;
+    }
+    form {
+      width: 65%;
+    }
+    .retrievals {
+      font-size: 18px;
+    }
+    h2 {
+      font-size: 20px;
+    }
+  }
+  
+  @media only screen and (max-width: 480px) {
+    .dasta_img {
+      width: 80px;
+      left: 10vw;
+    }
+    form {
+      width: 70%;
+    }
+    .retrievals {
+      font-size: 16px;
+    }
+    .overlay {
+      opacity: 0.8;
+      position: absolute;
+      top: 0%;
+      left: 0%;
+      height: 100vh;
+      width: 30%;
+    }
+    h2 {
+      font-size: 18px;
+    }
+  }
+  @media only screen and (max-width: 380px) {
+    .dasta_img {
+      width: 70px;
+      left: 10vw;
+    }
+    form {
+      width: 80%;
+    }
+    .retrievals {
+      font-size: 16px;
+    }
+    .overlay {
+      width: 30%;
+    }
+    h2 {
+      font-size: 15px;
+    }
+  }
+  @media only screen and (max-width: 320px) {
+    .dasta_img {
+      width: 60px;
+      left: 10vw;
+    }
+    form {
+      width: 80%;
+      padding: 5px 15px;
+    }
+    .retrievals {
+      font-size: 16px;
+    }
+    .overlay {
+      width: 30%;
+    }
+    .container {
+      height: 65vh;
+    }
+    h2 {
+      font-size: 12px;
+    }
+  }
+  
+  @media only screen and (min-width: 1600px) {
+    .dasta_img {
+      width: 210px;
+      left: 21vw;
+    }
+    .container {
+      margin-top: 120px;
+    }
+  }
+  @media only screen and (min-width: 1720px) {
+    .dasta_img {
+      width: 230px;
+      left: 23vw;
+    }
+    .container {
+      margin-top: 120px;
+    }
+    form {
+      width: 60%;
+      padding: 35px;
+      margin-top: 25px;
+    }
+  }
+  @media only screen and (min-width: 1880px) {
+    .dasta_img {
+      width: 250px;
+      left: 25vw;
+    }
+    .container {
+      margin-top: 140px;
+    }
+    form {
+      width: 60%;
+      padding: 35px;
+      margin-top: 40px;
+    }
+  }
