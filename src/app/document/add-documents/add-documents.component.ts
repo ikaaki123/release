@@ -115,22 +115,18 @@ export class AddDocumentsComponent implements OnInit {
 
   onSubmit(){
 
-
    const saveDocumentJson = {
      additionalFilds: this.additionalFilds,
      fileDocumetTypeId: this.documentNumber,
      fileId: this.data.fileId,
-     //UnableToCheckComment: this.UnableToCheckComment,
-     //NotInBox: this.NotInBox,
+     //UnableToCheckComment: this.UnableToCheckComment, დასტას კომენტარი
+     //NotInBox: this.NotInBox, არ დევს საქმეში
      comment: this.comment
 
     }
-  console.log(saveDocumentJson);
-  
-
-    // this.service.saveDoc(saveDocumentJson).subscribe(res=>{
-    //   this.dialogRef.close();
-    // })
+    this.service.saveDoc(saveDocumentJson).subscribe(res=>{
+      this.dialogRef.close();
+    })
 
   // if(this.documetSaveJson.id == undefined || this.documetSaveJson.id == null) {
   //   this.errorMessage = true;

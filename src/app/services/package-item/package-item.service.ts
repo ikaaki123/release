@@ -130,6 +130,52 @@ export class PackageItemService {
     return this.http.get( `${this.baseUrlDrawBack}Package/GetErrorPackages?&pageSize=${e.pageSize}&pageNumber=${e.pageNumber}`, {headers:headers});
   }
 
+  // downloadPackageData(filterParams: any,pagenation:any){
+  //   //console.log(filterParams);
+    
+  //   this.packgeGridFilter = filterParams;
+    
+  //   let headers = this.generateHeader()
+  //   const header = new HttpHeaders({
+  //     "Content-Type": "application/json",
+  //     Accept: "application/json",
+  //   });
+  //   const httpOptions = {
+  //     headers: headers,
+  //     responseType: "blob" as "json",
+  //   };
+  //   // let clientWithType = Object.assign( filterParams)
+    
+    
+  //   //let result;
+  //   const params = toHttpParams(filterParams);
+  //   console.log(params.updates);
+    
+  //   return this.http.post(`${this.baseUrl}/Package/DownloadGetReleaseMainList`,
+  //   JSON.stringify(filterParams),
+  //     {headers:headers}
+  //     );
+  // }
+  downloadPackageData(filterParams: any, pagenation: any) {
+    let headers = this.generateHeader()
+
+    const httpOptions = {
+      headers: headers,
+      responseType: "blob" as "json",
+    };
+    let result;
+    const params = toHttpParams(filterParams);
+    return this.http.get<string>(
+      this.baseUrl + "/Package/DownloadGetReleaseMainList",
+      { headers: headers, responseType: "blob" as "json", observe: "response", params })
+      .pipe(
+        map(response => {
+          result = response.body;
+          return result;
+        })
+      );
+  }
+
   addClient(clientInfo: any){
     console.log(clientInfo);
     

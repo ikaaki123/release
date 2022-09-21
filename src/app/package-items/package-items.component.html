@@ -2,7 +2,20 @@
 <div *ngIf="packageTable">
 <div class="container">
     <div class="row">
-
+      <div class="row">
+        <div class="col-md-12 mt-2" >
+          <button
+            class="btn btn_add"
+            mat-raised-button
+            matTooltip="მონაცემების გადმოწერა"
+            style="background-color:white"
+            (click)="download()"
+          >
+            <mat-icon>cloud_download</mat-icon>
+            მონაცემების გადმოწერა
+          </button>
+        </div>
+      </div>
     <div class="row">
         <div class="col-md-12 my-1">
             <div class="mat-elevation-z8 packageTable" >
@@ -142,13 +155,14 @@
                          matTooltip="შექმნის თარიღი"
                           matTooltipPosition="after">
                         <input type="text"
+                        [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
                               class="form-control"
                               #itemDate
                               placeholder="&#xf073; {{'შექმნის თარიღი' }}"
                               style="font-size: 10px; font-family: Arial, FontAwesome"
                               bsDatepicker
                                [(ngModel)]="filter.dateCreated"
-                               (selectedChanged)="onFilter(filter.dateCreated)"
+                               (ngModelChange)="getDate(filter.dateCreated,'dateCreated')"
                                (keyup.backspace)="onFilter(filter.dateCreated)"
                                >
                       </div>
@@ -162,11 +176,15 @@
                          matTooltip="შემოწმების თარიღი"
                           matTooltipPosition="after">
                         <input type="text"
+                              [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
                               class="form-control"
                               #itemDate
                               placeholder="&#xf073; {{'შემოწმების თარიღი' }}"
                               style="font-size: 10px; font-family: Arial, FontAwesome"
                               bsDatepicker
+                              [(ngModel)]="filter.checkingDate"
+                               (ngModelChange)="getDate(filter.checkingDate,'checkingDate')"
+                               (keyup.backspace)="onFilter(filter.checkingDate)"
                                >
                       </div>
 
@@ -274,7 +292,6 @@
     </mat-paginator>
     </div>
 </div>
-
 
 </div></div></div>
 

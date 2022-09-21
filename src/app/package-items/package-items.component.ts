@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AddClientsComponent } from './add-clients/add-clients.component';
 
+
 @Component({
   selector: 'app-package-items',
   templateUrl: './package-items.component.html',
@@ -109,14 +110,51 @@ pagenation(e:any){
   this.getPackageItem();
 }
 
+handleDownload(fileData:any, fileName:any) {
+  fileName = fileName + Math.floor(Date.now() / 1000) + ".xlsx";
+  const blob: any = new Blob([fileData], {
+    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  });
+  let link = document.createElement("a");
+
+  if (link.download !== undefined) {
+    let url = URL.createObjectURL(blob);
+    link.setAttribute("href", url);
+    link.setAttribute("download", fileName);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+}
+
+download(){
+  this.packageService.downloadPackageData(this.filter,this.pagenations)
+  .subscribe(
+    (fileData)=>{
+      let filename = "Release_report";
+      this.handleDownload(fileData, filename);
+  });
+}
 
 shows(){
   this.show = false;
 }
 
+getDate(dateCreated: Date,dateTime: string){
+  // let formattedDt = date.getDay + '-' + date.getMonth + '-' + date.getFullYear 
+  var date = new Date(dateCreated),
+  mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+  day = ("0" + date.getDate()).slice(-2);
+let fullDate  = [date.getFullYear(), mnth, day].join("-");
+const key = dateTime;
+Object.assign(this.filter, { [key]: fullDate });
+// this.filter = object;
+this.onFilter(this.filter);
 
-
-  packageinfo(fileId: any){
+  
+}
+  
+packageinfo(fileId: any){
     this.router.navigate(['home/packageDetail'])
      localStorage.setItem('fID', fileId);
     this.packageService.fileID = fileId;

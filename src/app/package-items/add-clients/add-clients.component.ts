@@ -9,7 +9,7 @@ import { PackageItemService } from 'src/app/services/package-item/package-item.s
 })
 export class AddClientsComponent implements OnInit {
   clientInfo = {
-    packageId!: null,
+    packageId: null,
     clientName: "",
     clientId: "",
   }
