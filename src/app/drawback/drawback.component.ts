@@ -41,15 +41,12 @@ filterText?:any;
     ngOnInit(): void {
    
       this.filter = this.packageService.packgeGridFilter;
-       
-     
-          this.getErrorPackages();
-      
+      this.getErrorPackages();
     }
 
     displayedColumns: string[] = ['boxNumber', 'packageNumber', 'businessEntity',
     'documentType', 'documentSubType', 'startDate', 'endDate', 'registrator',
-    'status', 'checkResult', 'errorStatus', 'errorStatusClient', 'icons'];
+    'status', 'checkResult', 'errorStatus', 'errorStatusClient', 'clientComment', 'dastaComments' ,'icons'];
   
     getErrorPackages(){
     if(this.filterText){
@@ -103,13 +100,25 @@ shows(){
     this.fileTable = false;
   }
   
-  modalApproveNotApprove() {
-
+  modalApproveNotApprove(gridRow: any, approve: boolean) {
     let dialogRef = this.dialog.open(EditDrawbackComponent
       , {
-        
         width: '500px',
         }
       );
+      dialogRef.afterClosed().subscribe(result => {
+        const model ={
+          TypeId: 1,
+          Approve : approve,
+          Comment: result.Commetn,
+          Id: gridRow.id,
+          FromAdmin: true
+        }
+
+        this.packageService.ApproveNotApproveUser(model).subscribe(res =>{
+          this.getErrorPackages();
+        })
+      });
 }
+
 }

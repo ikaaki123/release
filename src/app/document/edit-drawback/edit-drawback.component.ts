@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { DrawbackComponent } from 'src/app/drawback/drawback.component';
 
 @Component({
   selector: 'app-edit-drawback',
@@ -7,17 +8,17 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./edit-drawback.component.css']
 })
 export class EditDrawbackComponent implements OnInit {
-
-  constructor(public dialog: MatDialog ) { }
+  comment!: string;
+  constructor( public refDialog: MatDialogRef<DrawbackComponent>, ) { }
 
   ngOnInit(): void {
   }
 
   onConfirm(){
-  this.dialog.closeAll();
+    if(this.comment != null) this.refDialog.close({Commetn:this.comment})
   }
 
   closePopup(){
-    this.dialog.closeAll();
+      this.refDialog.close()
   }
 }

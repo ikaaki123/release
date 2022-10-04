@@ -194,6 +194,14 @@ th.mat-header-cell:first-of-type{
   .downloadData {
     margin-left: 10px;
   }
+
+  ::ng-deep .tooltip-inner {
+    color: #fff !important;
+    background: rgba(97,97,97,.9);
+    font-size: 10px;
+    margin-left: -50px !important;
+}
+
   @media (max-height: 780px) {
     .packageTable {
       height: 67vh;

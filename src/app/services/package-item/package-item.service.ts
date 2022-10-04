@@ -88,8 +88,6 @@ export class PackageItemService {
 
   }
   saveDocument(newData:any){
-   console.log(newData);
-   
     let headers = this.generateHeader()
      return this.http.post(`${this.baseUrl}/Package/EditReleaseFileDocument`,newData,{headers:headers})}
 
@@ -121,41 +119,6 @@ export class PackageItemService {
     let headers = this.generateHeader()
     return this.http.post(`${this.baseUrl}/Package/FinishReleaseFile`,fileId, {headers:headers});
   }
-
-  getErrorPackages(
-    e:any
-  ) {
-    let headers = this.generateHeader()
-    
-    return this.http.get( `${this.baseUrlDrawBack}Package/GetErrorPackages?&pageSize=${e.pageSize}&pageNumber=${e.pageNumber}`, {headers:headers});
-  }
-
-  // downloadPackageData(filterParams: any,pagenation:any){
-  //   //console.log(filterParams);
-    
-  //   this.packgeGridFilter = filterParams;
-    
-  //   let headers = this.generateHeader()
-  //   const header = new HttpHeaders({
-  //     "Content-Type": "application/json",
-  //     Accept: "application/json",
-  //   });
-  //   const httpOptions = {
-  //     headers: headers,
-  //     responseType: "blob" as "json",
-  //   };
-  //   // let clientWithType = Object.assign( filterParams)
-    
-    
-  //   //let result;
-  //   const params = toHttpParams(filterParams);
-  //   console.log(params.updates);
-    
-  //   return this.http.post(`${this.baseUrl}/Package/DownloadGetReleaseMainList`,
-  //   JSON.stringify(filterParams),
-  //     {headers:headers}
-  //     );
-  // }
   downloadPackageData(filterParams: any, pagenation: any) {
     let headers = this.generateHeader()
 
@@ -177,11 +140,27 @@ export class PackageItemService {
   }
 
   addClient(clientInfo: any){
-    console.log(clientInfo);
-    
     let headers = this.generateHeader()
     return this.http.post( `${this.baseUrl}/Package/AddFileFromRelease`,clientInfo,{headers:headers})
   }
+/*              DrawBack                 */
+
+  getErrorPackages(
+    e:any
+  ) {
+    let headers = this.generateHeader()
+    
+    return this.http.get( `${this.baseUrlDrawBack}Package/GetErrorPackages?&pageSize=${e.pageSize}&pageNumber=${e.pageNumber}`, {headers:headers});
+  }
+  ApproveNotApproveUser(model: any): Observable<any> {
+    let headers = this.generateHeader()
+    return this.http.post<any>(
+      this.baseUrl + "/Package/ApproveNotApproveUser",
+      model,{headers: headers}
+    );
+  }
+
+
 }
 
 export function toHttpParams(obj: Object): HttpParams {

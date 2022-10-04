@@ -69,7 +69,8 @@
                         </mat-form-field>
                       </div>
                     </th>
-                    <td mat-cell *matCellDef="let package"> {{package.businessEntityName}} </td>
+                    <td mat-cell *matCellDef="let package"  tooltip="{{package.businessEntityName}}"  [adaptivePosition]="false"
+                    placement="right"> {{package.businessEntityName}} </td>
                   </ng-container>
 
                   <ng-container matColumnDef="documentType">
@@ -112,7 +113,7 @@
                           </mat-form-field>
                         </div>
                       </th>
-                      <td mat-cell *matCellDef="let package"> {{package.documentSubtypeName}} </td>
+                      <td mat-cell *matCellDef="let package" placement="right" tooltip="{{package.documentSubtypeName}}"> {{package.documentSubtypeName}} </td>
                   </ng-container>
 
                 
@@ -198,7 +199,7 @@
                           </mat-form-field>
                         </div>
                       </th>
-                      <td mat-cell *matCellDef="let package"> {{package.packageStatusName}} </td>
+                      <td mat-cell *matCellDef="let package"  placement="right" tooltip="{{package.packageStatusName}}"> {{package.packageStatusName}} </td>
                   </ng-container>
                   <ng-container matColumnDef="checkResult">
                     <th mat-header-cell *matHeaderCellDef>
@@ -216,7 +217,7 @@
                           </mat-form-field>
                         </div>
                       </th>
-                      <td mat-cell *matCellDef="let package"> {{package.packageCheckStatusName}} </td>
+                      <td mat-cell *matCellDef="let package"  placement="right" tooltip="{{package.packageCheckStatusName}}"> {{package.packageCheckStatusName}} </td>
                   </ng-container>
                  
                   <ng-container matColumnDef="errorStatus">
@@ -235,7 +236,7 @@
                           </mat-form-field>
                         </div>
                       </th>
-                      <td mat-cell *matCellDef="let package"> {{package.packageErrorStatusName}} </td>
+                      <td mat-cell *matCellDef="let package"  placement="right" tooltip="{{package.packageErrorStatusName}}"> {{package.packageErrorStatusName}} </td>
                   </ng-container>
 
                   <ng-container matColumnDef="errorStatusClient">
@@ -249,23 +250,61 @@
                             matInput
                             type="number"
                             class="form-field"
-                            placeholder="ხარვეზის სტატუსი (კლიენტი)"
+                            placeholder="ხარვეზის უახლესი სტატუსი (კლიენტი)"
                             >
                           </mat-form-field>
                         </div>
                       </th>
-                      <td mat-cell *matCellDef="let package"> {{package.errorStatusFrmoClientName}} </td>
+                      <td mat-cell *matCellDef="let package"  placement="right" tooltip="{{package.errorStatusFrmoClientName}}"> {{package.errorStatusFrmoClientName}} </td>
                   </ng-container>
                 
-                 
+                  <ng-container matColumnDef="clientComment">
+                    <th mat-header-cell *matHeaderCellDef>
+                        <div>
+                          <mat-form-field
+                            appearance="outline"
+                            matTooltip="კლიენტის კომენტარი"
+                            matTooltipPosition="after">
+                            <input
+                            matInput
+                            type="number"
+                            class="form-field"
+                            placeholder="კლიენტის კომენტარი"
+                            >
+                          </mat-form-field>
+                        </div>
+                      </th>
+                      <td mat-cell *matCellDef="let package"  placement="right" tooltip="{{package.clientComment}}"> {{package.clientComment}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="dastaComments">
+                    <th mat-header-cell *matHeaderCellDef>
+                        <div>
+                          <mat-form-field
+                            appearance="outline"
+                            matTooltip="დასტას კომენტარ"
+                            matTooltipPosition="after">
+                            <input
+                            matInput
+                            type="number"
+                            class="form-field"
+                            placeholder="დასტას კომენტარი"
+                            >
+                          </mat-form-field>
+                        </div>
+                      </th>
+                      <td mat-cell *matCellDef="let package"  placement="right" tooltip="{{package.comments}}"> {{package.comments}} </td>
+                      
+                  </ng-container>
+                
                  
                  
 
                   <ng-container matColumnDef="icons" stickyEnd>
                     <th mat-header-cell *matHeaderCellDef></th>
                     <td mat-cell *matCellDef="let element"> 
-                      <i class="fa fa-check" style="cursor: pointer;"  matTooltip="ვეთანხმები" (click)="modalApproveNotApprove()"> </i>
-                    <i class="fa fa-close" style="cursor: pointer;"  matTooltip="ხელახლა გადამოწმება" (click)="modalApproveNotApprove()"> </i>
+                      <i class="fa fa-check" style="cursor: pointer;"  Tooltip="ვეთანხმები" (click)="modalApproveNotApprove(element,true)"> </i>
+                    <i class="fa fa-close" style="cursor: pointer;"  Tooltip="ხელახლა გადამოწმება" (click)="modalApproveNotApprove(element,false)"> </i>
                     </td>
                   </ng-container>
               
@@ -292,29 +331,3 @@
   </mat-tab>
  
 </mat-tab-group>
-
-
-<ng-template #approveNotApprove let-data let-ref="dialogRef">
-  <mat-card>
-    <div class="mat-card-header-text">
-      <!-- <h5>პაკეტის წაშლა</h5> -->
-      <button type="button" class="close" aria-label="Close" >
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <mat-card-content>
-      <form>
-        <div class="form-group">
-          <label class="h6">კომენტარი</label>
-          <div class="input-group" style="margin-top:5px">
-            <input type="text" id="reason" class="form-control"  name="reason" #reason>
-          </div>
-        </div>
-      </form>
-    </mat-card-content>
-    <mat-card-footer>
-      <button type="button" class="btn" >დადასტურება</button>
-      <button type="button" class="btn" >გაუქმება</button>
-    </mat-card-footer>
-  </mat-card>
-</ng-template>
