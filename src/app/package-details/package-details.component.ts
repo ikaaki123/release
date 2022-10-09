@@ -7,6 +7,7 @@ import { PackageItemService } from '../services/package-item/package-item.servic
 import {AddDocumentsComponent} from "../document/add-documents/add-documents.component";
 import {MatDialog} from "@angular/material/dialog";
 import { NotificationsService } from "angular2-notifications";
+import { ThrowStmt } from '@angular/compiler';
 
 
 @Component({
@@ -49,7 +50,7 @@ packageInfo!: any;
   onsuccess(){
     this.NotificationService.success('Success','წარმატებით დასრულდა შენახვა',{
       position: ["right", "top"],
-      timeOut:2000,
+      timeOut:700,
     });
 }
 

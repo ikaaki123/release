@@ -23,11 +23,11 @@ export class AddClientsComponent implements OnInit {
     this.clientInfo.packageId = data.packageId
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void{
   }
 
   addClient(e: any){
-    this.packageService.addClient(e).subscribe(res=>{this.dialogRef.close();})
+    this.packageService.addClient(e).subscribe(res=>{this.dialogRef.close({result:res});})
   }
 
 }

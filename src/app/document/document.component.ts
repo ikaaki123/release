@@ -65,12 +65,14 @@ getDocument(){
 }
   onsuccess(){
     this.NotificationService.success('Success','წარმატებით დასრულდა შენახვა',{
-      position: ["right", "top"],
-      timeOut:2000,
+      position: ["bottom", "left"],
+    timeOut: 700,
+      
     });
   }
 
   save(){
+    this.onsuccess();
   const documentJson = {
 
     documentId: this.documentDetail.id,
@@ -87,9 +89,10 @@ getDocument(){
     AdditionalFildsForRelease: this.item.additionalFields
 
   }
+
     this.service.saveDocument(documentJson).subscribe(res=>{
 
-        this.onsuccess();
+  
         this.getDocument();
         this.RT.navigate(['/home/packageDetail']);
 

@@ -42,16 +42,12 @@ table {
 }
 
 .form-select{
-  height: 30.3px;
-  width: 112px;
+  height: 36px;
+  width: 99px;
   font-size: 10px;
     font-weight: 100;
     color: #8a8a8a;
     padding: 0.1rem 2.25re 0.1rem 0.75rem;
-}
-
-.e{
-    font-size: 5px;
 }
 
 /*----------------------------------- mat-form-field ------------------------ */
@@ -119,7 +115,7 @@ table {
     border-bottom-width: 1px;
     border-bottom-style: solid;
     width: 163px;
-    font-size: 10px;
+    font-size: 12px;
   }
   th.mat-header-cell:first-of-type{
     padding-left: 15px;
@@ -234,7 +230,7 @@ td {
 
 .form-control{
   display: block;
-  width: 78%;
+  width: 99%;
   padding: 0.375rem 0.75rem;
   margin-left: 0px;
   font-weight: 400;
@@ -244,7 +240,7 @@ td {
   background-clip: padding-box;
   border: 1px solid #ced4da;
   -webkit-appearance: none;
-  height: 30px;
+  height: 36px;
   -moz-appearance: none;
   appearance: none;
   border-radius: 0.25rem;
@@ -263,6 +259,7 @@ td {
   }
   td.mat-cell:last-of-type{
     width: 11px;
+    padding: 0px;
   }
   .mat-paginator{
     width: 107%;
@@ -277,8 +274,9 @@ td {
   th.mat-header-cell{
     width: 17.5px;
   }
-  th.mat-header-cell:first-of-type {
-    padding-left: 20.4px;
+  td.mat-cell:last-of-type{
+    width: 11px;
+    padding: 0px;
   }
 
   th.mat-header-cell:last-of-type{
@@ -295,6 +293,10 @@ td {
   th.mat-header-cell{
     width: 20px;
   }
+  td.mat-cell:last-of-type{
+    width: 11px;
+    padding: 0px;
+  }
   mat-form-field{
     
     width: 77px;
@@ -308,14 +310,15 @@ td {
   }
   th.mat-header-cell{
     width: 20px;
+    padding: 0px;
   }
   mat-form-field{
     
     width: 77px;
   }
-  th.mat-header-cell:first-of-type{
-   
-    padding-left: 24px;
+  td.mat-cell:last-of-type{
+    width: 11px;
+    padding: 0px;
   }
   .form-select {
     width: 80px;
@@ -333,6 +336,24 @@ td {
   }
   th.mat-header-cell{
     width: 15.5px;
+    padding: 0px;
+  }
+  mat-form-field{
+    
+    width: 77px;
+  }
+  td.mat-cell:last-of-type{
+    width: 11px;
+    padding: 0px;
+  }
+}
+@media (max-width: 1100px) {
+  .row{
+    width: 80vw;
+    margin: 0px calc(4.6vw + -5.6%);
+  }
+  th.mat-header-cell{
+    width: 15.5px;
   }
   mat-form-field{
     
@@ -342,4 +363,22 @@ td {
    
     padding-left: 19.5px;
   }
+  .form-control{
+    height: 31.3px;
+  }
+  th.mat-header-cell, td.mat-cell {
+    padding: 0;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    font-size: 10px;
+  }
+  .form-select{
+    width: 75px;
+    height: 31px;
+    margin-left: 2px;
+}
+td.mat-cell:last-of-type{
+  width: 11px;
+  padding: 0px;
+}
 }

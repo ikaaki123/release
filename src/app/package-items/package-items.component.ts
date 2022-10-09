@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AddClientsComponent } from './add-clients/add-clients.component';
+import { NotificationsService } from 'angular2-notifications';
 
 
 @Component({
@@ -37,17 +38,18 @@ export class PackageItemsComponent implements OnInit {
    test:number =1;
 
 filterText?:any;
+checkRowClick: boolean = false;
 
 
   constructor(
     private packageService: PackageItemService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private NotificationService: NotificationsService,
   ) {
    }
 
   ngOnInit(): void {
-   
     this.filter = this.packageService.packgeGridFilter;
      
       if(this.filter == null) {
@@ -83,9 +85,18 @@ filterText?:any;
       this.packageService.getPackageItem(this.pagenations).subscribe(res=>{
       this.item = res;
       this.totalRecords = this.item.totalCount;
+      if(this.item.totalCount == 0) this.onAlert();
     })
   }
 }
+
+onAlert(){
+  this.NotificationService.warn('Warn','პაკეტი არ არის რეგისტრირებული',{
+    position: ["right", "top"],
+    timeOut: 2000,
+  });
+}
+
 getFileStatus(){
     this.packageService.getFileStatus().subscribe(res=>{
       this.fileStatus = res;
@@ -93,14 +104,14 @@ getFileStatus(){
 }
 
 
-  onFilter(filter :any) {
-    
+onFilter(filter :any) {    
     this.filterText = filter;
     
     this.packageService.searchPackage(this.filter,this.pagenations)
       .subscribe(response => {
         this.item = response;
         this.totalRecords = this.item.totalCount;
+       if(this.item.totalCount == 0) this.onAlert();
       });
   }
 pagenation(e:any){
@@ -155,16 +166,19 @@ this.onFilter(this.filter);
 }
   
 packageinfo(fileId: any){
+  if(this.checkRowClick == false){
     this.router.navigate(['home/packageDetail'])
-     localStorage.setItem('fID', fileId);
-    this.packageService.fileID = fileId;
+    localStorage.setItem('fID', fileId);
+   this.packageService.fileID = fileId;
+  }
   }
   showPackages() {
     this.packageTable = true;
     this.fileTable = false;
   }
-
-  addClient(packageId: number){
+ 
+  addClient(packageId: number, checkRowClick: boolean){
+    this.checkRowClick = checkRowClick
     let dialogRef = this.dialog.open(AddClientsComponent
       , {
         width: '500px',
@@ -172,12 +186,13 @@ packageinfo(fileId: any){
         }
       );
       dialogRef.afterClosed().subscribe(result => {
-      
-        if(this.filter == null) {
-          this.getPackageItem();
-        } else {
-          this.onFilter(this.filter)
-        }
+        this.checkRowClick = false
+        this.packageinfo(result.result.id)
+        // if(this.filter == null) {
+        //   this.getPackageItem();
+        // } else {
+        //   this.onFilter(this.filter)
+        // }
       });
   }
 }
