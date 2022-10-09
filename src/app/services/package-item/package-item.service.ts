@@ -145,22 +145,61 @@ export class PackageItemService {
   }
 /*              DrawBack                 */
 
-  getErrorPackages(
-    e:any
-  ) {
+/*              DrawBackGrig                 */
+fillPackageGrid(data:any) {
     let headers = this.generateHeader()
-    
-    return this.http.get( `${this.baseUrlDrawBack}Package/GetErrorPackages?&pageSize=${e.pageSize}&pageNumber=${e.pageNumber}`, {headers:headers});
+    return this.http.get( `${this.baseUrlDrawBack}Package/GetErrorPackages?&pageSize=${data.pageSize}&pageNumber=${data.pageNumber}`, {headers:headers});
   }
-  ApproveNotApproveUser(model: any): Observable<any> {
+
+  searchErrorPackage(filterParams: any,pagenation:any) {
+    this.packgeGridFilter = filterParams;
+    
+    let headers = this.generateHeader()
+    let result;
+    const params = toHttpParams(filterParams);
+    return this.http.get(`${this.baseUrl}/Package/GetErrorPackages?&pageSize=${pagenation.pageSize}&pageNumber=${pagenation.pageNumber}`,
+      { observe: 'response', params, headers:headers})
+      .pipe(
+        map(response => {
+          result = response.body;
+          return result;
+        })
+      );
+  }
+// searchErrorPackage(filterParams: any): Observable<ErrorPackagesSearchResult> {
+//     let result: ErrorPackagesSearchResult;
+//     const params = toHttpParams(filterParams);
+//     // console.log(params);
+//     // `${this.baseUrl}Package/GetAllPackage?&pageSize=${itemsPerPage}&pageNumber=${pageNumber}`
+//     return this.http.get<ErrorPackagesSearchResult>(this.baseUrl + 'Package/GetErrorPackages?',
+//       { observe: 'response', params })
+//       .pipe(
+//         map(response => {
+//           result = response.body;
+//           return result;
+//         })
+//       );
+//   }
+
+fillFilePackageGrid(data:any) {
+    let headers = this.generateHeader()
+    return this.http.get( `${this.baseUrlDrawBack}Package/GetErrorFile?&pageSize=${data.pageSize}&pageNumber=${data.pageNumber}`, {headers:headers});
+  }
+
+documentStatusErrorGrd(data:any) {
+    let headers = this.generateHeader()
+    return this.http.get( `${this.baseUrlDrawBack}Package/GetErrorDocument?&pageSize=${data.pageSize}&pageNumber=${data.pageNumber}`, {headers:headers});
+  }
+
+
+/*              DrawBackGrigApproveNotApproveUser                 */
+ApproveNotApproveUser(model: any): Observable<any> {
     let headers = this.generateHeader()
     return this.http.post<any>(
       this.baseUrl + "/Package/ApproveNotApproveUser",
       model,{headers: headers}
     );
   }
-
-
 }
 
 export function toHttpParams(obj: Object): HttpParams {
