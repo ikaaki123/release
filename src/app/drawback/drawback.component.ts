@@ -91,6 +91,7 @@ export class DrawbackComponent implements OnInit {
     this.packageService.documentStatusErrorGrd(this.pagenations).subscribe(
       (response) => {
         this.documentErrorStatus = response;
+        this.totalRecords = this.documentErrorStatus.totalRecords;
       }
     );
   }
