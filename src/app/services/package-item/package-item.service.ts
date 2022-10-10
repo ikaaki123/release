@@ -14,7 +14,6 @@ export class PackageItemService {
   public fileId!: number;
   token = localStorage.getItem('token');
   baseUrl: string = 'https://dastareleaseapi.azurewebsites.net/api';
-  baseUrlDrawBack: string = 'https://retrievalsapi.drm.ge/api/'
   
   packgeGridFilter:any = [];
 
@@ -148,7 +147,7 @@ export class PackageItemService {
 /*              DrawBackGrig                 */
 fillPackageGrid(data:any) {
     let headers = this.generateHeader()
-    return this.http.get( `${this.baseUrlDrawBack}Package/GetErrorPackages?&pageSize=${data.pageSize}&pageNumber=${data.pageNumber}`, {headers:headers});
+    return this.http.get( `${this.baseUrl}/Package/GetErrorPackages?&pageSize=${data.pageSize}&pageNumber=${data.pageNumber}`, {headers:headers});
   }
 
   searchErrorPackage(filterParams: any,pagenation:any) {
@@ -183,12 +182,12 @@ fillPackageGrid(data:any) {
 
 fillFilePackageGrid(data:any) {
     let headers = this.generateHeader()
-    return this.http.get( `${this.baseUrlDrawBack}Package/GetErrorFile?&pageSize=${data.pageSize}&pageNumber=${data.pageNumber}`, {headers:headers});
+    return this.http.get( `${this.baseUrl}/Package/GetErrorFile?&pageSize=${data.pageSize}&pageNumber=${data.pageNumber}`, {headers:headers});
   }
 
 documentStatusErrorGrd(data:any) {
     let headers = this.generateHeader()
-    return this.http.get( `${this.baseUrlDrawBack}Package/GetErrorDocument?&pageSize=${data.pageSize}&pageNumber=${data.pageNumber}`, {headers:headers});
+    return this.http.get( `${this.baseUrl}/Package/GetErrorDocument?&pageSize=${data.pageSize}&pageNumber=${data.pageNumber}`, {headers:headers});
   }
 
 
