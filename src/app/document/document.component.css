@@ -267,14 +267,16 @@ td {
     margin: 0px;
     margin-bottom: 5px;
   }
+.mat-input-element:disabled{
+    color:rgb(0 0 0);
+  }
+  mat-label{
+    color:rgb(0 0 0);
+  }
 
-
-
-
-
-
-
-
+ ::ng-deep .mat-checkbox-disabled .mat-checkbox-label {
+    color: rgba(0 0 0);
+}
 
 
 

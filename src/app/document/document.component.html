@@ -1,112 +1,3 @@
-<!-- <div class="container">
-
-    <div class="row">
-        <div class="col-md-12">
-            <div class="job-detail mt-3 p-4">
-                <div class="custom-form">
-                    <form #todoForm="ngForm" (ngSubmit)="save(todoForm.value)">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group app-label">
-                                    <label for="frist-name" class="text-muted">საქმის ID</label>
-                                    <input type="text" name="caseId" class="form-control resume"  disabled [(ngModel)]="packageInfo.id">
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="form-group app-label">
-                                    <label for="middle-name" class="text-muted">საქმის ნომერი</label>
-                                    <input id="middle-name" type="text"name="caseNumber" class="form-control resume" placeholder="2344234" [(ngModel)]="packageInfo.boxNumber" disabled>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="form-group app-label">
-                                    <label for="surname-name" class="text-muted">საქმის სტატუსი</label>
-                                    <input id="surname-name" type="text" name="caseStatus" class="form-control resume" placeholder="ღიაა" [(ngModel)]="packageInfo.status" disabled>
-                                </div>
-                            </div>
-
-
-<!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-                            <div class="col-md-4 my-4">
-                                <div class="form-group app-label form-check form-check-inline">
-                                    <label  class="text-muted">საქმე არ დევს ყუთში</label>
-                                    <input class="form-check-input" name="chechkedBoxEmpty" type="checkbox" (click)="checkedEmptyBox()" [(ngModel)]="data.chechkedBoxEmpty">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group app-label">
-                                    <label for="middle-name" class="text-muted">კლიენტის დასახელება</label>
-                                    <input id="middle-name" type="text" name="clientName" class="form-control resume" placeholder="2344234" [disabled]="data.editName == false" [(ngModel)]="data.clientName">
-                                </div>
-                            </div>
-                            <div class="col-md-3 my-4">
-                                <div class="form-check mx-5">
-                                    <input class="form-check-input"  name="correctName" type="checkbox" [disabled]="checkstatus" [(ngModel)]="data.correctName">
-                                    <label class="form-check-label" for="inlineRadio1" >სწორია Name</label>
-                                  </div>
-                            </div>
-                            <div class="col-md-3 my-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="editName" value="" id="flexCheckDefault" [(ngModel)]="data.editName"  [disabled]="checkstatus">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        კორექტირება
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3 my-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="notCheckedName" [disabled]="checkstatus" [(ngModel)]="data.notCheckedName">
-                                    <label class="form-check-label" for="flexCheckDefault">ვერ მოწმდება Name</label>
-                                  </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group app-label">
-                                    <label for="middle-name" class="text-muted">კლიენტის ID</label>
-                                    <input id="middle-name" type="text" name="clientId" class="form-control resume" [disabled]="data.editId == false" [(ngModel)]="data.clientId" placeholder="2344234">
-                                </div>
-                            </div>
-                            <div class="col-md-3 my-4">
-                                <div class="form-check mx-5">
-                                    <input class="form-check-input"  name="correctId" type="checkbox"  [(ngModel)]="data.correctId" [disabled]="checkstatus">
-                                    <label class="form-check-label" for="inlineRadio1" >სწორია ID</label>
-                                  </div>
-                            </div>
-                            <div class="col-md-3 my-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" name="editId" type="checkbox" [(ngModel)]="data.editId" [disabled]="checkstatus">
-                                    <label class="form-check-label">კორექტირება ID</label>
-                                  </div>
-                            </div>
-                            <div class="col-md-3 my-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" name="notCheckedId" type="checkbox" [disabled]="checkstatus" [(ngModel)]="data.notCheckedId">
-                                    <label class="form-check-label">ვერ მოწმდება ID</label>
-                                  </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="form-group app-label">
-                                    <label for="address">კომენტარი</label>
-                                    <textarea rows="4"  class="form-control resume" name="comment" [disabled]="((data.notCheckedId || data.notCheckedName) == false || data.chechkedBoxEmpty == true )" placeholder="დაწერე კომენტარი" [(ngModel)]="data.comment"></textarea>
-                                </div>
-                            </div>
-                        </div><br>
-                        <button class="btn btn-primary" type="submit">შენახვა</button>
-                        <button class="btn btn-primary mx-2" type="submit" (click)="back()">უკან</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
-
 <div class="container">
   <div class="row">
     <div class="col-md-12 mt-2" >
@@ -164,6 +55,7 @@
                      name="clientId"
                      [(ngModel)]="documentDetail.additionalInformation"
                      [disabled]="documentDetail.documentCorrected == false"
+                     class="fields"
                      >
                    </mat-form-field>
                 </div>
@@ -261,7 +153,7 @@
 
                       <ng-container matColumnDef="checker5">
                         <th mat-header-cell *matHeaderCellDef>კორექტირება</th>
-                        <td mat-cell *matCellDef="let package; let i = index"> <mat-checkbox class="example-margin" color="primary" name="unableToCheckId" [disabled]="comment == true || documentDetail.unableToCheckDocumet == true"  [(ngModel)]="package.corrected" (click)="test(package ,i)"></mat-checkbox>
+                        <td mat-cell *matCellDef="let package; let i = index"> <mat-checkbox class="example-margin" color="primary" name="unableToCheckId" [disabled]="comment == true || documentDetail.unableToCheckDocumet == true"  [(ngModel)]="package.corrected" (click)="packageAction(package ,i)"></mat-checkbox>
                          </td>
                       </ng-container>
                       

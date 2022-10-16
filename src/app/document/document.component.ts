@@ -119,8 +119,7 @@ getDocument(){
         data: { fileId: this.documentDetail.fileId }
       });
   }
-  test(e:any, i: number){
-    
+  packageAction(e:any, i: number){
     const dialogRef = this.dialog.open(EditTableComponent, {
       width: '400px',
       data:e
