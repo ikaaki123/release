@@ -68,7 +68,7 @@ packageInfo!: any;
     ClientIdIsCorrect: this.packageInfo.clientIdIsCorrect,
     clientIdCorrected:this.packageInfo.clientIdCorrected,
     UnableToCheckId:this.packageInfo.unableToCheckId,
-    DatsaComment: this.packageInfo.DatsaComment
+    DatsaComment: this.packageInfo.datsaComment
     }
     this.packageService.savaFile(saveFile).subscribe(res=>{
       if(res.status == 200){
