@@ -1,7 +1,8 @@
 <nav class="navbar navbar-light  navbar-custom justify-content">
 
     <img src="assets/Dastawhitelogo.png" class="navbar-brand mx-3 my-sm-0" alt="DastaLogo.png">
-    <button class="mat-button" mat-button [matMenuTriggerFor]="menu">მომხმარებელი - თბს ბანკი <i class="fa fa-caret-down" aria-hidden="true"></i></button>
+    <button class="mat-button" mat-button [matMenuTriggerFor]="menu">მომხმარებელი - {{decodedToken.unique_name}} <i class="fa fa-caret-down" aria-hidden="true"></i></button>
+    <label class="company">კომპანია - {{decodedToken.CompanyName}}</label>
 <mat-menu #menu="matMenu">
   <button mat-menu-item (click)="logOut()"><i class="fa fa-sign-out"> </i>გამოსვლა</button>
 </mat-menu>
@@ -11,7 +12,7 @@
         <nav class="nav">
             <ul>
               <li><a [routerLinkActive]="['active']"
-                [routerLink]="['home']" [routerLinkActiveOptions]="{exact:true}" class="listhead">ახალი მოცულობები - მენეჯერი
+                [routerLink]="['newspacemanager']" [routerLinkActiveOptions]="{exact:true}" class="listhead">ახალი მოცულობები - მენეჯერი
               </a>
               </li>
               <li><a

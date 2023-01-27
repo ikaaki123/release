@@ -5,6 +5,7 @@ import { DocumentComponent } from './document/document.component';
 import { DrawbackComponent } from './drawback/drawback.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { NewSpaceManagerComponent } from './new-space-manager/new-space-manager.component';
 import { PackageDelailsComponent } from './package-details/package-details.component';
 import { PackageItemsComponent } from './package-items/package-items.component';
 
@@ -15,7 +16,8 @@ const routes: Routes = [
     { path: 'document', component: DocumentComponent},
     { path: 'packageitem', component: PackageItemsComponent  },
     { path: 'packageDetail', component: PackageDelailsComponent  },
-    { path: 'drawback', component: DrawbackComponent }
+    { path: 'drawback', component: DrawbackComponent },
+    { path: 'newspacemanager', component: NewSpaceManagerComponent }
   ]},
 ];
 

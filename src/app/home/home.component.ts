@@ -3,6 +3,7 @@ import { getInterpolationArgsLength } from '@angular/compiler/src/render3/view/u
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 import {PackageItemService} from "../services/package-item/package-item.service";
+import { JwtHelperService } from "@auth0/angular-jwt";
 
 
 @Component({
@@ -13,6 +14,9 @@ import {PackageItemService} from "../services/package-item/package-item.service"
 export class HomeComponent implements OnInit {
   show: boolean =true
   router: any;
+  jwtHelper = new JwtHelperService();
+ decodedToken: any;
+ token:any;
   constructor(
     private http: HttpClient,
   private roueter: Router,
@@ -23,6 +27,10 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.packageService.getFileStatus().subscribe(res=>{
     })
+    this.token = localStorage.getItem('token')
+    this.decodedToken = this.jwtHelper.decodeToken(this.token );
+    console.log(this.decodedToken.CompanyName);
+    
   }
 
   packageitem() {

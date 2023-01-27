@@ -32,7 +32,7 @@ export class HttpInterceptorService implements HttpInterceptor {
           if(error.status == 400 && error.error.statusCode == 401){
             this.onsuccess(error.error.message)
           }else if(error.status == 401){
-            this.RT.navigate(['/'])
+            this.RT.navigate(['/login'])
             localStorage.clear()
           }
            throw new Error(error.error.message); 

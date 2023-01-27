@@ -34,6 +34,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { DrawbackComponent } from './drawback/drawback.component';
 import { EditDrawbackComponent } from './document/edit-drawback/edit-drawback.component';
 import { AddClientsComponent } from './package-items/add-clients/add-clients.component';
+import { NewSpaceManagerComponent } from './new-space-manager/new-space-manager.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { AddClientsComponent } from './package-items/add-clients/add-clients.com
     EditTableComponent,
     DrawbackComponent,
     EditDrawbackComponent,
-    AddClientsComponent
+    AddClientsComponent,
+    NewSpaceManagerComponent
   ],
   imports: [
     BrowserModule,
