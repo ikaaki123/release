@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="header">
+    <p class="question">ნამდვილად გსურთ ყუთის დამატება?</p>
+  </div>
+
+  <div class="date" class="datePiker" matTooltip="დასტაზე გადაცემის თარიღი" matTooltipPosition="after">
+    <input class="form-control" type="text" placeholder="&#xf073; დასტაზე გადაცემის თარიღი"
+      style="font-size: 14px; 
+             font-family: Arial, FontAwesome; 
+             width: 232px; margin-top: 18px; 
+             margin-left:100px" [(ngModel)]="date"
+      bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" />
+  </div>
+  <span class="alert">დღე/თვე/წელი</span>
+</div>
+
+<div class="buttons">
+    <div class="btn">
+        <button
+      class="btn btn-success"
+      style="color:white; font-size: 14px; font-weight: bold; width: 100px;" (click)="onConfirm()">
+      კი
+    </button>
+      <button
+      class="btn btn-danger"
+      style="color:white; font-size: 14px;  font-weight: bold; width: 100px;" (click)="closePopup()">
+      არა
+    </button>
+    </div>
+  </div>

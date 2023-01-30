@@ -6,6 +6,7 @@ import { DrawbackComponent } from './drawback/drawback.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { NewSpaceManagerComponent } from './new-space-manager/new-space-manager.component';
+import { NewSpaceOperatorComponent } from './new-space-operator/new-space-operator.component';
 import { PackageDelailsComponent } from './package-details/package-details.component';
 import { PackageItemsComponent } from './package-items/package-items.component';
 
@@ -17,7 +18,8 @@ const routes: Routes = [
     { path: 'packageitem', component: PackageItemsComponent  },
     { path: 'packageDetail', component: PackageDelailsComponent  },
     { path: 'drawback', component: DrawbackComponent },
-    { path: 'newspacemanager', component: NewSpaceManagerComponent }
+    { path: 'newspacemanager', component: NewSpaceManagerComponent },
+    { path: 'newspaceoperator', component: NewSpaceOperatorComponent }
   ]},
 ];
 

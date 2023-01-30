@@ -35,6 +35,8 @@ import { DrawbackComponent } from './drawback/drawback.component';
 import { EditDrawbackComponent } from './document/edit-drawback/edit-drawback.component';
 import { AddClientsComponent } from './package-items/add-clients/add-clients.component';
 import { NewSpaceManagerComponent } from './new-space-manager/new-space-manager.component';
+import { NewSpaceOperatorComponent } from './new-space-operator/new-space-operator.component';
+import { NewSpaceOperatorPopupComponent } from './new-space-operator/new-space-operator-popup/new-space-operator-popup.component';
 
 
 @NgModule({
@@ -50,7 +52,9 @@ import { NewSpaceManagerComponent } from './new-space-manager/new-space-manager.
     DrawbackComponent,
     EditDrawbackComponent,
     AddClientsComponent,
-    NewSpaceManagerComponent
+    NewSpaceManagerComponent,
+    NewSpaceOperatorComponent,
+    NewSpaceOperatorPopupComponent
   ],
   imports: [
     BrowserModule,

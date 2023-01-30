@@ -188,11 +188,6 @@ packageinfo(fileId: any){
       dialogRef.afterClosed().subscribe(result => {
         this.checkRowClick = false
         this.packageinfo(result.result.id)
-        // if(this.filter == null) {
-        //   this.getPackageItem();
-        // } else {
-        //   this.onFilter(this.filter)
-        // }
       });
   }
 }
