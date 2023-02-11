@@ -11,7 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { MaterialModule } from './shared/material/material.module';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PackageDelailsComponent } from './package-details/package-details.component';
 import { PackageItemsComponent } from './package-items/package-items.component';
@@ -37,6 +37,8 @@ import { AddClientsComponent } from './package-items/add-clients/add-clients.com
 import { NewSpaceManagerComponent } from './new-space-manager/new-space-manager.component';
 import { NewSpaceOperatorComponent } from './new-space-operator/new-space-operator.component';
 import { NewSpaceOperatorPopupComponent } from './new-space-operator/new-space-operator-popup/new-space-operator-popup.component';
+import { RegisterFormPackageComponent } from './new-space-operator/registerFormPackage/register-form-package/register-form-package.component';
+import { ChangeBoxNumberPopupComponent } from './new-space-operator/change-box-number-popup/change-box-number-popup.component';
 
 
 @NgModule({
@@ -54,7 +56,9 @@ import { NewSpaceOperatorPopupComponent } from './new-space-operator/new-space-o
     AddClientsComponent,
     NewSpaceManagerComponent,
     NewSpaceOperatorComponent,
-    NewSpaceOperatorPopupComponent
+    NewSpaceOperatorPopupComponent,
+    RegisterFormPackageComponent,
+    ChangeBoxNumberPopupComponent
   ],
   imports: [
     BrowserModule,
@@ -77,9 +81,8 @@ import { NewSpaceOperatorPopupComponent } from './new-space-operator/new-space-o
     ReactiveFormsModule,
     SimpleNotificationsModule.forRoot(),
 
-
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass:HttpInterceptorService,multi:true}, AuthGuard],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass:HttpInterceptorService,multi:true}, AuthGuard, DatePipe,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

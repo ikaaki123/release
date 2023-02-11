@@ -1,0 +1,214 @@
+<div mat-dialog-actions class="dialogHeader">
+    <h2 style="font-weight: 900; position:absolute;">პაკეტის შექმნა</h2>
+  <button mat-button class="removeDialog" (click)="closePopup()" style="margin-left: 90%;">
+    <i class="fa fa-times"></i>
+  </button>
+</div>
+
+<div mat-dialog-content class="contetntClass">
+
+  <div class="additionalFielad">
+  </div>
+</div>
+
+<div mat-dialog-content class="contetntClass">
+
+  <div class="form-row center">
+    <div class="form-group col-6 ngDropdown">
+      <mat-form-field appearance="fill" class="dropDown">
+        <mat-label>ბიზნეს ერთეული</mat-label>
+        <mat-select  [(ngModel)]="data.businessEntityId"  (ngModelChange)="GetDocumentType($event)">
+          <mat-option *ngFor="let entities of businessEntities" [value]="entities.id">
+            {{entities.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div *ngIf="invalid && data.businessEntityId == null" class="text-danger">ბიზნეს ერთეული სავალდებულოა</div>
+    </div>
+    <div class="form-group col-6 ">
+      <mat-form-field appearance="outline">
+        <mat-label>ყუთის ნომერი</mat-label>
+        <input type="number" matInput placeholder="ყუთის ნომერი" onKeyPress="if(this.value.length == 9) return false" [(ngModel)]="data.boxNumber"/>
+      </mat-form-field>
+      <div *ngIf="errorBoxNumber" class="text-danger">ყუთის ნომერი უნდა შეადგენდეს 9 ციფრს</div>
+      <div *ngIf="invalid && (data.boxNumber == null || data.boxNumber == '')" class="text-danger">ყუთის ნომერი სავალდებულოა</div>
+      <div *ngIf="checkedBoxNumberDBError" class="text-danger">ასეთი ყუთი ბაზაში არ არის</div>
+    </div>
+    <div class="form-group col-6 ngDropdown">
+      <mat-form-field appearance="fill" class="dropDown">
+        <mat-label>დოკუმენტის ტიპი</mat-label>
+        <mat-select [(ngModel)]="data.documentTypeId" (ngModelChange)="GetDocumentSubType($event)">
+          <mat-option *ngFor="let type of documentTypes" [value]="type.id">
+            {{type.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div *ngIf="invalid && data.documentTypeId == null" class="text-danger">დოკუმენტის ტიპი სავალდებულოა</div>
+    </div>
+    <div class="form-group col-6 ngDropdown">
+      <mat-form-field appearance="fill" class="dropDown">
+        <mat-label>დოკუმენტის ქვეტიპი</mat-label>
+        <mat-select [(ngModel)]="data.documentSubtypeId">
+          <mat-option *ngFor="let SubTypes of documentSubTypes" [value]="SubTypes.id">
+            {{SubTypes.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div *ngIf="invalid && data.documentSubtypeId == null" class="text-danger">დოკუმენტის ქვეტიპი სავალდებულოა</div>
+    </div>
+    <!--ახალი ველების დამატება-->
+    <div class="form-group col-6" *ngIf="companyId == 23">
+        <mat-form-field appearance="outline">
+          <mat-label>ფილიალი</mat-label>
+          <input type="text" matInput placeholder="ფილიალი" [(ngModel)]="data.geni"/>
+        </mat-form-field>
+      </div>
+      <div class="form-group col-6" *ngIf="companyId == 23">
+        <mat-form-field appearance="outline">
+          <mat-label>დამატებით კომენტარი</mat-label>
+          <input type="text" matInput placeholder="დამატებით კომენტარი" [(ngModel)]="data.loan"/>
+        </mat-form-field>
+      </div>
+      <div class="form-group col-6" *ngIf="companyId == 23">
+        <mat-form-field appearance="outline">
+          <mat-label>შენახვის ხანგრძლივობა (წელი)</mat-label>
+          <input type="text" matInput placeholder="შენახვის ხანგრძლივობა (წელი)" [(ngModel)]="data.personalId"/>
+        </mat-form-field>
+      </div>
+      <div class="form-group col-6" *ngIf="companyId == 23">
+        <mat-form-field appearance="outline">
+          <mat-label>დიაპაზონის ტიპი</mat-label>
+          <input type="text" matInput placeholder="დიაპაზონის ტიპი" [(ngModel)]="data.fullName" />
+        </mat-form-field>
+      </div>
+      <div class="form-group col-6" *ngIf="companyId == 23">
+        <mat-form-field appearance="outline">
+          <mat-label>დიაპაზონი დან </mat-label>
+          <input type="number" matInput placeholder="დიაპაზონი დან" [(ngModel)]="data.lB_File"/>
+        </mat-form-field>
+      </div>
+      <div class="form-group col-6" *ngIf="companyId == 23">
+        <mat-form-field appearance="outline" >
+          <mat-label>დიაპაზონი მდე</mat-label>
+          <input type="number" matInput placeholder="დიაპაზონი მდე" [(ngModel)]="data.lB_Box"/>
+        </mat-form-field>
+      </div>
+      <div class="form-group col-6" *ngIf="companyId == 23">
+        <mat-form-field appearance="outline">
+          <mat-label>განადგურები წელი</mat-label>
+          <input type="text" matInput placeholder="განადგურები წელი" [(ngModel)]="data.identification"/>
+        </mat-form-field>
+      </div>
+      <div class="form-group col-6" appearance="outline" *ngIf="companyId == 23">
+        <mat-form-field appearance="outline">
+          <mat-label>დოკუმენტის სახეობა</mat-label>
+          <input type="text" matInput placeholder="დოკუმენტის სახეობა" [(ngModel)]="data.documentSpecies"/>
+        </mat-form-field>
+      </div>
+      <!--///////-->
+     <div class="form-group col-6" *ngIf="startDate">
+          <mat-form-field appearance="outline"
+                         >
+            <mat-label>დაწყების თარიღი:</mat-label>
+            <input matInput [matDatepicker]="picker1"  matInput placeholder="დაწყების თარიღი:" [(ngModel)]="startDates"
+                   >
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+          <div *ngIf="invalid && startDates == null" class="text-danger">დაწყების თარიღი სავალდებულოა</div>
+        </div>
+  
+        <div class="form-group col-6" *ngIf="endDate">
+          <mat-form-field appearance="outline" 
+                         >
+            <mat-label>დასრულების თარიღი:</mat-label>
+            <input matInput [matDatepicker]="picker"  matInput [(ngModel)]="endDates">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <div *ngIf="invalid && endDates == null" class="text-danger">დასრულების თარიღი სავალდებულოა</div>
+        </div>
+        <div *ngIf="error.isError" class="alert alert-danger col-12">
+            {{ error.errorMessage }}
+          </div>
+       
+     </div>
+        <div class="form-group col-6" *ngIf="lbBundle">
+          <mat-form-field appearance="outline">
+            <mat-label>ფუთა:</mat-label>
+            <input type="number" matInput placeholder="ფუთა:"
+                   maxlength="6" [(ngModel)]="data.lB_Box"/>
+          </mat-form-field>
+        </div>
+        <div class="form-group col-6" *ngIf="lbPackage">
+          <mat-form-field appearance="outline">
+            <mat-label>ბაინდერი:</mat-label>
+            <input type="number" matInput placeholder="ბაინდერი:" 
+                   maxlength="6"  [(ngModel)]="data.lB_File"/>
+          </mat-form-field>
+        </div>
+     
+      <div class="additionalFielad" *ngIf="loan">
+        <div class="form-group" >
+          <mat-form-field class="textArea" appearance="outline" style="width:100% !important;"
+                         >
+            <mat-label>განაცხადის სესხის ნომერი:</mat-label>
+            <textarea matInput placeholder="განაცხადის სესხის ნომერი:" [(ngModel)]="data.loan" >
+                  </textarea>
+          </mat-form-field>
+        </div>
+        <div class="form-group" *ngIf="geni">
+          <mat-form-field class="textArea" appearance="outline" style="width:100% !important;"
+                         >
+            <mat-label>ხელშეკრულების ნომერი:</mat-label>
+            <textarea matInput placeholder="ხელშეკრულების ნომერი:" [(ngModel)]="data.geni"
+                     ></textarea>
+          </mat-form-field>
+        </div>
+        <div class="form-group" *ngIf="personalId">
+          <mat-form-field class="textArea" appearance="outline" style="width:100% !important;"
+                          >
+            <mat-label>პირადი ნომერი:</mat-label>
+            <textarea matInput placeholder="პირადი ნომერი:" [(ngModel)]="data.personalId"
+                    ></textarea>
+          </mat-form-field>
+        
+        </div>
+        <div class="form-group" *ngIf="fullName">
+          <mat-form-field class="textArea" appearance="outline" style="width:100% !important;"
+                          >
+            <mat-label>სახელი/გვარი:</mat-label>
+            <textarea matInput placeholder="სახელი/გვარი:" [(ngModel)]="data.fullName">
+                  </textarea>
+          </mat-form-field>
+         
+        </div>
+    <div class="form-group" *ngIf="emplMail">
+          <mat-form-field class="textArea" appearance="outline" style="width:100% !important;"
+                         >
+            <mat-label>თანამშრომლის ელ ფოსტის მისამართი:</mat-label>
+            <textarea matInput placeholder="თანამშრომლის ელ ფოსტის მისამართი:" [(ngModel)]="data.mail" ></textarea>
+          </mat-form-field>
+          
+        </div>
+
+    <div class="form-group">
+          <mat-form-field class="textArea" appearance="outline" style="width:100% !important;">
+            <mat-label>კომენტარი</mat-label>
+            <textarea matInput placeholder="კომენტარი" [(ngModel)]="data.comment"></textarea>
+          </mat-form-field>
+        </div>
+  </div>
+  <div class="text-center">
+    <button class="btn confirm" name="save" (click)="save()">შენახვა</button>
+    <!-- <button mat-button (click)="onNoClick()" name="cancel">გაუქმება</button> -->
+    <!-- <button mat-button (click)="print()" name="print" *ngIf="isCreate">ბეჭდვა</button> -->
+    <!-- <button mat-button (click)="print(data)" name="print">ბეჭდვა</button> -->
+  </div>
+
+
+<!-- <div mat-dialog-actions>
+    <button class="confirm" mat-button [mat-dialog-close]="data">შენახვა</button>
+    <button mat-button (click)="onNoClick()">გაუქმება</button>
+    <button mat-button (click)="print(data)">ბეჭდვა</button>
+  </div> -->

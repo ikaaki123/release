@@ -25,12 +25,10 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.packageService.getFileStatus().subscribe(res=>{
-    })
+    // this.packageService.getFileStatus().subscribe(res=>{
+    // })
     this.token = localStorage.getItem('token')
     this.decodedToken = this.jwtHelper.decodeToken(this.token );
-    console.log(this.decodedToken.CompanyName);
-    
   }
 
   packageitem() {

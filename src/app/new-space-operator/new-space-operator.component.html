@@ -5,15 +5,16 @@
         <mat-form-field appearance="outline" class="boxNumberInput">
           <mat-label>ძებნა ყუთის ნომრით</mat-label>
           <input type="text" matInput placeholder="ძებნა ყუთის ნომრით" [(ngModel)]="boxNumber"
-            (keydown.enter)="searchPakage()" />
+            (keydown.enter)="searchBoxNumber()" />
         </mat-form-field>
         <mat-form-field appearance="outline" style="margin-left: 10px;" class="packetNumberInput">
           <mat-label>ძებნა პაკეტის ნომრით</mat-label>
-          <input type="text" matInput placeholder="ძებნა პაკეტის ნომრით" />
+          <input type="text" matInput placeholder="ძებნა პაკეტის ნომრით" [(ngModel)]="packageNumber"
+           (keydown.enter)="searchPackageNumber()"/>
         </mat-form-field>
         <div class="buttons">
-            <button class="btn btn-success">პაკეტის შექმნა</button>
-        <button class="btn btn-light">ყუთის დასრულება</button>
+            <button class="btn btn-success" (click)="registerPackage()">პაკეტის შექმნა</button>
+        <button class="btn btn-light" (click)="finishBox()">ყუთის დასრულება</button>
         </div>
       </div>
     </div>
@@ -24,8 +25,8 @@
             <ng-container matColumnDef="boxNumber">
               <th mat-header-cell *matHeaderCellDef>
                 <div>
-                  <mat-form-field appearance="outline" matTooltip="ყუთის ნომერი" matTooltipPosition="after">
-                    <input matInput disabled type="number" class="form-field" placeholder="ყუთის ნომერი">
+                  <mat-form-field appearance="outline" matTooltip="პაკეტის ნომერი" matTooltipPosition="after">
+                    <input matInput disabled type="number" class="form-field" placeholder="პაკეტის ნომერი">
                   </mat-form-field>
                 </div>
               </th>
@@ -35,8 +36,8 @@
             <ng-container matColumnDef="packageNumber">
               <th mat-header-cell *matHeaderCellDef>
                 <div>
-                  <mat-form-field appearance="outline" matTooltip="პაკეტის ნომერი" matTooltipPosition="after">
-                    <input matInput disabled class="form-field" placeholder="პაკეტის ნომერი">
+                  <mat-form-field appearance="outline" matTooltip="პაკეტის სტატუსი" matTooltipPosition="after">
+                    <input matInput disabled class="form-field" placeholder="პაკეტის სტატუსი">
                   </mat-form-field>
                 </div>
               </th>

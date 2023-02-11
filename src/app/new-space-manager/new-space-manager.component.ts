@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { NewspaceService } from '../services/newspace/newspace.service';
+import { NewspaceService } from '../services/NewSpaceManager/newspace.service';
 
 @Component({
   selector: 'app-new-space-manager',
