@@ -1,0 +1,159 @@
+.mat-dialog-actions {
+    padding: 0px !important;
+    min-height: 30px !important;
+    margin-bottom: 10px;
+    flex-direction: row-reverse;
+  }
+  
+  .field {
+    width: 100% !important;
+    padding: 15px 0px;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  p {
+    display: inline-block;
+  }
+  
+  .numbers {
+    /* padding: 15px 0px; */
+    margin: 5px;
+    display: flex;
+    justify-content: space-around;
+  }
+  .numberDiv {
+    border: 1px solid rgba(0, 0, 0, 0.47);
+    border-radius: 5px;
+  }
+  .text {
+    position: absolute;
+    left: 5px;
+    top: -20px;
+    background-color: white;
+    padding: 5px 10px;
+  }
+  .information {
+    margin-top: 35px;
+  }
+  .headerSection {
+    display: flex;
+    justify-content: space-between;
+    /* margin-bottom: 50px; */
+  }
+  
+  .endBarCode {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+  
+  html,
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  img {
+    margin: 0;
+  } /* margin reset*/
+  h1 {
+    font-size: 18pt;
+    font-weight: 500;
+    margin-bottom: 0.5cm;
+  }
+  h2 {
+    font-size: 16pt;
+    font-weight: 500;
+  }
+  p {
+    font-size: 13pt;
+    margin: 10px 0px;
+  }
+  
+  .items-group {
+    border-style: solid;
+    border-color: black;
+    border-width: 1pt 1pt 1pt 1pt;
+    border-radius: 5pt;
+    padding: 3pt 3pt 3pt 3pt;
+    margin: 9pt 0 9pt 0;
+  }
+  
+  .logotipo {
+    width: 6cm;
+    height: 4cm;
+    margin: -0.5cm;
+  }
+  
+  .label {
+    font-weight: 500;
+  }
+  
+  .disclaimer,
+  .address p {
+    font-size: 10pt;
+  }
+  
+  .signature-field {
+    padding-bottom: 24pt;
+    border-bottom: solid black 1pt;
+  }
+  
+  .value {
+    display: grid;
+  }
+  .no-gutters {
+    margin: 20px 0px;
+  }
+  
+  .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: black !important;
+  }
+  .mat-form-field-appearance-outline .mat-form-field-outline-thick {
+    opacity: 0.9 !important;
+  }
+  @media print {
+    body * {
+      visibility: hidden;
+    }
+    #printable,
+    #printable * {
+      visibility: visible;
+    }
+    /* #component1 {
+      width: 100%;
+      position: absolute;
+      left: 50px;
+      top: 100px;
+    } */
+    #unPrintSection {
+      display: none;
+    }
+    #bottomBarCode {
+      position: fixed;
+      bottom: 0;
+      right: 50px;
+    }
+    /* .mat-form-field-appearance-outline .mat-form-field-outline {
+      color: red;
+    }
+    .barcode {
+      position: fixed;
+      top: 0;
+      left: 50px;
+    }
+    .logo {
+      position: fixed;
+      top: 0;
+      right: 50px;
+    } */
+  
+    /* body,
+    div {
+      width: auto;
+      float: none;
+      position: static;
+      overflow: visible;
+    } */
+  }
+  

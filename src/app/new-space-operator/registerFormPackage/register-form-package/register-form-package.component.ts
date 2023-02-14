@@ -13,16 +13,6 @@ import { NewSpaceOperatorComponent } from '../../new-space-operator.component';
 })
 export class RegisterFormPackageComponent implements OnInit {
 
-  foods:any =[
-    {
-    id:1,
-    name:'giga'
-  },{
-    id:2,
-    name:'irakli'
-  }
-]
-
 startDate: boolean = false;
 endDate: boolean = false;
 loan: boolean = false; 
@@ -68,7 +58,8 @@ data = {
   mail: null,
   comment: null,
   startDate:'',
-  endDate: ''
+  endDate: '',
+  FromRelease:true
 }
 
 jwtHelper = new JwtHelperService();

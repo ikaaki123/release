@@ -386,6 +386,14 @@
    }
  }
 
+ .rowRedLine{
+  background: #ff6666;
+ }
+
+ .rowGreenLine{
+  background:  #99ff99;
+ }
+
  
  .buttons{
     display: flex;

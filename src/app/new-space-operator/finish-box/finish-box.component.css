@@ -1,0 +1,33 @@
+
+.question{
+    text-align: center;
+    font-weight: bolder;
+    font-size: 18px;
+}
+
+.buttons{
+    margin-top: 10px;
+    
+}
+.btn{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 20px;
+}
+
+.alert{
+    margin-left: 84px;
+}
+
+.mainText{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 18px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.new_number{
+    margin-top: 10px;
+}

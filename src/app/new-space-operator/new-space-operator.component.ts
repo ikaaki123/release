@@ -9,10 +9,13 @@ import { NotificationsService } from 'angular2-notifications';
 
 import { NewspaceoperatorService } from '../services/NewSpaceOperator/newspaceoperator.service';
 import { ChangeBoxNumberPopupComponent } from './change-box-number-popup/change-box-number-popup.component';
+import { EditPackageComponent } from './edit-package/edit-package.component';
+import { FinishBoxComponent } from './finish-box/finish-box.component';
 //import { NewspaceoperatorService } from '../services/NewSpaceOperator/NewSpaceOperator.service';
 import {
   NewSpaceOperatorPopupComponent
 } from './new-space-operator-popup/new-space-operator-popup.component';
+import { PrintPackageComponent } from './print-package/print-package.component';
 import { RegisterFormPackageComponent } from './registerFormPackage/register-form-package/register-form-package.component';
 
 @Component({
@@ -22,9 +25,10 @@ import { RegisterFormPackageComponent } from './registerFormPackage/register-for
 })
 export class NewSpaceOperatorComponent implements OnInit {
   item: any = [];
-  boxNumber!: any ;
+  boxNumber: any = 100460957;
   packageNumber!:any;
   result!: any ;
+  finishBoxCheckStatus: any;
   constructor(
     private newSpaceService: NewspaceoperatorService,
     public dialog: MatDialog,
@@ -34,7 +38,7 @@ export class NewSpaceOperatorComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  displayedColumns: string[] = ['boxNumber', 'packageNumber'];
+  displayedColumns: string[] = ['boxNumber', 'packageNumber','actionIcons'];
 
   onsuccess(){
     this.NotificationService.success('Success','წარმატებით დასრულდა შენახვა',{
@@ -82,6 +86,11 @@ export class NewSpaceOperatorComponent implements OnInit {
         
         if(this.result.packageAddSuccess == true)
         {
+          if(this.result.isSavedPackge ==  true)
+          {
+            alert("პაკეტს სტატუსი აქვს შენახული, გთხოვთ დაბეჭდოთ.")
+            return
+          }
           this.searchBoxNumber();
           this.packageNumber = null;
           this.onSuccessAlert();
@@ -90,7 +99,7 @@ export class NewSpaceOperatorComponent implements OnInit {
           const dialogRef = this.dialog.open(RegisterFormPackageComponent
             , {
               disableClose: true,
-              width: '700px',
+              width: '900px',
               data: {boxnumber: this.boxNumber}
             });
             dialogRef.afterClosed().subscribe(result => {
@@ -120,6 +129,7 @@ export class NewSpaceOperatorComponent implements OnInit {
                   this.onSuccessAlert();
                 }) 
               }
+              this.packageNumber = '';
             })
         }
       })
@@ -133,22 +143,53 @@ export class NewSpaceOperatorComponent implements OnInit {
         data: {}
       });
       dialogRef.afterClosed().subscribe(result => {
+        this.searchBoxNumber();
       });
   }
 
   finishBox(){
-    this.boxNumber = '';
-    this.packageNumber = '';
-    this.item = []
+    this.newSpaceService.FinishBox(this.boxNumber).subscribe(res => {
+      this.finishBoxCheckStatus = res;
+     if( this.finishBoxCheckStatus.result == true){
+      const dialogRef = this.dialog.open(FinishBoxComponent
+        , {
+          width: '700px',
+          disableClose: true,
+        });
+      dialogRef.afterClosed().subscribe(res => {
+        if(res.result == false){
+          this.boxNumber = '';
+          this.packageNumber = '';
+          this.item = []
+        }
+      });
+     }else
+     {
+      this.boxNumber = '';
+      this.packageNumber = '';
+      this.item = []
+     }
+    })
   }
 
-
-
-
-
-
-
-
+  printPackageinfo(packageId: number) {
+    this.newSpaceService
+      .printPackage(packageId)
+      .subscribe(
+        (response) => {
+          this.searchBoxNumber();
+          const dialogRef = this.dialog.open(PrintPackageComponent
+            , {
+              width: '900px',
+              disableClose: true,
+              data: response
+            });
+          dialogRef.afterClosed().subscribe(result => {
+            // console.log(result);
+          });
+        },
+      );
+  }
 
   onAlert(){
     this.NotificationService.error('Warn','შეავსეთ ყუთის ნომერი',{
@@ -162,5 +203,19 @@ export class NewSpaceOperatorComponent implements OnInit {
       position: ["right", "top"],
       timeOut: 2000,
     });
+  }
+
+  editPackage(editPackages: any){
+    console.log(editPackages);
+    
+    const dialogRef = this.dialog.open(EditPackageComponent
+      , {
+        disableClose: true,
+        width: '700px',
+        data: {editPackages}
+      });
+      dialogRef.afterClosed().subscribe(result => {
+         this.searchBoxNumber();
+      });
   }
 }

@@ -39,6 +39,12 @@ import { NewSpaceOperatorComponent } from './new-space-operator/new-space-operat
 import { NewSpaceOperatorPopupComponent } from './new-space-operator/new-space-operator-popup/new-space-operator-popup.component';
 import { RegisterFormPackageComponent } from './new-space-operator/registerFormPackage/register-form-package/register-form-package.component';
 import { ChangeBoxNumberPopupComponent } from './new-space-operator/change-box-number-popup/change-box-number-popup.component';
+import { PrintPackageComponent } from './new-space-operator/print-package/print-package.component';
+import { NgxPrintModule } from 'ngx-print';
+import { NgxBarcodeModule } from "ngx-barcode";
+import { FinishBoxComponent } from './new-space-operator/finish-box/finish-box.component';
+import { EditPackageComponent } from './new-space-operator/edit-package/edit-package.component';
+
 
 
 @NgModule({
@@ -58,7 +64,10 @@ import { ChangeBoxNumberPopupComponent } from './new-space-operator/change-box-n
     NewSpaceOperatorComponent,
     NewSpaceOperatorPopupComponent,
     RegisterFormPackageComponent,
-    ChangeBoxNumberPopupComponent
+    ChangeBoxNumberPopupComponent,
+    PrintPackageComponent,
+    FinishBoxComponent,
+    EditPackageComponent
   ],
   imports: [
     BrowserModule,
@@ -79,10 +88,12 @@ import { ChangeBoxNumberPopupComponent } from './new-space-operator/change-box-n
     MatSelectModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
+    NgxPrintModule,
+    NgxBarcodeModule,
     SimpleNotificationsModule.forRoot(),
 
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass:HttpInterceptorService,multi:true}, AuthGuard, DatePipe,],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass:HttpInterceptorService,multi:true}, AuthGuard, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

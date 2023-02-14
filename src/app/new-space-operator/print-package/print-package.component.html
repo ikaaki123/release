@@ -1,0 +1,185 @@
+<div id="printable">
+    <div class="dateTime" id="unPrintSection">
+      <div class="validDate">
+  
+      </div>
+  
+      <div mat-dialog-actions>
+        <button mat-button  class="removeDialog" (click)="closePopup()">
+          <mat-icon>clear</mat-icon>
+        </button>
+      </div>
+    </div>
+  
+    <div mat-dialog-content class="container" id="component1" id="print-section">
+      <div class="headerSection">
+          <div class="barcode">
+            <ngx-barcode [bc-value]="this.data.packageNumber" [bc-display-value]="true" [bc-height]="70"></ngx-barcode>
+          </div>
+          <div class="logo">
+            <img
+            src="../../../assets/DastaLogo.png"
+            alt="DastaLogo"
+            class="dastaLogo">
+            <!-- <p>{{this.printPackageData.userMail}}</p> -->
+          </div>
+      </div>
+  
+  
+      <div class="fileValue" style="width: 100%;margin-top: 50px;">
+  
+     <div class="content" id="content">
+        <mat-form-field
+        class="field"
+        appearance="outline" >
+        <mat-label>ბიზნეს ერთეული:</mat-label>
+          <input
+          disabled=true
+          matInput
+          value="{{this.data.businessEntityName}}"
+          >
+        </mat-form-field>
+  
+        <mat-form-field
+        appearance="outline"
+        class="field">
+        <mat-label>ყუთის ნომერი</mat-label>
+          <input
+          disabled=true
+          matInput
+          value="{{this.data.boxNumber}}"
+          >
+        </mat-form-field>
+  
+        <mat-form-field
+        appearance="outline"
+        class="field">
+        <mat-label>
+          დოკუმენტის ტიპი:
+        </mat-label>
+          <input
+          disabled=true
+          matInput
+          value="{{this.data.docTypeName}}"
+          >
+        </mat-form-field>
+  
+        <mat-form-field
+        appearance="outline"
+        class="field">
+        <mat-label>
+          დოკუმენტის ქვეტიპი:
+        </mat-label>
+          <input
+          disabled=true
+          matInput
+          value="{{this.data.docSubTypeName}}"
+          >
+        </mat-form-field>
+  
+        <div style="display: flex">
+          <mat-form-field
+          appearance="outline"
+          class="field"
+          *ngIf="this.data.startDate">
+          <mat-label>დაწყების თარიღი:</mat-label>
+            <input
+            disabled=true
+            matInput
+            value="{{this.data.startDate | date: 'dd/MM/yyyy'}}"
+            >
+          </mat-form-field>
+  
+          <mat-form-field
+          appearance="outline"
+          class="field"
+          *ngIf="this.data.endDate">
+          <mat-label>დასრულების თარიღი:</mat-label>
+            <input
+            disabled=true
+            matInput
+            value="{{this.data.endDate | date: 'dd/MM/yyyy'}}"
+            >
+          </mat-form-field>
+        </div>
+        <div style="display: flex">
+          <mat-form-field
+          appearance="outline"
+          class="field"
+          *ngIf="this.data.lB_Box">
+          <mat-label>ფუთა:</mat-label>
+            <input
+            disabled=true
+            matInput
+            value="{{this.data.lB_Box}}"
+            >
+          </mat-form-field>
+  
+          <mat-form-field
+          appearance="outline"
+          class="field"
+          *ngIf="this.data.lB_File">
+          <mat-label>ბაინდერი:</mat-label>
+            <input
+            disabled=true
+            matInput
+            value="{{this.data.lB_File}}"
+            >
+          </mat-form-field>
+        </div>
+  
+        <div class="numbers" id="numbers">
+          <div class="numberDiv col-3">
+            <div class="text">განაცხადის/სესხის ნომერი:</div>
+            <div class="information">{{this.data.loanNumber.split('\n ')}}</div>
+          </div>
+          <div class="numberDiv col-3" style="margin: 0px 5px;">
+            <div class="text">ხელშეკრულების ნომერი:</div>
+            <div class="information">{{this.data.genNumber.split('\n ')}}</div>
+          </div>
+          <div class="numberDiv col-3">
+            <div class="text">პირადი ნომერი:</div>
+            <div class="information">{{this.data.personalId.split('\n ')}}</div>
+          </div>
+          <div class="numberDiv col-3" style="margin-left:5px;">
+            <div class="text">სახელი და გვარი:</div>
+            <div class="information">{{this.data.fullName.split('\n ')}}</div>
+          </div>
+        </div>
+  
+        <mat-form-field class="textarea field"
+        appearance="outline">
+          <mat-label>	კომენტარი:</mat-label>
+          <textarea
+          disabled=true
+            matInput
+            rows="1"
+            value="{{ this.data.comment }}"
+          ></textarea>
+        </mat-form-field>
+  
+        <mat-form-field
+        appearance="outline"
+        class="field">
+        <mat-label>	რეგისტრატორი:</mat-label>
+          <input
+          disabled=true
+          matInput
+          value="{{this.data.userMail}}"
+          >
+        </mat-form-field>
+      </div>
+      <div class="endBarCode" id="bottomBarCode">
+        <ngx-barcode [bc-value]="this.data.packageNumber" [bc-display-value]="true" [bc-height]="70"></ngx-barcode>
+      </div>
+    </div>
+    <div mat-dialog-actions id="unPrintSection">
+      <button mat-button
+      printSectionId="print-section"
+      [useExistingCss]="true"
+      ngxPrint>ბეჭდვა</button>
+    </div>
+  </div>
+  
+  
+ 

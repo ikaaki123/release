@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -42,6 +42,18 @@ export class NewspaceoperatorService {
     let headers = this.generateHeader()
     return this.http.put('https://retrievalsapi.drm.ge/api/Package/ChangeBoxForPackage', json, { headers: headers})
   }
+  
+  printPackage(documentTypeId: any){
+    let headers = this.generateHeader()
+    return this.http.post('https://retrievalsapi.drm.ge/api/Package/PrintPackage/' + documentTypeId,null,{headers: headers})
+  }
+
+  FinishBox(boxNumber: any){
+      let headers = this.generateHeader()
+      return this.http.get('https://retrievalsapi.drm.ge/api/Package/FinishBox/' + boxNumber, {
+        headers: headers
+      })
+  }
 
   //NewSpaceOperator
 
@@ -77,6 +89,11 @@ export class NewspaceoperatorService {
   isBoxInDb(boxNumber: string){
     let headers = this.generateHeader()
     return this.http.get('https://retrievalsapi.drm.ge/api/Package/IsBoxInDb/'+ boxNumber,{headers:headers});
+  }
+
+  editPackage(data: any){
+    let headers = this.generateHeader()
+    return this.http.put('https://retrievalsapi.drm.ge/api/Package/EditPackageForRelease/', data,{headers:headers});
   }
 }
 //RegisterFromPackage
