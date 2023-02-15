@@ -95,6 +95,28 @@ export class NewspaceoperatorService {
     let headers = this.generateHeader()
     return this.http.put('https://retrievalsapi.drm.ge/api/Package/EditPackageForRelease/', data,{headers:headers});
   }
+
+  editPackageStatuses(data:any){
+    let headers = this.generateHeader()
+    return this.http.put('https://retrievalsapi.drm.ge/api/Package/EditPackageStatuses/',data,{headers:headers});
+  }
+
+  packagestatuses(){
+    let headers = this.generateHeader()
+    return this.http.get('https://retrievalsapi.drm.ge/api/values/packagestatuses',{headers:headers})
+  }
+  GetPackageCheckStatuses(){
+    let headers = this.generateHeader()
+    return this.http.get('https://retrievalsapi.drm.ge/api/values/GetPackageCheckStatuses',{headers:headers})
+  }
+  GetPackageErrorStatuses(){
+    let headers = this.generateHeader()
+    return this.http.get('https://retrievalsapi.drm.ge/api/values/GetPackageErrorStatuses',{headers:headers})
+  }
+  GetPackageErrorResolveStatuses(){
+    let headers = this.generateHeader()
+    return this.http.get('https://retrievalsapi.drm.ge/api/values/GetPackageErrorResolveStatuses',{headers:headers})
+  }
 }
 //RegisterFromPackage
 

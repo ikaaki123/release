@@ -25,8 +25,8 @@ import { RegisterFormPackageComponent } from './registerFormPackage/register-for
 })
 export class NewSpaceOperatorComponent implements OnInit {
   item: any = [];
-  boxNumber: any;
-  packageNumber!:any;
+  boxNumber: any = 100460957;
+  packageNumber:any;
   result!: any ;
   finishBoxCheckStatus: any;
   constructor(
@@ -135,6 +135,7 @@ export class NewSpaceOperatorComponent implements OnInit {
       })
     };
   }
+
   registerPackage(){
     const dialogRef = this.dialog.open(RegisterFormPackageComponent
       , {
@@ -214,6 +215,7 @@ export class NewSpaceOperatorComponent implements OnInit {
       });
       dialogRef.afterClosed().subscribe(result => {
          this.searchBoxNumber();
+         this.onSuccessAlert();
       });
   }
 }

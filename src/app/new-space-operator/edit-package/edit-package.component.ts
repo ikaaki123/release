@@ -61,6 +61,21 @@ export class EditPackageComponent implements OnInit {
     endDate: '',
     FromRelease:true
   }
+  packageStatusData = {
+    packageId: null,
+    packageStatusId: 0,
+    packageCheckStatusId: 0,
+    packageErrorResolveStatusId: 0,
+    packageErrorStatusId: 0,
+    packageSentToDastaDate: ''
+  }
+
+  pkgSentToDastaDate:any;
+
+  packagestatus:any  = [];
+  getPackageCheckStatus: any = [];
+  getPackageErrorStatus: any = [];
+  GetPackageErrorResolveStatus: any = [];
   
   jwtHelper = new JwtHelperService();
   token : any;
@@ -77,7 +92,12 @@ export class EditPackageComponent implements OnInit {
       this.token = localStorage.getItem('token')
       this.decodedToken = this.jwtHelper.decodeToken(this.token);
       this.companyId = this.decodedToken.CompanyId;
-      // this.data.boxNumber = this.d.boxnumber
+
+      this.packagestatuses();
+      this.GetPackageCheckStatuses();
+      this.GetPackageErrorStatuses();
+      this.GetPackageErrorResolveStatuses();
+
       this.getBusinessEntities();
       this.data.id = this.d.editPackages.id
       this.data.boxNumber = this.d.editPackages.boxNumber;
@@ -99,8 +119,38 @@ export class EditPackageComponent implements OnInit {
       this.data.documentTypeId = this.d.editPackages.documentTypeId;
       this.GetDocumentSubType(this.d.editPackages.documentTypeId);
       this.data.documentSubtypeId = this.d.editPackages.documentSubtypeId;
+      
+      this.packageStatusData.packageStatusId = this.d.editPackages.packageStatusId;
+      this.packageStatusData.packageCheckStatusId = this.d.editPackages.packageCheckStatusId;
+      this.packageStatusData.packageErrorResolveStatusId = this.d.editPackages.packageErrorResolveStatusId;
+      this.packageStatusData.packageErrorStatusId = this.d.editPackages.packageErrorStatusId;
+      this.packageStatusData.packageId = this.d.editPackages.id;
+      this.pkgSentToDastaDate = this.d.editPackages.packageSentToDastaDate == '' ? null : new Date(this.d.editPackages.packageSentToDastaDate);
+    }
+
+    packagestatuses() {
+      this.newSpaceOperService.packagestatuses().subscribe(res => {
+        this.packagestatus = res;
+      })
+    }
+
+    GetPackageCheckStatuses(){
+      this.newSpaceOperService.GetPackageCheckStatuses().subscribe(res => {
+        this.getPackageCheckStatus = res;
+      })
+    }
+    GetPackageErrorStatuses(){
+      this.newSpaceOperService.GetPackageErrorStatuses().subscribe(res => {
+        this.getPackageErrorStatus = res;
+      })
+    }
+    GetPackageErrorResolveStatuses(){
+      this.newSpaceOperService.GetPackageErrorResolveStatuses().subscribe(res => {
+        this.GetPackageErrorResolveStatus = res;
+      })
     }
   
+    
     getBusinessEntities(){
       this.newSpaceOperService.getBusinessEntities().subscribe(res =>{
         this.businessEntities = res
@@ -133,6 +183,18 @@ export class EditPackageComponent implements OnInit {
         this.lbPackage = response.lB_File;
       })
     }
+    savePackageStatus(){
+      if(this.pkgSentToDastaDate != null){
+        var pkgSentToDastaDate = this.newSpaceOperService.dateToStringFormater(this.pkgSentToDastaDate.toString());
+        this.packageStatusData.packageSentToDastaDate = pkgSentToDastaDate!;
+        this.newSpaceOperService.editPackageStatuses( this.packageStatusData).subscribe(res => {
+          this.closePopup();
+        })
+      }
+    }
+
+
+
     save(){
           var startDate = this.endDates == ''? '': this.newSpaceOperService.dateToStringFormater(this.startDates.toString());
           var endDate = this.endDates == '' ? '' : this.newSpaceOperService.dateToStringFormater(this.endDates.toString());

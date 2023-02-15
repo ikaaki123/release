@@ -1,6 +1,6 @@
 
 <div mat-dialog-actions class="dialogHeader">
-    <h2 style="font-weight: 900; position:absolute;">პაკეტის შექმნა</h2>
+    <h2 style="font-weight: 900; position:absolute;">პაკეტის რედაქტირება</h2>
   <button mat-button class="removeDialog" (click)="closePopup()" style="margin-left: 90%;">
     <i class="fa fa-times"></i>
   </button>
@@ -19,61 +19,57 @@
               <div class="form-group col-6 ngDropdown">
                 <mat-form-field appearance="fill" class="dropDown">
                   <mat-label>სტატუსი</mat-label>
-                  <mat-select  [(ngModel)]="data.businessEntityId"  (ngModelChange)="GetDocumentType($event)">
-                    <mat-option *ngFor="let entities of businessEntities" [value]="entities.id">
-                      {{entities.name}}
+                  <mat-select [(ngModel)]="packageStatusData.packageStatusId" >
+                    <mat-option *ngFor="let status of packagestatus" [value]="status.id">
+                      {{status.name}}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
-                <div *ngIf="invalid && data.businessEntityId == null" class="text-danger">სტატუსი სავალდებულოა</div>
               </div>
               <div class="form-group col-6 ngDropdown">
                 <mat-form-field appearance="fill" class="dropDown">
                   <mat-label>შემოწმების შედეგი</mat-label>
-                  <mat-select [(ngModel)]="data.documentTypeId" (ngModelChange)="GetDocumentSubType($event)">
-                    <mat-option *ngFor="let type of documentTypes" [value]="type.id">
+                  <mat-select [(ngModel)]="packageStatusData.packageCheckStatusId">
+                    <mat-option *ngFor="let type of getPackageCheckStatus" [value]="type.id">
                       {{type.name}}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
-                <div *ngIf="invalid && data.documentTypeId == null" class="text-danger">შემოწმების შედეგი სავალდებულოა</div>
               </div>
               <div class="form-group col-6 ngDropdown">
                 <mat-form-field appearance="fill" class="dropDown">
                   <mat-label>ხარვეზის სტატუსი</mat-label>
-                  <mat-select [(ngModel)]="data.documentTypeId" (ngModelChange)="GetDocumentSubType($event)">
-                    <mat-option *ngFor="let type of documentTypes" [value]="type.id">
+                  <mat-select [(ngModel)]="packageStatusData.packageErrorStatusId">
+                    <mat-option *ngFor="let type of getPackageErrorStatus" [value]="type.id">
                       {{type.name}}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
-                <div *ngIf="invalid && data.documentTypeId == null" class="text-danger">ხარვეზის სტატუსი სავალდებულოა</div>
               </div>
               <div class="form-group col-6 ngDropdown">
                 <mat-form-field appearance="fill" class="dropDown">
                   <mat-label>ხარვეზის მოგვარების სტატუსი</mat-label>
-                  <mat-select [(ngModel)]="data.documentSubtypeId">
-                    <mat-option *ngFor="let SubTypes of documentSubTypes" [value]="SubTypes.id">
+                  <mat-select [(ngModel)]="packageStatusData.packageErrorResolveStatusId">
+                    <mat-option *ngFor="let SubTypes of GetPackageErrorResolveStatus" [value]="SubTypes.id">
                       {{SubTypes.name}}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
-                <div *ngIf="invalid && data.documentSubtypeId == null" class="text-danger">ხარვეზის მოგვარების სტატუსი სავალდებულოა</div>
               </div>
             
                <div class="form-group col-6" >
                     <mat-form-field appearance="outline" >
                       <mat-label>დასტაში გაგზავნის თარიღი:</mat-label>
-                      <input matInput [matDatepicker]="picker1"  matInput placeholder="დასტაში გაგზავნის თარიღი:" [(ngModel)]="startDates"
+                      <input matInput [matDatepicker]="picker1"  matInput placeholder="დასტაში გაგზავნის თარიღი:" [(ngModel)]="pkgSentToDastaDate"
                              >
                       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                       <mat-datepicker #picker1></mat-datepicker>
                     </mat-form-field>
-                    <div *ngIf="startDates == null" class="text-danger">დასტაში გაგზავნის თარიღი: სავალდებულოა</div>
+                    <div *ngIf="pkgSentToDastaDate == null" class="text-danger">დასტაში გაგზავნის თარიღი: სავალდებულოა</div>
                   </div>
             </div>
             <div class="text-center">
-              <button class="btn confirm" name="save" (click)="save()">შენახვა</button>
+              <button class="btn confirm" name="save" (click)="savePackageStatus()">შენახვა</button>
             </div>
           </div>   
       </mat-tab>
