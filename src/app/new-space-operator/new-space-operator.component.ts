@@ -25,7 +25,7 @@ import { RegisterFormPackageComponent } from './registerFormPackage/register-for
 })
 export class NewSpaceOperatorComponent implements OnInit {
   item: any = [];
-  boxNumber: any = 100460957;
+  boxNumber: any;
   packageNumber!:any;
   result!: any ;
   finishBoxCheckStatus: any;
@@ -206,8 +206,6 @@ export class NewSpaceOperatorComponent implements OnInit {
   }
 
   editPackage(editPackages: any){
-    console.log(editPackages);
-    
     const dialogRef = this.dialog.open(EditPackageComponent
       , {
         disableClose: true,
