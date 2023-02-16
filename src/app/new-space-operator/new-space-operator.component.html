@@ -22,25 +22,41 @@
       <div class="col-md-12 my-1">
         <div class="mat-elevation-z8 packageTable">
           <table mat-table [dataSource]="item.result">
-            <ng-container matColumnDef="boxNumber">
-              <th mat-header-cell *matHeaderCellDef>
-                <div>
+
+              
+            <ng-container matColumnDef="numeration">
+              <!-- <th mat-header-cell *matHeaderCellDef> -->
+                <th mat-header-cell *matHeaderCellDef  class="myHeader"></th>
+                <!-- <div>
                   <mat-form-field appearance="outline" matTooltip="პაკეტის ნომერი" matTooltipPosition="after">
                     <input matInput disabled type="number" class="form-field" placeholder="პაკეტის ნომერი">
                   </mat-form-field>
                 </div>
-              </th>
+              </th> -->
+              <td mat-cell *matCellDef="let item let i = index;">{{i+1}}  </td>
+            </ng-container>
+
+            <ng-container matColumnDef="boxNumber">
+              <!-- <th mat-header-cell *matHeaderCellDef> -->
+                <th mat-header-cell *matHeaderCellDef>პაკეტის ნომერი</th>
+                <!-- <div>
+                  <mat-form-field appearance="outline" matTooltip="პაკეტის ნომერი" matTooltipPosition="after">
+                    <input matInput disabled type="number" class="form-field" placeholder="პაკეტის ნომერი">
+                  </mat-form-field>
+                </div>
+              </th> -->
               <td mat-cell *matCellDef="let item"> {{item.packageNumber}} </td>
             </ng-container>
 
             <ng-container matColumnDef="packageNumber">
-              <th mat-header-cell *matHeaderCellDef>
+              <th mat-header-cell *matHeaderCellDef>პაკეტის სტატუსი</th>
+              <!-- <th mat-header-cell *matHeaderCellDef>
                 <div>
                   <mat-form-field appearance="outline" matTooltip="პაკეტის სტატუსი" matTooltipPosition="after">
                     <input matInput disabled class="form-field" placeholder="პაკეტის სტატუსი">
                   </mat-form-field>
                 </div>
-              </th>
+              </th> -->
               <td mat-cell *matCellDef="let package"> {{package.packageStatus}} </td>
             </ng-container>
             <ng-container matColumnDef="actionIcons" stickyEnd>

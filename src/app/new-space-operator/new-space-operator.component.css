@@ -1,7 +1,26 @@
- table {
+ /* table {
    width: 100%;
    table-layout: fixed;
+   width: auto;
  }
+
+
+table td, table th {
+  padding: 10px 30px;
+} */
+
+table {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+::ng-deep .mat-column-numeration{
+  width: 150px;
+}
+td.mat-cell:first-of-type{
+  width: 16px;
+}
 
  ::ng-deep .boxNumberInput .mat-form-field-flex {
    width: 140% !important;

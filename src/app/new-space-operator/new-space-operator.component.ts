@@ -25,7 +25,7 @@ import { RegisterFormPackageComponent } from './registerFormPackage/register-for
 })
 export class NewSpaceOperatorComponent implements OnInit {
   item: any = [];
-  boxNumber: any = 100460957;
+  boxNumber: any;
   packageNumber:any;
   result!: any ;
   finishBoxCheckStatus: any;
@@ -38,7 +38,7 @@ export class NewSpaceOperatorComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  displayedColumns: string[] = ['boxNumber', 'packageNumber','actionIcons'];
+  displayedColumns: string[] = ['numeration','boxNumber', 'packageNumber','actionIcons'];
 
   onsuccess(){
     this.NotificationService.success('Success','წარმატებით დასრულდა შენახვა',{
@@ -215,7 +215,7 @@ export class NewSpaceOperatorComponent implements OnInit {
       });
       dialogRef.afterClosed().subscribe(result => {
          this.searchBoxNumber();
-         this.onSuccessAlert();
+         //this.onSuccessAlert();
       });
   }
 }
