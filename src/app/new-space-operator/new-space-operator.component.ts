@@ -1,6 +1,8 @@
 import {
   Component,
-  OnInit
+  ElementRef,
+  OnInit,
+  ViewChild
 } from '@angular/core';
 import {
   MatDialog
@@ -35,7 +37,13 @@ export class NewSpaceOperatorComponent implements OnInit {
     private NotificationService: NotificationsService,
   ) {}
 
+  @ViewChild('autofocusBoxNumber', {static: false}) autofocusBoxNumber!: ElementRef;
+  @ViewChild('autofocusPackageNumber', {static: false}) autofocusPackageNumber!: ElementRef;
+  
   ngOnInit(): void {
+    setTimeout(()=>{ // this will make the execution after the above boolean has changed
+      this.autofocusBoxNumber.nativeElement.focus();
+    },0);
   }
 
   displayedColumns: string[] = ['numeration','boxNumber', 'packageNumber','actionIcons'];
@@ -49,11 +57,13 @@ export class NewSpaceOperatorComponent implements OnInit {
   }
 
   searchBoxNumber() {
+    
     if (this.boxNumber == undefined || this.boxNumber == "") {
       this.item = []
     } else {
       this.newSpaceService.getDataByBoxNumber(this.boxNumber).subscribe(res => {
         this.item = res;
+        this.autofocusPackageNumber.nativeElement.focus();
         if (this.item.status == 2) {
           let dialogRef = this.dialog.open(NewSpaceOperatorPopupComponent, {
             width: '500px',
@@ -150,6 +160,7 @@ export class NewSpaceOperatorComponent implements OnInit {
 
   finishBox(){
     this.newSpaceService.FinishBox(this.boxNumber).subscribe(res => {
+      this.autofocusBoxNumber.nativeElement.focus();
       this.finishBoxCheckStatus = res;
      if( this.finishBoxCheckStatus.result == true){
       const dialogRef = this.dialog.open(FinishBoxComponent

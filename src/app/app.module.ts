@@ -90,8 +90,7 @@ import { EditPackageComponent } from './new-space-operator/edit-package/edit-pac
     ReactiveFormsModule,
     NgxPrintModule,
     NgxBarcodeModule,
-    SimpleNotificationsModule.forRoot(),
-
+    SimpleNotificationsModule.forRoot()
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass:HttpInterceptorService,multi:true}, AuthGuard, DatePipe],
   bootstrap: [AppComponent]
