@@ -59,7 +59,7 @@ getDocument(){
   this.service.getDocumet().subscribe(res => {
     this.documentDetail = res;
     this.item = res;
-    console.log(this.documentDetail.additionalInformation);
+    console.log(this.documentDetail);
     
   })
 }
@@ -81,11 +81,10 @@ getDocument(){
     Comment:this.documentDetail.comment,
     ValueCorrect:this.documentDetail.documentIsCorret,
     ValueCorrection:this.documentDetail.documentCorrected,
-    ValueCannotBeChecked:this.documentDetail.documentNotInBox,
-    NotInBox:this.documentDetail.unableToCheckDocumet,
+    ValueCannotBeChecked:this.documentDetail.unableToCheckDocumet,
+    NotInBox:this.documentDetail.documentNotInBox,
     Space: this.documentDetail.space,
     AdditionalInformation: this.documentDetail.additionalInformation,
-
     AdditionalFildsForRelease: this.item.additionalFields
 
   }
