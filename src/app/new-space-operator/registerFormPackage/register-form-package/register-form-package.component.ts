@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { audit } from 'rxjs';
 import { LoginService } from 'src/app/services/logni/login.service';
 import { NewspaceoperatorService } from 'src/app/services/NewSpaceOperator/newspaceoperator.service';
 import { NewSpaceOperatorComponent } from '../../new-space-operator.component';
@@ -79,6 +80,10 @@ decodedToken:any;
     this.companyId = this.decodedToken.CompanyId;
     this.data.boxNumber = this.d.boxnumber
     this.getBusinessEntities();
+    var audio = new Audio();
+    audio.src = "../assets/RingBell.wav";
+    audio.load();
+    audio.play();
   }
 
   getBusinessEntities(){

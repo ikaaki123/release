@@ -9,7 +9,7 @@
         </mat-form-field>
         <mat-form-field appearance="outline" style="margin-left: 10px;" class="packetNumberInput">
           <mat-label>ძებნა პაკეტის ნომრით</mat-label>
-          <input type="text" matInput placeholder="ძებნა პაკეტის ნომრით" [(ngModel)]="packageNumber"
+          <input type="text" matInput placeholder="ძებნა პაკეტის ნომრით" maxlength="11" [(ngModel)]="packageNumber"
            (keydown.enter)="searchPackageNumber()" #autofocusPackageNumber/>
         </mat-form-field>
         <div class="buttons">
