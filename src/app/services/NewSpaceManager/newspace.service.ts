@@ -11,6 +11,7 @@ import {
 })
 export class NewspaceService {
   token = localStorage.getItem('token');
+  baseUrl: string = 'https://dastareleaseapi.azurewebsites.net/api';
 
 
   constructor(private http: HttpClient) {}
@@ -26,7 +27,7 @@ export class NewspaceService {
   ///NEW SPACE MANAGER SERVICE
   uploadFile(correctDate: any, formData: any) {
     let headers = this.generateHeader()
-    return this.http.post('https://retrievalsapi.drm.ge/api/Package/uploadBoxByXlsx/' + correctDate, formData, {
+    return this.http.post(this.baseUrl + '/Package/uploadBoxByXlsx/' + correctDate, formData, {
       headers: headers,
       responseType: 'text'
     })
@@ -35,13 +36,13 @@ export class NewspaceService {
   ///NEW SPACE MANAGER OPERATOR
   getDataByBoxNumber(boxNumber: any) {
     let headers = this.generateHeader()
-    return this.http.get('https://retrievalsapi.drm.ge/api/Package/GetPackageByBoxNumebr/' + boxNumber, {
+    return this.http.get(this.baseUrl + '/Package/GetPackageByBoxNumebr/' + boxNumber, {
       headers: headers
     })
   }
 
   createBox(model:any){
     let headers = this.generateHeader()
-    return this.http.post('https://retrievalsapi.drm.ge/api/Package/CreateBox',model,{headers: headers})
+    return this.http.post(this.baseUrl + '/Package/CreateBox',model,{headers: headers})
   }
 }

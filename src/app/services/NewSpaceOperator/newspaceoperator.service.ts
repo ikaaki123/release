@@ -7,6 +7,7 @@ import { map, Observable } from 'rxjs';
 })
 export class NewspaceoperatorService {
   token = localStorage.getItem('token');
+  baseUrl: string = 'https://dastareleaseapi.azurewebsites.net/api';
 
 
   constructor(private http: HttpClient, public datePipe: DatePipe) {}
@@ -28,29 +29,29 @@ export class NewspaceoperatorService {
 //NewSpaceOperator  
   getDataByBoxNumber(boxNumber: any) {
     let headers = this.generateHeader()
-    return this.http.get('https://retrievalsapi.drm.ge/api/Package/GetPackageByBoxNumebr/' + boxNumber, {
+    return this.http.get(this.baseUrl +'/Package/GetPackageByBoxNumebr/' + boxNumber, {
       headers: headers
     })
   }
 
   UpdatePackageStatusForRelease(json :any){
     let headers = this.generateHeader()
-    return this.http.put('https://retrievalsapi.drm.ge/api/Package/UpdatePackageStatusForRelease', json, { headers: headers})
+    return this.http.put(this.baseUrl +'/Package/UpdatePackageStatusForRelease', json, { headers: headers})
   }
 
   ChangeBoxForPackage(json:any){
     let headers = this.generateHeader()
-    return this.http.put('https://retrievalsapi.drm.ge/api/Package/ChangeBoxForPackage', json, { headers: headers})
+    return this.http.put(this.baseUrl +'/Package/ChangeBoxForPackage', json, { headers: headers})
   }
   
   printPackage(documentTypeId: any){
     let headers = this.generateHeader()
-    return this.http.post('https://retrievalsapi.drm.ge/api/Package/PrintPackage/' + documentTypeId,null,{headers: headers})
+    return this.http.post(this.baseUrl +'/Package/PrintPackage/' + documentTypeId,null,{headers: headers})
   }
 
   FinishBox(boxNumber: any){
       let headers = this.generateHeader()
-      return this.http.get('https://retrievalsapi.drm.ge/api/Package/FinishBox/' + boxNumber, {
+      return this.http.get(this.baseUrl +'/Package/FinishBox/' + boxNumber, {
         headers: headers
       })
   }
