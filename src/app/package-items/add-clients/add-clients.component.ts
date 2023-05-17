@@ -30,4 +30,14 @@ export class AddClientsComponent implements OnInit {
     this.packageService.addClient(e).subscribe(res=>{this.dialogRef.close({result:res});})
   }
 
+  closePopup(){
+    
+  }
+  confirmClick(){
+    this.packageService.deleteFileForRelease(this.data.fileId).subscribe(res =>{
+      this.dialogRef.close({result:true});
+    })
+  }
+
+
 }

@@ -209,3 +209,23 @@ th.mat-header-cell:first-of-type{
       height: 60vh;
     }
   }
+
+
+
+  .question{
+    text-align: center;
+    font-weight: bolder;
+}
+
+.buttons{
+    margin-top: 10px;
+    
+}
+.btn{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.alert{
+    margin-left: 84px;
+}

@@ -1,4 +1,4 @@
-<mat-card-content>
+<mat-card-content *ngIf="this.data.deleteFile == false">
     <form>
       <div class="form-group">
         <label class="h6">კომენტარი</label>
@@ -23,6 +23,33 @@
       </div>
     </form>
   </mat-card-content>
-  <mat-card-footer>
+  <mat-card-footer *ngIf="this.data.deleteFile == false">
     <button type="button" class="btn" (click)="addClient(clientInfo)">დამატება</button>
   </mat-card-footer>
+
+
+  <div class="container"  *ngIf="this.data.deleteFile">
+    <div class="header">
+      <p class="question">ნამდვილად გსურთ პაკეტის ახალ ყუთში გადატანა?</p>
+    </div>
+  
+    <div class="mainText">
+        <!-- <div class="old_number">ძველი ყუთი - {{currentBoxNumber}}</div>
+        <div class="new_number">ახალი ყუთი - {{newNumber}}</div> -->
+  </div>
+  
+  <div class="buttons">
+      <div class="btn">
+          <button
+        class="btn btn-success"
+        style="color:white; font-size: 16px; font-weight: bold; width: 100px;" (click)="confirmClick()">
+        კი
+      </button>
+        <button
+        class="btn btn-danger"
+        style="color:white; font-size: 16px; font-weight: bold; width: 100px;" (click)="closePopup()">
+        არა
+      </button>
+      </div>
+    </div>
+  

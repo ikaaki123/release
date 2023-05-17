@@ -189,6 +189,15 @@ documentStatusErrorGrd(data:any) {
     let headers = this.generateHeader()
     return this.http.get( `${this.baseUrl}/Package/GetErrorDocument?&pageSize=${data.pageSize}&pageNumber=${data.pageNumber}`, {headers:headers});
   }
+  deleteFileForRelease(fileId:number){
+    let headers = this.generateHeader()
+    return this.http.get( `${this.baseUrl}/Package/DeleteFileForRelease/${fileId}`, {headers:headers});
+  }
+
+  deleteFileDocumentForRelease(documentId:number){
+    let headers = this.generateHeader()
+    return this.http.get( `${this.baseUrl}/Package/DeleteFileForRelease/${documentId}`, {headers:headers});
+  }
 
 
 /*              DrawBackGrigApproveNotApproveUser                 */

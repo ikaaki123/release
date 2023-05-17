@@ -7,7 +7,8 @@ import { PackageItemService } from '../services/package-item/package-item.servic
 import {AddDocumentsComponent} from "../document/add-documents/add-documents.component";
 import {MatDialog} from "@angular/material/dialog";
 import { NotificationsService } from "angular2-notifications";
-import { ThrowStmt } from '@angular/compiler';
+import { DeleteDocumentPopUpComponent } from './deleteDocumentPopUp/deleteDocumentPopUp.component';
+import { JwtHelperService } from "@auth0/angular-jwt";
 
 
 @Component({
@@ -21,11 +22,15 @@ export class PackageDelailsComponent implements OnInit {
   checkedClientName: boolean = true;
   checkedClientId: boolean = true;
   checkstatus:boolean = false;
+  checkRowClick: boolean = false;
 // @Input() packageInfo!: Packages
 @Output() backToPackagePage = new EventEmitter<Boolean>();
 fileTable: boolean = false;
 item:any = []
 packageInfo!: any;
+token: any;
+decodedToken: any;
+jwtHelper = new JwtHelperService();
 
 
   constructor(private route: ActivatedRoute, private packageService: PackageItemService, private RT: Router,public dialog: MatDialog,private NotificationService: NotificationsService ) {
@@ -35,6 +40,8 @@ packageInfo!: any;
   }
 
   ngOnInit(): void {
+    this.token = localStorage.getItem('token')
+    this.decodedToken = this.jwtHelper.decodeToken(this.token );
     this.getFile();
   }
 
@@ -78,9 +85,11 @@ packageInfo!: any;
   }
 
   document(item: any, fileID: any){
+    if(this.checkRowClick == false){
     this.RT.navigate(['home/document'])
     localStorage.setItem('itemID', item);
     this.packageService.documntID = item;
+    }
   }
 
   checkedEmptyBox(){
@@ -182,7 +191,20 @@ packageInfo!: any;
       this.RT.navigate(['/home/packageitem']) 
     }); 
   }
-  
+  deletePackage(documentId: any, checkRowClick: boolean){
+    this.checkRowClick = checkRowClick
+   
+      let dialogRef = this.dialog.open(DeleteDocumentPopUpComponent
+        , {
+          width: '500px',
+          data: { documentId:  documentId}
+          }
+        );
+        dialogRef.afterClosed().subscribe(result => {
+          this.getFile();
+        });
+
+  }
 }
 
 

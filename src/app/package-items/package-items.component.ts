@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AddClientsComponent } from './add-clients/add-clients.component';
 import { NotificationsService } from 'angular2-notifications';
-
+import { JwtHelperService } from "@auth0/angular-jwt";
 
 @Component({
   selector: 'app-package-items',
@@ -16,7 +16,8 @@ import { NotificationsService } from 'angular2-notifications';
 
 
 export class PackageItemsComponent implements OnInit {
-
+  jwtHelper = new JwtHelperService();
+  decodedToken: any;
   item:any = [];
   filter:any = [];
   packageInfo!: Packages;
@@ -39,6 +40,7 @@ export class PackageItemsComponent implements OnInit {
 
 filterText?:any;
 checkRowClick: boolean = false;
+token:any;
 
 
   constructor(
@@ -50,6 +52,9 @@ checkRowClick: boolean = false;
    }
 
   ngOnInit(): void {
+    this.token = localStorage.getItem('token')
+    this.decodedToken = this.jwtHelper.decodeToken(this.token );
+    
     this.filter = this.packageService.packgeGridFilter;
      
       if(this.filter == null) {
@@ -77,6 +82,8 @@ checkRowClick: boolean = false;
                                 'checkingUser',
                                 'caseStatur',
                                 'actionIcons',
+                                
+
                               ];
   getPackageItem(){
     if(this.filterText){
@@ -182,12 +189,29 @@ packageinfo(fileId: any){
     let dialogRef = this.dialog.open(AddClientsComponent
       , {
         width: '500px',
-        data: { packageId: packageId }
+        data: { packageId: packageId,
+                deleteFile: false }
         }
       );
       dialogRef.afterClosed().subscribe(result => {
         this.checkRowClick = false
         this.packageinfo(result.result.id)
       });
+  }
+
+  deletePackage(fileId: any, checkRowClick: boolean){
+    this.checkRowClick = checkRowClick
+      let dialogRef = this.dialog.open(AddClientsComponent
+        , {
+          width: '500px',
+          data: { fileId: fileId,
+                  deleteFile: true }
+          }
+        );
+        dialogRef.afterClosed().subscribe(result => {
+          this.checkRowClick = false
+          this.getPackageItem();
+        });
+
   }
 }
