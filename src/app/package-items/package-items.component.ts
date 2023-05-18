@@ -1,7 +1,6 @@
-import { Component, OnInit,OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PackageItemService } from '../services/package-item/package-item.service';
 import { Packages } from '../Models/package.model';
-import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AddClientsComponent } from './add-clients/add-clients.component';
@@ -41,6 +40,7 @@ export class PackageItemsComponent implements OnInit {
 filterText?:any;
 checkRowClick: boolean = false;
 token:any;
+pageSizeOptions: number[] = [5, 10, 25, 100];
 
 
   constructor(
@@ -52,12 +52,13 @@ token:any;
    }
 
   ngOnInit(): void {
+    var pageSize = localStorage.getItem('pageSizeRelease')
     this.token = localStorage.getItem('token')
     this.decodedToken = this.jwtHelper.decodeToken(this.token );
     
     this.filter = this.packageService.packgeGridFilter;
-     
-      if(this.filter == null) {
+    this.pagenations.pageSize = pageSize == null ? 10 :pageSize; 
+      if(this.filter == null ) {     
         this.getPackageItem();
       } else {
         this.onFilter(this.filter)
@@ -122,6 +123,7 @@ onFilter(filter :any) {
       });
   }
 pagenation(e:any){
+  localStorage.setItem('pageSizeRelease',e.pageSize)
   this.pagenations.pageSize = e.pageSize;
   this.pagenations.pageNumber = e.pageIndex + 1;
   this.totalRecords = this.item.totalCount;
