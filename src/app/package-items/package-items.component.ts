@@ -211,7 +211,6 @@ packageinfo(fileId: any){
         );
         dialogRef.afterClosed().subscribe(result => {
           this.checkRowClick = false
-          this.filterText = null;
           this.getPackageItem();
         });
 
