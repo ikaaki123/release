@@ -192,6 +192,7 @@ jwtHelper = new JwtHelperService();
     }); 
   }
   deletePackage(documentId: any, checkRowClick: boolean){
+    
     this.checkRowClick = checkRowClick
    
       let dialogRef = this.dialog.open(DeleteDocumentPopUpComponent

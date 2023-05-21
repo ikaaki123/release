@@ -191,12 +191,12 @@ documentStatusErrorGrd(data:any) {
   }
   deleteFileForRelease(fileId:number){
     let headers = this.generateHeader()
-    return this.http.get( `${this.baseUrl}/Package/DeleteFileForRelease/${fileId}`, {headers:headers});
+    return this.http.delete( `${this.baseUrl}/Package/DeleteFileForRelease/${fileId}`, {headers:headers});
   }
-
+  
   deleteFileDocumentForRelease(documentId:number){
     let headers = this.generateHeader()
-    return this.http.get( `${this.baseUrl}/Package/DeleteFileForRelease/${documentId}`, {headers:headers});
+    return this.http.delete( `${this.baseUrl}/Package/DeleteFileDocumentForRelease/${documentId}`, {headers:headers});
   }
 
 

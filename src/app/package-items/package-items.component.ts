@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddClientsComponent } from './add-clients/add-clients.component';
 import { NotificationsService } from 'angular2-notifications';
 import { JwtHelperService } from "@auth0/angular-jwt";
+import { DeleteileForReleaseComponent } from './deleteFileForRelease/deleteFileForRelease.component';
 
 @Component({
   selector: 'app-package-items',
@@ -191,8 +192,7 @@ packageinfo(fileId: any){
     let dialogRef = this.dialog.open(AddClientsComponent
       , {
         width: '500px',
-        data: { packageId: packageId,
-                deleteFile: false }
+        data: { packageId: packageId}
         }
       );
       dialogRef.afterClosed().subscribe(result => {
@@ -203,15 +203,15 @@ packageinfo(fileId: any){
 
   deletePackage(fileId: any, checkRowClick: boolean){
     this.checkRowClick = checkRowClick
-      let dialogRef = this.dialog.open(AddClientsComponent
+      let dialogRef = this.dialog.open(DeleteileForReleaseComponent
         , {
           width: '500px',
-          data: { fileId: fileId,
-                  deleteFile: true }
+          data: { fileId: fileId }
           }
         );
         dialogRef.afterClosed().subscribe(result => {
           this.checkRowClick = false
+          this.filterText = null;
           this.getPackageItem();
         });
 
