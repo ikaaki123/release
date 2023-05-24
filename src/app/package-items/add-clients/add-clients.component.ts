@@ -13,7 +13,9 @@ export class AddClientsComponent implements OnInit {
     clientName: "",
     clientId: "",
   }
-  
+  packageNumger: string
+  buttonDisabled: boolean = false;
+  yesOrNo: boolean = false;
   constructor(
     private packageService: PackageItemService,
     public dialogRef: MatDialogRef<AddClientsComponent>,
@@ -21,23 +23,28 @@ export class AddClientsComponent implements OnInit {
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any
   ) { 
     this.clientInfo.packageId = data.packageId
+    this.packageNumger = data.packageNumber
   }
 
   ngOnInit(): void{
+    console.log( this.clientInfo.packageId + " " + this.packageNumger ); 
   }
 
   addClient(e: any){
-    this.packageService.addClient(e).subscribe(res=>{this.dialogRef.close({result:res});})
-  }
-
-  closePopup(){
-    this.dialogRef.close()
-  }
-  confirmClick(){
-    this.packageService.deleteFileForRelease(this.data.fileId).subscribe(res =>{
-      this.dialogRef.close({result:true});
+    this.buttonDisabled = true;
+    this.packageService.addClient(e).subscribe(res=>{
+      this.dialogRef.close({result:res}); 
     })
   }
 
+
+  onConfirm(){
+    this.yesOrNo = true;
+  }
+
+  closePopup(){
+    this.yesOrNo = false
+      this.dialogRef.close()
+  }
 
 }

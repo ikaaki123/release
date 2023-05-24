@@ -187,17 +187,20 @@ packageinfo(fileId: any){
     this.fileTable = false;
   }
  
-  addClient(packageId: number, checkRowClick: boolean){
+  addClient(packageId: number,packageNumber: string, checkRowClick: boolean){
     this.checkRowClick = checkRowClick
     let dialogRef = this.dialog.open(AddClientsComponent
       , {
         width: '500px',
-        data: { packageId: packageId}
+        data: { packageId: packageId,
+                packageNumber: packageNumber}
         }
       );
       dialogRef.afterClosed().subscribe(result => {
+        if(result != undefined){
         this.checkRowClick = false
         this.packageinfo(result.result.id)
+        }
       });
   }
 

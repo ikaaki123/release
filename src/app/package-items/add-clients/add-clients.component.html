@@ -1,4 +1,4 @@
-<mat-card-content>
+<mat-card-content *ngIf="yesOrNo">
     <form>
       <div class="form-group">
         <label class="h6">კომენტარი</label>
@@ -23,9 +23,30 @@
       </div>
     </form>
   </mat-card-content>
-  <mat-card-footer >
-    <button type="button" class="btn" (click)="addClient(clientInfo)">დამატება</button>
+  <mat-card-footer *ngIf="yesOrNo">
+    <button type="button" class="btn" (click)="addClient(clientInfo)" [disabled]="buttonDisabled">დამატება</button>
   </mat-card-footer>
+
+
+  <div class="container" *ngIf="!yesOrNo">
+    <div class="header">
+      <p class="question">ნამდვილად გსურთ საქმის დამატება პაკეტში - <strong style="color: brown;">{{this.packageNumger}}</strong> </p>
+    </div>
+  <div class="buttons">
+      <div class="btn">
+          <button
+        class="btn btn-success"
+        style="color:white; font-size: 14px; font-weight: bold; width: 100px;" (click)="onConfirm()">
+        კი
+      </button>
+        <button
+        class="btn btn-danger"
+        style="color:white; font-size: 14px;  font-weight: bold; width: 100px;" (click)="closePopup()">
+        არა
+      </button>
+      </div>
+    </div>
+  
 
 
 
