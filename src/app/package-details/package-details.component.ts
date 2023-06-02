@@ -31,6 +31,7 @@ packageInfo!: any;
 token: any;
 decodedToken: any;
 jwtHelper = new JwtHelperService();
+documentDetail:any;
 
 
   constructor(private route: ActivatedRoute, private packageService: PackageItemService, private RT: Router,public dialog: MatDialog,private NotificationService: NotificationsService ) {
@@ -50,7 +51,7 @@ jwtHelper = new JwtHelperService();
                                 'documentTypeName',
                                 'notInBox',
                                 'documentStatusName',
-
+                                'additonalInfo',
                                 'actionIcons'
                               ];
 
@@ -84,12 +85,20 @@ jwtHelper = new JwtHelperService();
     })
   }
 
-  document(item: any, fileID: any){
+  document(event:any,item: any, fileID: any){
+   var localName = event.target?.localName
+    if(localName == "div" || localName == "span" || localName == "input" || localName == "i" ){
+      this.checkRowClick = true
+    }else{
+      this.checkRowClick = false
+    }
+    
     if(this.checkRowClick == false){
     this.RT.navigate(['home/document'])
     localStorage.setItem('itemID', item);
     this.packageService.documntID = item;
     }
+
   }
 
   checkedEmptyBox(){
@@ -204,8 +213,39 @@ jwtHelper = new JwtHelperService();
         dialogRef.afterClosed().subscribe(result => {
           this.getFile();
         });
-
   }
+
+  savePackage(data:any,documentID: number){
+    this.checkRowClick = true
+    
+    const documentJson = {
+      documentId: documentID,
+      FileId: this.packageInfo.fileId,
+      FileDocumetTypeId: data.documentTypeId,
+      Comment: data.comment,
+      ValueCorrect: data.documentIsCorret,
+      ValueCorrection: data.documentCorrected,
+      ValueCannotBeChecked: data.unableToCheckDocumet,
+      NotInBox: data.notInBox,
+      Space: false,
+      AdditionalInformation: data.additionalInformation == '' ? null : data.additionalInformation,
+      AdditionalFildsForRelease: data.additionalFields
+     }
+     
+     this.packageService.saveDocument(documentJson).subscribe(res=>{
+
+      this.checkRowClick = false
+      this.onsuccess()
+      this.getFile();
+  })
+    }
+
+    checknotInBox(data: any){
+      debugger
+      if(data.notInBox){
+        data.additionalInformation = null
+      }
+    }
 }
 
 

@@ -204,11 +204,13 @@ td {
   td {
     /* text-align: left; */
     text-align: center;
+    width: 160px;
 
   }
   th {
     padding: 0px 5px;
     /* width: 160px; */
+    
   }
 
   .mat-header-row {
@@ -282,7 +284,9 @@ td {
     margin-bottom: 5px;
   }
 
-
+th.mat-header-cell:first-of-type {
+  padding-left: 4px;
+}
 
 
 
