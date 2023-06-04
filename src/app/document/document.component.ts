@@ -59,8 +59,6 @@ getDocument(){
   this.service.getDocumet().subscribe(res => {
     this.documentDetail = res;
     this.item = res;
-    console.log(this.documentDetail);
-    
   })
 }
   onsuccess(){

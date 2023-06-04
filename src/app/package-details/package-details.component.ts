@@ -9,12 +9,27 @@ import {MatDialog} from "@angular/material/dialog";
 import { NotificationsService } from "angular2-notifications";
 import { DeleteDocumentPopUpComponent } from './deleteDocumentPopUp/deleteDocumentPopUp.component';
 import { JwtHelperService } from "@auth0/angular-jwt";
+import { animate, state, style, transition, trigger } from '@angular/animations';
+
+const ELEMENT_DATA: any[] = [
+  {
+    position: 1,
+   
+  }
+];
 
 
 @Component({
   selector: 'app-package-details',
   templateUrl: './package-details.component.html',
-  styleUrls: ['./package-details.component.css']
+  styleUrls: ['./package-details.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class PackageDelailsComponent implements OnInit {
   items: any = [];
@@ -33,6 +48,10 @@ decodedToken: any;
 jwtHelper = new JwtHelperService();
 documentDetail:any;
 
+dataSource = ELEMENT_DATA;
+columnsToDisplay = ['name'];
+expandedElement:any | null;
+
 
   constructor(private route: ActivatedRoute, private packageService: PackageItemService, private RT: Router,public dialog: MatDialog,private NotificationService: NotificationsService ) {
     this.data = new Detail();
@@ -47,12 +66,12 @@ documentDetail:any;
   }
 
   displayedColumns: string[] =
-  ['documentId',
-                                'documentTypeName',
-                                'notInBox',
-                                'documentStatusName',
+   ['documentId',
+                             'documentTypeName',
+                                 'notInBox',
+                                 'documentStatusName',
                                 'additonalInfo',
-                                'actionIcons'
+                                 'actionIcons'
                               ];
 
   onsuccess(){
@@ -86,18 +105,18 @@ documentDetail:any;
   }
 
   document(event:any,item: any, fileID: any){
-   var localName = event.target?.localName
-    if(localName == "div" || localName == "span" || localName == "input" || localName == "i" ){
-      this.checkRowClick = true
-    }else{
-      this.checkRowClick = false
-    }
+  //  var localName = event.target?.localName
+  //   if(localName == "div" || localName == "span" || localName == "input" || localName == "i" ){
+  //     this.checkRowClick = true
+  //   }else{
+  //     this.checkRowClick = false
+  //   }
     
-    if(this.checkRowClick == false){
+    //if(this.checkRowClick == false){
     this.RT.navigate(['home/document'])
     localStorage.setItem('itemID', item);
     this.packageService.documntID = item;
-    }
+    //}
 
   }
 
