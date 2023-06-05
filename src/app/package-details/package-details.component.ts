@@ -80,7 +80,7 @@ expandedElement:any | null;
     });
 }
 
-test(documentId:any){
+getDocuments(documentId:any){
   
   this.packageService.getDocumet(documentId).subscribe(res=>{
    this.itemForDocuments = res;
