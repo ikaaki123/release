@@ -81,9 +81,10 @@ export class PackageItemService {
   }
 
 
-  getDocumet(){
+  getDocumet(documentId: any){
+    documentId = documentId == null ? this.documntID : documentId
     let headers = this.generateHeader()
-     return this.http.get(`${this.baseUrl}/Package/GetReleaseDocuments?documentId=${this.documntID}`,{headers:headers});
+     return this.http.get(`${this.baseUrl}/Package/GetReleaseDocuments?documentId=${documentId}`,{headers:headers});
 
   }
   saveDocument(newData:any){

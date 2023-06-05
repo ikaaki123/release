@@ -10,14 +10,8 @@ import { NotificationsService } from "angular2-notifications";
 import { DeleteDocumentPopUpComponent } from './deleteDocumentPopUp/deleteDocumentPopUp.component';
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { animate, state, style, transition, trigger } from '@angular/animations';
-
-const ELEMENT_DATA: any[] = [
-  {
-    position: 1,
-   
-  }
-];
-
+import { MatTableDataSource } from '@angular/material/table';
+import { EditTableComponent } from '../document/edit-table/edit-table.component';
 
 @Component({
   selector: 'app-package-details',
@@ -42,21 +36,18 @@ export class PackageDelailsComponent implements OnInit {
 @Output() backToPackagePage = new EventEmitter<Boolean>();
 fileTable: boolean = false;
 item:any = []
+itemForDocuments:any =[]
 packageInfo!: any;
 token: any;
 decodedToken: any;
 jwtHelper = new JwtHelperService();
 documentDetail:any;
 
-dataSource = ELEMENT_DATA;
-columnsToDisplay = ['name'];
+//dataSourceForDocument = itemForDocumetn
 expandedElement:any | null;
-
 
   constructor(private route: ActivatedRoute, private packageService: PackageItemService, private RT: Router,public dialog: MatDialog,private NotificationService: NotificationsService ) {
     this.data = new Detail();
-
-
   }
 
   ngOnInit(): void {
@@ -67,18 +58,54 @@ expandedElement:any | null;
 
   displayedColumns: string[] =
    ['documentId',
-                             'documentTypeName',
-                                 'notInBox',
-                                 'documentStatusName',
-                                'additonalInfo',
-                                 'actionIcons'
-                              ];
+    'documentTypeName',
+    'notInBox',
+    'documentStatusName',
+    'countDocument',
+    'additonalInfo',
+    'actionIcons' ];
+
+ displayedColumnsforDocument: string[] =
+  [   'checker1',
+       'checker2',
+       'checker3',
+       'checker4',
+       'checker5'
+    ];   
 
   onsuccess(){
     this.NotificationService.success('Success','წარმატებით დასრულდა შენახვა',{
       position: ["right", "top"],
       timeOut:700,
     });
+}
+
+test(documentId:any){
+  
+  this.packageService.getDocumet(documentId).subscribe(res=>{
+   this.itemForDocuments = res;
+   this.itemForDocuments = new MatTableDataSource(this.itemForDocuments.additionalFields);
+  })
+  
+}
+
+packageAction(e:any, i: number){
+  const dialogRef = this.dialog.open(EditTableComponent, {
+    width: '400px',
+    data:e
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    if(result.event == 'Cancel' && e.corrected) {
+      e.corrected = false;
+    } else {
+      e.corrected = true;
+    }
+    e.value = result.data.value;
+  });
+  this.itemForDocuments[i] = e;
+  console.log(this.itemForDocuments);
+  
 }
 
  save(form: NgForm){
@@ -117,7 +144,6 @@ expandedElement:any | null;
     localStorage.setItem('itemID', item);
     this.packageService.documntID = item;
     //}
-
   }
 
   checkedEmptyBox(){
@@ -236,7 +262,6 @@ expandedElement:any | null;
 
   savePackage(data:any,documentID: number){
     this.checkRowClick = true
-    
     const documentJson = {
       documentId: documentID,
       FileId: this.packageInfo.fileId,
@@ -248,19 +273,19 @@ expandedElement:any | null;
       NotInBox: data.notInBox,
       Space: false,
       AdditionalInformation: data.additionalInformation == '' ? null : data.additionalInformation,
-      AdditionalFildsForRelease: data.additionalFields
+      AdditionalFildsForRelease: this.itemForDocuments.filteredData
      }
      
      this.packageService.saveDocument(documentJson).subscribe(res=>{
 
       this.checkRowClick = false
+      data.additionalFields = null
       this.onsuccess()
       this.getFile();
   })
     }
 
     checknotInBox(data: any){
-      debugger
       if(data.notInBox){
         data.additionalInformation = null
       }

@@ -56,7 +56,7 @@ dataSource = new MatTableDataSource<any>();
   }
 
 getDocument(){
-  this.service.getDocumet().subscribe(res => {
+  this.service.getDocumet(null).subscribe(res => {
     this.documentDetail = res;
     this.item = res;
   })
