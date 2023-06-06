@@ -45,6 +45,7 @@ documentDetail:any;
 
 //dataSourceForDocument = itemForDocumetn
 expandedElement:any | null;
+test:string = 'test'
 
   constructor(private route: ActivatedRoute, private packageService: PackageItemService, private RT: Router,public dialog: MatDialog,private NotificationService: NotificationsService ) {
     this.data = new Detail();
@@ -170,8 +171,7 @@ packageAction(e:any, i: number){
   getFile() {
     this.packageService.getPackageDetail().subscribe(res => {
       this.packageInfo = res;
-      this.item = res
-
+      this.item = res;
     })
   }
 
@@ -258,33 +258,75 @@ packageAction(e:any, i: number){
         });
   }
 
-  savePackage(data:any,documentID: number){
+  savePackage(data:any,documentID: number,e:any){
     this.checkRowClick = true
+    console.log(e);
+    this.expandedElement = null
+    
+    if(data.additionalFields.length == 0){
+      this.itemForDocuments.filteredData = [];
+      const documentJson = {
+        documentId: documentID,
+        FileId: this.packageInfo.fileId,
+        FileDocumetTypeId: data.documentTypeId,
+        Comment: data.comment,
+        ValueCorrect: data.documentIsCorret,
+        ValueCorrection: data.documentCorrected,
+        ValueCannotBeChecked: data.unableToCheckDocumet,
+        NotInBox: data.notInBox,
+        Space: false,
+        AdditionalInformation: data.additionalInformation == '' ? null : data.additionalInformation,
+        AdditionalFildsForRelease: this.itemForDocuments.filteredData == null ? [] : this.itemForDocuments.filteredData
+       }
+       this.packageService.saveDocument(documentJson).subscribe(res=>{
+        this.checkRowClick = false
+        data.additionalFields = null
+        this.itemForDocuments.filteredData = []
+        this.onsuccess()
+        this.getFile();
+    })
+    }else { 
+    if(this.itemForDocuments.filteredData != undefined) {
+      if(this.itemForDocuments.filteredData[0].documentId == documentID){
+        for (const { isCorret, corrected, unableToCheck } of this.itemForDocuments.filteredData) {
+          if (!isCorret && !corrected && !unableToCheck) {
+            alert("გთხოვთ დოკუმენტის ID: " + documentID + "-ის დამატებით ველებზე მონიშნოთ ერთ-ერთი პირობა: სწორეა, ვერ მოწმდება ან კორექტირება")
+            return;
+          }
+        }
+      const documentJson = {
+        documentId: documentID,
+        FileId: this.packageInfo.fileId,
+        FileDocumetTypeId: data.documentTypeId,
+        Comment: data.comment,
+        ValueCorrect: data.documentIsCorret,
+        ValueCorrection: data.documentCorrected,
+        ValueCannotBeChecked: data.unableToCheckDocumet,
+        NotInBox: data.notInBox,
+        Space: false,
+        AdditionalInformation: data.additionalInformation == '' ? null : data.additionalInformation,
+        AdditionalFildsForRelease: this.itemForDocuments.filteredData == null ? [] : this.itemForDocuments.filteredData
+       }
+       this.packageService.saveDocument(documentJson).subscribe(res=>{
+        this.checkRowClick = false
+        data.additionalFields = null
+        this.itemForDocuments.filteredData = []
+        this.onsuccess()
+        this.getFile();
+    })
+    
+      }else{
+        alert("გთხოვთ დოკუმენტის ID: " + documentID + "-ის დამატებით ველებზე მონიშნოთ ერთ-ერთი პირობა: სწორეა, ვერ მოწმდება ან კორექტირება")
+      }
+    } else {
+      alert("გთხოვთ დოკუმენტის ID: " + documentID + "-ის დამატებით ველებზე მონიშნოთ ერთ-ერთი პირობა: სწორეა, ვერ მოწმდება ან კორექტირება")
+    }
+  }
     
     
-    const documentJson = {
-      documentId: documentID,
-      FileId: this.packageInfo.fileId,
-      FileDocumetTypeId: data.documentTypeId,
-      Comment: data.comment,
-      ValueCorrect: data.documentIsCorret,
-      ValueCorrection: data.documentCorrected,
-      ValueCannotBeChecked: data.unableToCheckDocumet,
-      NotInBox: data.notInBox,
-      Space: false,
-      AdditionalInformation: data.additionalInformation == '' ? null : data.additionalInformation,
-      AdditionalFildsForRelease: this.itemForDocuments.filteredData == null ? [] : this.itemForDocuments.filteredData
-     }
-     console.log(documentJson);
      
      
-     this.packageService.saveDocument(documentJson).subscribe(res=>{
-      this.checkRowClick = false
-      data.additionalFields = null
-      this.itemForDocuments.filteredData = null
-      this.onsuccess()
-      this.getFile();
-  })
+ 
     }
 
     checknotInBox(data: any){
