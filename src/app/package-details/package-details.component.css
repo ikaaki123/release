@@ -288,17 +288,6 @@ th.mat-header-cell:first-of-type {
   padding-left: 4px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
 .tables {
   width: 300%;
 }
@@ -346,3 +335,8 @@ tr.example-detail-row {
 /* .example-element-description-attribution {
   opacity: 0.5;
 } */
+
+
+.custom-column{
+  background-color: #228b22;
+}

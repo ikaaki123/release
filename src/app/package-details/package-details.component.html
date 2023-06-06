@@ -281,14 +281,17 @@
 
         <ng-container matColumnDef="documentTypeName">
           <th mat-header-cell *matHeaderCellDef>
-            <div>
+            
               <mat-form-field appearance="outline" matTooltip="საბუთის ტიპი" matTooltipPosition="after">
                 <input matInput type="number" class="form-field" placeholder="საბუთის ტიპი">
               </mat-form-field>
-            </div>
+            
           </th>
-          <td mat-cell *matCellDef="let package">
-            {{package.documentTypeName}} </td>
+          <td mat-cell *matCellDef="let package" matTooltip="საბუთის ტიპი" matTooltipPosition="after">
+            <span placement="bottom" tooltip="{{package.documentTypeName}}">
+              {{ package.documentTypeName }}
+            </span> 
+          </td>
         </ng-container>
 
 
@@ -306,8 +309,8 @@
         <ng-container matColumnDef="countDocument">
           <th mat-header-cell *matHeaderCellDef>
             <div>
-              <mat-form-field appearance="outline" matTooltip="საბუთის სტატუსი" matTooltipPosition="after">
-                <input matInput class="form-field" placeholder="საბუთის სტატუსი">
+              <mat-form-field appearance="outline" matTooltip="რაოდენობა" matTooltipPosition="after">
+                <input matInput class="form-field" placeholder="რაოდენობა">
               </mat-form-field>
             </div>
           </th>
@@ -396,11 +399,12 @@
                       <ng-container matColumnDef="checker1">
                         <th mat-header-cell *matHeaderCellDef>დამატებით ველები</th>
                         <td mat-cell *matCellDef="let item">
-                          {{item.name}}
+                          <span placement="bottom" tooltip="{{item.name}}">
+                            {{item.name }}
+                          </span> 
                         </td>
-            
+                        
                           <input type="text" [(ngModel)]="item.name">
-            
                       </ng-container>
 
                       <ng-container matColumnDef="expandedDetail">
@@ -466,7 +470,7 @@
 
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="example-element-row"
+        <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="example-element-row" [ngClass]="{'custom-column': element.documentStatusName == 'შემოწმებული'}"
           [class.example-expanded-row]="expandedElement === element"
           (click)="expandedElement = expandedElement === element ? null : element" (click)="getDocuments(element.documentId)">
         </tr>

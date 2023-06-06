@@ -24,6 +24,7 @@ td {
     background: rgb(226, 226, 226);
   } */
 
+  @import '@angular/material/prebuilt-themes/indigo-pink.css';
 
 
    
