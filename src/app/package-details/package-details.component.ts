@@ -45,7 +45,6 @@ documentDetail:any;
 
 //dataSourceForDocument = itemForDocumetn
 expandedElement:any | null;
-test:string = 'test'
 
   constructor(private route: ActivatedRoute, private packageService: PackageItemService, private RT: Router,public dialog: MatDialog,private NotificationService: NotificationsService ) {
     this.data = new Detail();
@@ -260,9 +259,6 @@ packageAction(e:any, i: number){
 
   savePackage(data:any,documentID: number,e:any){
     this.checkRowClick = true
-    console.log(e);
-    this.expandedElement = null
-    
     if(data.additionalFields.length == 0){
       this.itemForDocuments.filteredData = [];
       const documentJson = {
@@ -282,6 +278,7 @@ packageAction(e:any, i: number){
         this.checkRowClick = false
         data.additionalFields = null
         this.itemForDocuments.filteredData = []
+        this.expandedElement = 'collapsed'
         this.onsuccess()
         this.getFile();
     })
@@ -311,6 +308,7 @@ packageAction(e:any, i: number){
         this.checkRowClick = false
         data.additionalFields = null
         this.itemForDocuments.filteredData = []
+        this.expandedElement.length = 0
         this.onsuccess()
         this.getFile();
     })
