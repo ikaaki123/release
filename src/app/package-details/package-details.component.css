@@ -337,6 +337,10 @@ tr.example-element-row:not(.example-expanded-row):active {
 }
 
 
-.custom-column{
-  background-color: #228b22;
+.rowcolor-green{
+  background-color: #60cb60d9;
+}
+
+.rowcolor-yellow{
+  background-color: #ffff00ed;
 }
