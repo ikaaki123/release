@@ -1,5 +1,10 @@
 <mat-tab-group #tabGroup class="matTabGroup" (selectedTabChange)="tabChanged($event)">
   <mat-tab label="შეკვრა">
+    <button class="btn downloadData" mat-raised-button  style="margin-left: 48px; margin-top: 10px;"
+            matTooltip="მონაცემების გადმოწერა" (click)="DownloadPackage()">
+      <mat-icon>cloud_download</mat-icon>
+      მონაცემების გადმოწერა
+    </button>
     <div class="container">
         <div class="row">
           <div class="col-md-12 my-1">
@@ -48,8 +53,8 @@
                   <th mat-header-cell *matHeaderCellDef>
                     <div>
                       <mat-form-field appearance="outline" matTooltip="დოკუმენტის ტიპი" matTooltipPosition="after">
-                        <input matInput class="form-field" placeholder="დოკუმენტის ტიპი" [(ngModel)]="filter.caseNumber"
-                          (keyup.enter)="fillPackageOnFilter(filter.caseNumber)" (keyup.backspace)="fillPackageOnFilter(filter.caseNumber)">
+                        <input matInput class="form-field" placeholder="დოკუმენტის ტიპი" [(ngModel)]="filter.documentTypeId"
+                          (keyup.enter)="fillPackageOnFilter(filter.documentTypeId)" (keyup.backspace)="fillPackageOnFilter(filter.documentTypeId)">
                       </mat-form-field>
                     </div>
                   </th>
@@ -75,10 +80,10 @@
                 <ng-container matColumnDef="startDate">
                   <th mat-header-cell *matHeaderCellDef style="width: 168px;">
                     <div class="bs_datepicker" matTooltip="დაწყების თარიღი" matTooltipPosition="after">
-                      <input type="text" class="form-control" #itemDate placeholder="&#xf073; {{'დაწყების თარიღი' }}"
+                      <input type="text" class="form-control"  [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" #itemDate placeholder="&#xf073; {{'დაწყების თარიღი' }}"
                         style="font-size: 14px; font-family: Arial, FontAwesome" bsDatepicker
-                        [(ngModel)]="filter.dateCreated" (selectedChanged)="fillPackageOnFilter(filter.dateCreated)"
-                        (keyup.backspace)="fillPackageOnFilter(filter.dateCreated)">
+                        [(ngModel)]="filter.startDate"  (ngModelChange)="getDate(filter.startDate,'startDate')"
+                        (keyup.backspace)="fillPackageOnFilter(filter.startDate)">
                     </div>
                   </th>
                   <td mat-cell *matCellDef="let package"> {{package.startDate|date}} </td>
@@ -87,7 +92,7 @@
                 <ng-container matColumnDef="endDate">
                   <th mat-header-cell *matHeaderCellDef style="width: 168px;">
                     <div class="bs_datepicker" matTooltip="დასრულების თარიღი" matTooltipPosition="after">
-                      <input type="text" class="form-control" #itemDate placeholder="&#xf073; {{'დასრულების თარიღი' }}"
+                      <input type="text" class="form-control" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [(ngModel)]="filter.endDate" (ngModelChange)="getDate(filter.endDate,'endDate')"  (keyup.backspace)="fillPackageOnFilter(filter.endDate)" #itemDate placeholder="&#xf073; {{'დასრულების თარიღი' }}"
                         style="font-size: 14px; font-family: Arial, FontAwesome" bsDatepicker>
                     </div>
 
@@ -215,6 +220,11 @@
       </div>
   </mat-tab>
   <mat-tab label="საქმე">
+    <button class="btn downloadData" mat-raised-button  style="margin-left: 48px; margin-top: 10px;"
+            matTooltip="მონაცემების გადმოწერა" (click)="DownloadFile()">
+      <mat-icon>cloud_download</mat-icon>
+      მონაცემების გადმოწერა
+    </button>
     <div class="container">
         <div class="row">
           <div class="col-md-12 my-1">
@@ -264,7 +274,7 @@
                     <div>
                       <mat-form-field appearance="outline" matTooltipPosition="after">
                         <input matInput class="form-field" placeholder="კლიენტის დასახელება" [(ngModel)]="filter.clientName"
-                          (keyup.enter)="onFilter(filter.clientName)" (keyup.backspace)="onFilter(filter.clientName)">
+                          (keyup.enter)="fillPackageOnFilter(filter.clientName)" (keyup.backspace)="fillPackageOnFilter(filter.clientName)">
                       </mat-form-field>
                     </div>
                   </th>
@@ -276,27 +286,32 @@
                     <div>
                       <mat-form-field appearance="outline"  matTooltipPosition="after">
                         <input matInput type="text" class="form-field" placeholder="კლიენტის ID"
-                          [(ngModel)]="filter.clientId " (keyup.enter)="onFilter(filter.clientId )"
-                          (keyup.backspace)="onFilter(filter.clientId )">
+                          [(ngModel)]="filter.clientId " (keyup.enter)="fillPackageOnFilter(filter.clientId )"
+                          (keyup.backspace)="fillPackageOnFilter(filter.clientId )">
                       </mat-form-field>
                     </div>
                   </th>
                   <td mat-cell *matCellDef="let package" placement="right" tooltip="{{package.clientId}}">
                     {{package.clientId}} </td>
                 </ng-container>
-
+                <!-- <div class="bs_datepicker" matTooltip="დაწყების თარიღი" matTooltipPosition="after">
+                  <input type="text" class="form-control"  [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" #itemDate placeholder="&#xf073; {{'დაწყების თარიღი' }}"
+                    style="font-size: 14px; font-family: Arial, FontAwesome" bsDatepicker
+                    [(ngModel)]="filter.startDate"  (ngModelChange)="getDate(filter.startDate,'startDate')"
+                    (keyup.backspace)="fillPackageOnFilter(filter.startDate)">
+                </div> -->
 
 
                 <ng-container matColumnDef="sentToDastaDate">
                   <th mat-header-cell *matHeaderCellDef style="width: 168px;">
                     <div class="bs_datepicker" matTooltipPosition="after">
-                      <input type="text" class="form-control" #itemDate placeholder="&#xf073; {{'დასტაზე გადაცემის თარიღი' }}"
+                      <input type="text" class="form-control" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" #itemDate placeholder="&#xf073; {{'დასტაზე გადაცემის თარიღი' }}"
                         style="font-size: 14px; font-family: Arial, FontAwesome" bsDatepicker
-                        [(ngModel)]="filter.sendToDastaDate" (selectedChanged)="onFilter(filter.sendToDastaDate)"
-                        (keyup.backspace)="onFilter(filter.sendToDastaDate)">
+                        [(ngModel)]="filter.sendToDastaDate" (ngModelChange)="getDate(filter.sendToDastaDate,'sendToDastaDate')"
+                        (keyup.backspace)="fillPackageOnFilter(filter.sendToDastaDate)">
                     </div>
                   </th>
-                  <td mat-cell *matCellDef="let package"> {{package.sendToDastaDate|date: 'dd/MM/yyyy'}} </td>
+                  <td mat-cell *matCellDef="let package"> {{package.sendToDastaDate|date}} </td>
                 </ng-container>
                 
                 <ng-container matColumnDef="errorStatus">
@@ -373,6 +388,11 @@
       </div>
   </mat-tab>
   <mat-tab label="საბუთი">
+    <button class="btn downloadData" mat-raised-button  style="margin-left: 48px; margin-top: 10px;"
+    matTooltip="მონაცემების გადმოწერა" (click)="DownloadDocument()">
+<mat-icon>cloud_download</mat-icon>
+მონაცემების გადმოწერა
+</button>
     <div class="container">
         <div class="row">
           <div class="col-md-12 my-1">
@@ -422,7 +442,7 @@
                     <div>
                       <mat-form-field appearance="outline" matTooltipPosition="after">
                         <input matInput class="form-field" placeholder="კლიენტის დასახელება" [(ngModel)]="filter.clientName"
-                          (keyup.enter)="onFilter(filter.clientName)" (keyup.backspace)="onFilter(filter.clientName)">
+                          (keyup.enter)="fillPackageOnFilter(filter.clientName)" (keyup.backspace)="fillPackageOnFilter(filter.clientName)">
                       </mat-form-field>
                     </div>
                   </th>
@@ -434,8 +454,8 @@
                     <div>
                       <mat-form-field appearance="outline"  matTooltipPosition="after">
                         <input matInput type="text" class="form-field" placeholder="კლიენტის ID"
-                          [(ngModel)]="filter.clientId " (keyup.enter)="onFilter(filter.clientId )"
-                          (keyup.backspace)="onFilter(filter.clientId )">
+                          [(ngModel)]="filter.clientId " (keyup.enter)="fillPackageOnFilter(filter.clientId )"
+                          (keyup.backspace)="fillPackageOnFilter(filter.clientId )">
                       </mat-form-field>
                     </div>
                   </th>

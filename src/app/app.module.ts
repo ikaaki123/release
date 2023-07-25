@@ -44,6 +44,7 @@ import { NgxPrintModule } from 'ngx-print';
 import { NgxBarcodeModule } from "ngx-barcode";
 import { FinishBoxComponent } from './new-space-operator/finish-box/finish-box.component';
 import { EditPackageComponent } from './new-space-operator/edit-package/edit-package.component';
+//import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 
@@ -90,6 +91,7 @@ import { EditPackageComponent } from './new-space-operator/edit-package/edit-pac
     ReactiveFormsModule,
     NgxPrintModule,
     NgxBarcodeModule,
+    //NgxSpinnerModule,
     SimpleNotificationsModule.forRoot()
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass:HttpInterceptorService,multi:true}, AuthGuard, DatePipe],

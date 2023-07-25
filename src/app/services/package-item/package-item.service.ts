@@ -1,7 +1,9 @@
-import { HttpClient, HttpHeaders,HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders,HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import {map, Observable, Subject } from 'rxjs';
+import {catchError, map, Observable, Subject } from 'rxjs';
+import { throwError } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -184,11 +186,43 @@ fillPackageGrid(data:any) {
 fillFilePackageGrid(data:any) {
     let headers = this.generateHeader()
     return this.http.get( `${this.baseUrl}/Package/GetErrorFile?&pageSize=${data.pageSize}&pageNumber=${data.pageNumber}`, {headers:headers});
+  };
+
+  searchErrorFile(filterParams: any,pagenation:any) {
+    this.packgeGridFilter = filterParams;
+    
+    let headers = this.generateHeader()
+    let result;
+    const params = toHttpParams(filterParams);
+    return this.http.get(`${this.baseUrl}/Package/GetErrorFile?&pageSize=${pagenation.pageSize}&pageNumber=${pagenation.pageNumber}`,
+      { observe: 'response', params, headers:headers})
+      .pipe(
+        map(response => {
+          result = response.body;
+          return result;
+        })
+      );
   }
 
 documentStatusErrorGrd(data:any) {
     let headers = this.generateHeader()
     return this.http.get( `${this.baseUrl}/Package/GetErrorDocument?&pageSize=${data.pageSize}&pageNumber=${data.pageNumber}`, {headers:headers});
+  }
+
+  searchdocumentStatusError(filterParams: any,pagenation:any) {
+    this.packgeGridFilter = filterParams;
+    
+    let headers = this.generateHeader()
+    let result;
+    const params = toHttpParams(filterParams);
+    return this.http.get(`${this.baseUrl}/Package/GetErrorDocument?&pageSize=${pagenation.pageSize}&pageNumber=${pagenation.pageNumber}`,
+      { observe: 'response', params, headers:headers})
+      .pipe(
+        map(response => {
+          result = response.body;
+          return result;
+        })
+      );
   }
   deleteFileForRelease(fileId:number){
     let headers = this.generateHeader()
@@ -209,6 +243,91 @@ ApproveNotApproveUser(model: any): Observable<any> {
       model,{headers: headers}
     );
   }
+  
+  // downloadPackage(filterParams: any): Observable<Blob> {
+  //   const headers = new HttpHeaders({
+  //     'Content-Type': 'application/json',
+  //     Accept: 'application/json',
+  //   });
+  //   const params = toHttpParams(filterParams);
+  //   const httpOptions = {
+  //     headers: headers,
+  //     responseType: 'blob' as 'json',
+  //     observe: 'response' as 'body',
+  //     params: params,
+  //   };
+
+  //  return this.http.get(this.baseUrl + 'Package/download-remove-packages', httpOptions)
+  //     .pipe(
+  //       map((response: HttpResponse<Blob>) => {
+  //         return response.body;
+  //       })
+  //     );
+  // }
+
+  downloadPackage(filterParams: any): Observable<Blob> {
+    let headers = this.generateHeader()
+    const params = toHttpParams(filterParams);
+    const httpOptions = {
+      headers: headers,
+      responseType: 'blob' as 'json',
+      observe: 'response' as 'body',
+      params: params,
+    };
+    //ამ ლინკის მისამართი შესაცვლელია სამომავლოდ
+    return this.http.get('https://retrievalsapi.drm.ge/api/Package/download-remove-packages', httpOptions)
+      .pipe(
+        map((response: any) => {
+          if (response.body === null) {
+            throw new Error('Download failed or returned null.');
+          }
+          return response.body;
+        })
+      );
+  }
+
+  downloadFile(filterParams: any): Observable<Blob> {
+    let headers = this.generateHeader()
+    const params = toHttpParams(filterParams);
+    const httpOptions = {
+      headers: headers,
+      responseType: 'blob' as 'json',
+      observe: 'response' as 'body',
+      params: params,
+    };
+    //ამ ლინკის მისამართი შესაცვლელია სამომავლოდ
+    return this.http.get('https://retrievalsapi.drm.ge/api/package/download-remove-files', httpOptions)
+      .pipe(
+        map((response: any) => {
+          if (response.body === null) {
+            throw new Error('Download failed or returned null.');
+          }
+          return response.body;
+        })
+      );
+  }
+
+  downloadDocument(filterParams: any): Observable<Blob> {
+    let headers = this.generateHeader()
+    const params = toHttpParams(filterParams);
+    const httpOptions = {
+      headers: headers,
+      responseType: 'blob' as 'json',
+      observe: 'response' as 'body',
+      params: params,
+    };
+    //ამ ლინკის მისამართი შესაცვლელია სამომავლოდ
+    return this.http.get('https://retrievalsapi.drm.ge/api/package/download-remove-documents', httpOptions)
+      .pipe(
+        map((response: any) => {
+          if (response.body === null) {
+            throw new Error('Download failed or returned null.');
+          }
+          return response.body;
+        })
+      );
+  }
+
 }
 
 export function toHttpParams(obj: Object): HttpParams {

@@ -5,6 +5,7 @@ import { AddDocumentsComponent } from '../document/add-documents/add-documents.c
 import { EditDrawbackComponent } from '../document/edit-drawback/edit-drawback.component';
 import { Packages } from '../Models/package.model';
 import { PackageItemService } from '../services/package-item/package-item.service';
+//import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-drawback',
@@ -39,9 +40,12 @@ export class DrawbackComponent implements OnInit {
   tabIndex!: number;
 
 
-  constructor(private packageService: PackageItemService,
-    private router: Router,
-    public dialog: MatDialog, ) {}
+  constructor(
+              private packageService: PackageItemService,
+              private router: Router,
+              public dialog: MatDialog,
+              // private loader: NgxSpinnerService 
+              ) {}
 
   ngOnInit(): void {
 
@@ -78,7 +82,7 @@ export class DrawbackComponent implements OnInit {
   }
   fillFilePackageGrid(){
     if (this.filterText) {
-      //  this.(this.filterText)
+      this.fillPackageOnFilter(this.filterText)
     } else {
       this.packageService.fillFilePackageGrid(this.pagenations).subscribe(res => {
         this.fillFilePackage = res;
@@ -133,24 +137,25 @@ export class DrawbackComponent implements OnInit {
         break;
       }
       case "საქმე": {
-        // this.packageService.searchErrorPackage(this.filter, this.pagenations)
-        // .subscribe(response => {
-        //   this.fillPackage = response;
-        //   this.totalRecords = this.fillPackage.totalRecords;
-        // });
+        this.packageService.searchErrorFile(this.filter, this.pagenations)
+        .subscribe(response => {
+          this.fillFilePackage = response;
+          this.totalRecords = this.fillPackage.totalRecords;
+        });
         break;
       }
       case "საბუთი": {
-        // this.packageService.searchErrorPackage(this.filter, this.pagenations)
-        // .subscribe(response => {
-        //   this.fillPackage = response;
-        //   this.totalRecords = this.fillPackage.totalRecords;
-        // });
+        this.packageService.searchdocumentStatusError(this.filter, this.pagenations)
+        .subscribe(response => {
+          this.documentErrorStatus = response;
+          this.totalRecords = this.fillPackage.totalRecords;
+        });
         break;
       }
 
     }
   }
+
   pagenation(e: any) {
     this.pagenations.pageSize = e.pageSize;
     this.pagenations.pageNumber = e.pageIndex + 1;
@@ -233,5 +238,74 @@ export class DrawbackComponent implements OnInit {
       })
     });
   }
+
+  getDate(dateCreated: Date,dateTime: string){
+    if(dateCreated == null){
+      this.fillPackageOnFilter(this.filter);
+    }else{
+    // let formattedDt = date.getDay + '-' + date.getMonth + '-' + date.getFullYear 
+    var date = new Date(dateCreated),
+    mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+    day = ("0" + date.getDate()).slice(-2);
+  let fullDate  = [date.getFullYear(), mnth, day].join("-");
+  const key = dateTime;
+  Object.assign(this.filter, { [key]: fullDate });
+  // this.filter = object;
+  this.fillPackageOnFilter(this.filter);
+    }
+  }
+
+  DownloadPackage() {
+     //this.loader.show();
+     this.packageService
+       .downloadPackage(this.filter)
+       .subscribe(
+         (fileData) => {
+           const filename = 'error_packages_';
+           this.handleDownload(fileData, filename);
+         },
+       );
+   }
+   DownloadFile() {
+    //this.loader.show();
+    this.packageService
+      .downloadFile(this.filter)
+      .subscribe(
+        (fileData) => {
+          const filename = 'error_packages_';
+          this.handleDownload(fileData, filename);
+        },
+      );
+  }
+  DownloadDocument() {
+    //this.loader.show();
+    this.packageService
+      .downloadDocument(this.filter)
+      .subscribe(
+        (fileData) => {
+          const filename = 'error_packages_';
+          this.handleDownload(fileData, filename);
+        },
+      );
+  }
+
+  handleDownload(fileData:any, fileName:string) {
+    fileName = fileName + Math.floor(Date.now() / 1000) + '.xlsx';
+    //this.loader.hide();
+    const blob: any = new Blob([fileData], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    });
+    const link = document.createElement('a');
+
+    if (link.download !== undefined) {
+      const url = URL.createObjectURL(blob);
+      link.setAttribute('href', url);
+      link.setAttribute('download', fileName);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  }
+    
 
 }
