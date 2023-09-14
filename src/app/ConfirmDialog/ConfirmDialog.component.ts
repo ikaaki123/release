@@ -9,12 +9,14 @@ import { DestroyBoxComponent } from '../DestroyBox/DestroyBox.component';
   styleUrls: ['./ConfirmDialog.component.css']
 })
 export class ConfirmDialogComponent implements OnInit {
+  header!:string;
   constructor(
     public dialogRef: MatDialogRef<DestroyBoxComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) { }
 
   ngOnInit() {
+    this.header = this.data.header;
   }
   closePopup(){
     this.dialogRef.close({result: false});

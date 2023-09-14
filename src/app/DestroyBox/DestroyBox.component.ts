@@ -27,6 +27,7 @@ export class DestroyBoxComponent implements OnInit {
   uploadFiles() {
       const dialogRef = this.dialog.open(ConfirmDialogComponent, {
         width: '400px',
+        data: {header:'ნამდვილად გსურთ ყუთის განადგურება?'}
       });
   
       dialogRef.afterClosed().subscribe((result:any) => {
@@ -35,7 +36,6 @@ export class DestroyBoxComponent implements OnInit {
           const formData = new FormData();
           formData.append('file', this.filesours);
           this.destroyBoxService.uploadFile(formData).subscribe(res => {
-            alert(res);
             this.filesours = null;
           });
         } else {
