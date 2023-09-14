@@ -1,0 +1,16 @@
+
+<div class="container">
+  <!-- <label class="chooseFile" for="files">აირჩიეთ ფაილი</label> -->
+  <input type="file" #fileUpload id="fileUpload" name="fileUpload"  (change)="chooseFile($event)" style="margin-top: 30px;" />
+  <button
+          class="btn btn_add"
+          mat-raised-button
+          matTooltip="მონაცემების ატვირთვა"
+          style="background-color:white;margin-top: 18px;font-size: 14px;color: #6c757d;width: 232px;"
+          (click)="uploadFiles()"
+        >
+          <mat-icon  style="margin-right: 5px;">cloud_upload</mat-icon>
+          მონაცემების ატვირთვა
+        </button>
+ </div>
+ 

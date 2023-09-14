@@ -44,12 +44,13 @@ import { NgxPrintModule } from 'ngx-print';
 import { NgxBarcodeModule } from "ngx-barcode";
 import { FinishBoxComponent } from './new-space-operator/finish-box/finish-box.component';
 import { EditPackageComponent } from './new-space-operator/edit-package/edit-package.component';
-//import { NgxSpinnerModule } from 'ngx-spinner';
+import { DestroyBoxComponent } from './DestroyBox/DestroyBox.component';
+import { ConfirmDialogComponent } from './ConfirmDialog/ConfirmDialog.component';
 
 
 
 @NgModule({
-  declarations: [
+  declarations: [			
     AppComponent,
     LoginComponent,
     HomeComponent,
@@ -68,8 +69,10 @@ import { EditPackageComponent } from './new-space-operator/edit-package/edit-pac
     ChangeBoxNumberPopupComponent,
     PrintPackageComponent,
     FinishBoxComponent,
-    EditPackageComponent
-  ],
+    EditPackageComponent,
+    DestroyBoxComponent,
+      ConfirmDialogComponent
+   ],
   imports: [
     BrowserModule,
     CommonModule,

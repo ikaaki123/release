@@ -1,0 +1,25 @@
+
+.container{
+    width: 500px;
+    height: 200px;
+    border: 1px solid green;
+    margin-top: 30px;
+}
+
+.chooseFile{
+    border: 1px solid #ced4da;
+    border-radius: 3px;
+    width: 132px;
+    height: 27px;
+    text-align: center;
+    color: #6c757d;
+    margin-top: 24px;
+
+}
+.date{
+    width: 10px;
+}
+
+::ng-deep .mat-button-wrapper{
+    margin-right: 34px;
+}
