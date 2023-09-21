@@ -26,9 +26,9 @@ export class DestroyBoxServiceService {
     return newHeaders;
   }
   ///Destroy Box
-  uploadFile(formData: any) {
+  uploadFile(formData: any, correctDate:string) {
     let headers = this.generateHeader()
-    return this.http.post(this.baseUrl + '/Package/DestoryBoxByXlsx/', formData, {
+    return this.http.post(this.baseUrl + '/Package/DestoryBoxByXlsx/'+ correctDate, formData, {
       headers: headers,
       responseType: 'text'
     })
