@@ -105,11 +105,11 @@ export class EditPackageComponent implements OnInit {
       this.data.comment = this.d.editPackages.comment;
       this.data.documentSpecies = this.d.editPackages.documentSpecies;
       this.data.documentSubtypeId = this.d.editPackages.documentSubtypeId;
-      this.endDates = this.d.editPackages.endDate == '' ? '' : new Date(this.d.editPackages.startDate);
+      this.endDates = this.d.editPackages.endDate == '' ? '' : new Date(this.d.editPackages.endDate);
       this.data.fullName = this.d.editPackages.fullName;
       this.data.geni =this.d.editPackages.geni;
       this.data.identification = this.d.editPackages.identification == undefined ? "" : this.d.editPackages.identification;
-      this.data.lB_Box = this.d.editPackages.lB_Box;
+      this.data.lB_Box = this.d.editPackages.lB_Box ;
       this.data.lB_File =this.d.editPackages.lB_File;
       this.data.loan = this.d.editPackages.loan;
       this.data.mail = this.d.editPackages.mail;

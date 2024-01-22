@@ -64,6 +64,11 @@ export class NewSpaceOperatorComponent implements OnInit {
       this.newSpaceService.getDataByBoxNumber(this.boxNumber).subscribe(res => {
         this.item = res;
         this.autofocusPackageNumber.nativeElement.focus();
+        if(this.item.status == 4){
+          alert("ყუთი არ არის დასთაში გადაგზავნილი")
+          this.item = []
+            return
+        }
         if (this.item.status == 2) {
           let dialogRef = this.dialog.open(NewSpaceOperatorPopupComponent, {
             width: '500px',
