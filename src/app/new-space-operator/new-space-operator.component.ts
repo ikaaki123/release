@@ -98,6 +98,18 @@ export class NewSpaceOperatorComponent implements OnInit {
       }
       this.newSpaceService.UpdatePackageStatusForRelease(json).subscribe(res => {
         this.result = res;
+        if(this.result.recivedByDasta == true){
+          const audio = new Audio();
+          audio.src = "../assets/RingBell.wav";
+          audio.load();
+
+          audio.onended = () => {
+          alert("ყუთი უკვე მიღებულია დასტას მიერ.");
+};
+
+audio.play();
+            return
+        } else{
         
         if(this.result.packageAddSuccess == true)
         {
@@ -141,12 +153,14 @@ export class NewSpaceOperatorComponent implements OnInit {
                 }
                 this.newSpaceService.ChangeBoxForPackage(json).subscribe(res => {
                   this.packageNumber = '';
+                  this.searchBoxNumber()
                   this.onSuccessAlert();
                 }) 
               }
               this.packageNumber = '';
             })
         }
+      }
       })
     };
   }
