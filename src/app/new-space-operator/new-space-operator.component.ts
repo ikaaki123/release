@@ -105,6 +105,7 @@ export class NewSpaceOperatorComponent implements OnInit {
 
           audio.onended = () => {
           alert("ყუთი უკვე მიღებულია დასტას მიერ.");
+          this.packageNumber = '';
 };
 
 audio.play();
@@ -116,6 +117,7 @@ audio.play();
           if(this.result.isSavedPackge ==  true)
           {
             alert("პაკეტს სტატუსი აქვს შენახული, გთხოვთ დაბეჭდოთ.")
+            this.packageNumber = '';
             return
           }
           this.searchBoxNumber();
