@@ -175,7 +175,17 @@ this.onFilter(this.filter);
   
 }
   
-packageinfo(fileId: any){
+packageinfo(fileId: any,event:any){
+  const targetClasses = (event.target).classList;
+  console.log(targetClasses.length);
+  
+  if ((targetClasses.contains('mat-column-boxNumber') || 
+      targetClasses.contains('mat-column-packageNumber') ||
+      targetClasses.contains('mat-column-caseNumber') ||
+      targetClasses.contains('mat-column-clientName') ||
+      targetClasses.contains('mat-column-clientId')) || targetClasses.length == 3){
+    return;
+  }
   if(this.checkRowClick == false){
     this.router.navigate(['home/packageDetail'])
     localStorage.setItem('fID', fileId);
@@ -199,7 +209,7 @@ packageinfo(fileId: any){
       dialogRef.afterClosed().subscribe(result => {
         if(result != undefined){
         this.checkRowClick = false
-        this.packageinfo(result.result.id)
+        this.packageinfo(result.result.id,null)
         }
       });
   }

@@ -288,9 +288,10 @@
                       <i class="fa fa-plus"  matTooltip="პაკეტის რედაქტირება" (click)="addClient(item.packageId, true)"> </i>
                     </td>
                   </ng-container> -->
+                  
                   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                   <!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr> -->
-                  <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="packageinfo(row.fileId)"></tr> 
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="packageinfo(row.fileId,$event)"></tr> 
                 </table>
              </div>
              <mat-paginator
