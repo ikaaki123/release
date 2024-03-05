@@ -176,9 +176,9 @@ this.onFilter(this.filter);
 }
   
 packageinfo(fileId: any,event:any){
+  if(event != null){
   const targetClasses = (event.target).classList;
-  console.log(targetClasses.length);
-  
+  debugger
   if ((targetClasses.contains('mat-column-boxNumber') || 
       targetClasses.contains('mat-column-packageNumber') ||
       targetClasses.contains('mat-column-caseNumber') ||
@@ -186,6 +186,7 @@ packageinfo(fileId: any,event:any){
       targetClasses.contains('mat-column-clientId')) || targetClasses.length == 3){
     return;
   }
+}
   if(this.checkRowClick == false){
     this.router.navigate(['home/packageDetail'])
     localStorage.setItem('fID', fileId);
@@ -207,9 +208,10 @@ packageinfo(fileId: any,event:any){
         }
       );
       dialogRef.afterClosed().subscribe(result => {
+        debugger
         if(result != undefined){
-        this.checkRowClick = false
-        this.packageinfo(result.result.id,null)
+        this.checkRowClick = false;
+        this.packageinfo(result.result.id,null);
         }
       });
   }
