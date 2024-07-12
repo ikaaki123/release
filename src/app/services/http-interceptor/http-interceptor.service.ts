@@ -12,11 +12,15 @@ export class HttpInterceptorService implements HttpInterceptor {
   constructor(
     private RT: Router, private NotificationService: NotificationsService
   ) {  }
-  onsuccess(text: any){
-    this.NotificationService.error('შეცდომა',text,{
-      position: ["right", "top"],
-      timeOut:2000,
-    });
+  onsuccess(text: any) {
+    try {
+        this.NotificationService.error('შეცდომა', text, {
+            position: ["right", "top"],
+            timeOut: 2000,
+        });
+    } catch (error) {
+        console.error('Error displaying notification:', error);
+    }
 }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -25,17 +29,18 @@ export class HttpInterceptorService implements HttpInterceptor {
       //   withCredentials: true
       // });
       
-
       return next.handle(request)
       .pipe(
         catchError((error: HttpErrorResponse,res): Observable<any> => {
-          if(error.status == 400 && error.error.statusCode == 401){
-            this.onsuccess(error.error.message)
+          if(error.status == 400 || error.error.statusCode == 401){
+            this.onsuccess(error.error)
+            alert(error.error)
+            
           }else if(error.status == 401){
             this.RT.navigate(['/login'])
             localStorage.clear()
           }
-           throw new Error(error.error.message); 
+           throw new Error(error.error); 
         })
       );
       

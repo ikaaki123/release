@@ -6,7 +6,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
   providedIn: 'root'
 })
 export class LoginService {
-  baseUrl: string = 'https://dastareleaseapi.azurewebsites.net/api';
+  baseUrl: string = 'https://releaseapi.drm.ge/api';
   constructor(private http: HttpClient) { }
   token!: any;
   decodedToken!:any;

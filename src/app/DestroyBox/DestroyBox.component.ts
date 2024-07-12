@@ -49,9 +49,25 @@ export class DestroyBoxComponent implements OnInit {
         if(result.result == true) {
           const formData = new FormData();
           formData.append('file', this.filesours);
-          this.destroyBoxService.uploadFile(formData,this.correctDate).subscribe(res => {
-            this.filesours = null;
-          });
+          debugger
+          this.destroyBoxService.uploadFile(formData, this.correctDate).subscribe({
+            next: res => {
+                // Handle successful file upload
+                this.filesours = null;
+                console.log(res);
+                
+            },
+            error: err => {
+              debugger
+                // Handle error here
+                console.error('File upload failed:', err);
+                // Additional error handling code (e.g., display a user-friendly error message)
+            },
+            complete: () => {
+                // Handle completion of the observable, if needed
+                console.log('File upload complete.');
+            }
+        });
         } else {
           this.dialog.closeAll();
         }

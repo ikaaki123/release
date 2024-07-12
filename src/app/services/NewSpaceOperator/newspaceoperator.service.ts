@@ -7,7 +7,7 @@ import { map, Observable } from 'rxjs';
 })
 export class NewspaceoperatorService {
   token = localStorage.getItem('token');
-  baseUrl: string = 'https://dastareleaseapi.azurewebsites.net/api';
+  baseUrl: string = 'https://releaseapi.drm.ge/api';
 
 
   constructor(private http: HttpClient, public datePipe: DatePipe) {}
