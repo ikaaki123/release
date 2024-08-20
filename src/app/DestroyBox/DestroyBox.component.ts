@@ -44,21 +44,19 @@ export class DestroyBoxComponent implements OnInit {
         width: '400px',
         data: {header:'ნამდვილად გსურთ ყუთის განადგურება?'}
       });
-  
+
       dialogRef.afterClosed().subscribe((result:any) => {
         if(result.result == true) {
           const formData = new FormData();
           formData.append('file', this.filesours);
-          debugger
           this.destroyBoxService.uploadFile(formData, this.correctDate).subscribe({
             next: res => {
                 // Handle successful file upload
                 this.filesours = null;
                 console.log(res);
-                
+
             },
             error: err => {
-              debugger
                 // Handle error here
                 console.error('File upload failed:', err);
                 // Additional error handling code (e.g., display a user-friendly error message)

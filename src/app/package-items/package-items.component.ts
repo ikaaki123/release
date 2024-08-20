@@ -56,15 +56,15 @@ pageSizeOptions: number[] = [5, 10, 25, 100];
     var pageSize = localStorage.getItem('pageSizeRelease')
     this.token = localStorage.getItem('token')
     this.decodedToken = this.jwtHelper.decodeToken(this.token );
-    
+
     this.filter = this.packageService.packgeGridFilter;
-    this.pagenations.pageSize = pageSize == null ? 10 :pageSize; 
-      if(this.filter == null ) {     
+    this.pagenations.pageSize = pageSize == null ? 10 :pageSize;
+      if(this.filter == null ) {
         this.getPackageItem();
       } else {
         this.onFilter(this.filter)
       }
-  
+
     this.getFileStatus();
     this.packageService.receiveMessage().subscribe(res=> {
       this.fileTable = res;
@@ -84,7 +84,7 @@ pageSizeOptions: number[] = [5, 10, 25, 100];
                                 'checkingUser',
                                 'caseStatur',
                                 'actionIcons',
-                                
+
 
                               ];
   getPackageItem(){
@@ -113,9 +113,9 @@ getFileStatus(){
 }
 
 
-onFilter(filter :any) {    
+onFilter(filter :any) {
     this.filterText = filter;
-    
+
     this.packageService.searchPackage(this.filter,this.pagenations)
       .subscribe(response => {
         this.item = response;
@@ -162,7 +162,7 @@ shows(){
 }
 
 getDate(dateCreated: Date,dateTime: string){
-  // let formattedDt = date.getDay + '-' + date.getMonth + '-' + date.getFullYear 
+  // let formattedDt = date.getDay + '-' + date.getMonth + '-' + date.getFullYear
   var date = new Date(dateCreated),
   mnth = ("0" + (date.getMonth() + 1)).slice(-2),
   day = ("0" + date.getDate()).slice(-2);
@@ -172,14 +172,13 @@ Object.assign(this.filter, { [key]: fullDate });
 // this.filter = object;
 this.onFilter(this.filter);
 
-  
+
 }
-  
+
 packageinfo(fileId: any,event:any){
   if(event != null){
   const targetClasses = (event.target).classList;
-  debugger
-  if ((targetClasses.contains('mat-column-boxNumber') || 
+  if ((targetClasses.contains('mat-column-boxNumber') ||
       targetClasses.contains('mat-column-packageNumber') ||
       targetClasses.contains('mat-column-caseNumber') ||
       targetClasses.contains('mat-column-clientName') ||
@@ -197,7 +196,7 @@ packageinfo(fileId: any,event:any){
     this.packageTable = true;
     this.fileTable = false;
   }
- 
+
   addClient(packageId: number,packageNumber: string, checkRowClick: boolean){
     this.checkRowClick = checkRowClick
     let dialogRef = this.dialog.open(AddClientsComponent
@@ -208,7 +207,6 @@ packageinfo(fileId: any,event:any){
         }
       );
       dialogRef.afterClosed().subscribe(result => {
-        debugger
         if(result != undefined){
         this.checkRowClick = false;
         this.packageinfo(result.result.id,null);

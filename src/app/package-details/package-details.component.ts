@@ -42,7 +42,7 @@ token: any;
 decodedToken: any;
 jwtHelper = new JwtHelperService();
 documentDetail:any;
-QRCode: String = '<1>315<1><2.1>დათო ციმაკურიძე<2.1><2.2>04001000119<2.2><3>1791689-13170443<3><4>13.03.2024<4><5>1<5><6>02-315-13170443-1<6> ';
+QRCode!: String;
 
 
 //dataSourceForDocument = itemForDocumetn
@@ -73,7 +73,7 @@ expandedElement:any | null;
        'checker3',
        'checker4',
        'checker5'
-    ];   
+    ];
 
   onsuccess(){
     this.NotificationService.success('Success','წარმატებით დასრულდა შენახვა',{
@@ -83,12 +83,12 @@ expandedElement:any | null;
 }
 
 getDocuments(documentId:any){
-  
+
   this.packageService.getDocumet(documentId).subscribe(res=>{
    this.itemForDocuments = res;
    this.itemForDocuments = new MatTableDataSource(this.itemForDocuments.additionalFields);
   })
-  
+
 }
 
 packageAction(e:any, i: number){
@@ -109,7 +109,7 @@ packageAction(e:any, i: number){
 }
 
  save(form: NgForm){
-  
+
     // Object.assign(this.packageInfo);
   const saveFile = {
     FileId: this.packageInfo.fileId,
@@ -138,7 +138,7 @@ packageAction(e:any, i: number){
   //   }else{
   //     this.checkRowClick = false
   //   }
-    
+
     //if(this.checkRowClick == false){
     this.RT.navigate(['home/document'])
     localStorage.setItem('itemID', item);
@@ -173,7 +173,7 @@ packageAction(e:any, i: number){
     this.packageService.getPackageDetail().subscribe(res => {
       this.packageInfo = res;
       this.item = res;
-      
+
     })
   }
 
@@ -244,13 +244,13 @@ packageAction(e:any, i: number){
       FileId: this.packageInfo.fileId,
       }
     this.packageService.finishReleaseFile(dataJson).subscribe(res =>{
-      this.RT.navigate(['/home/packageitem']) 
-    }); 
+      this.RT.navigate(['/home/packageitem'])
+    });
   }
   deletePackage(documentId: any, checkRowClick: boolean){
-    
+
     this.checkRowClick = checkRowClick
-   
+
       let dialogRef = this.dialog.open(DeleteDocumentPopUpComponent
         , {
           width: '500px',
@@ -287,7 +287,7 @@ packageAction(e:any, i: number){
         this.onsuccess()
         this.getFile();
     })
-    }else { 
+    }else {
     if(this.itemForDocuments.filteredData != undefined) {
       if(this.itemForDocuments.filteredData[0].documentId == documentID){
         for (const { isCorret, corrected, unableToCheck } of this.itemForDocuments.filteredData) {
@@ -317,7 +317,7 @@ packageAction(e:any, i: number){
         this.onsuccess()
         this.getFile();
     })
-    
+
       }else{
         alert("გთხოვთ დოკუმენტის ID: " + documentID + "-ის დამატებით ველებზე მონიშნოთ ერთ-ერთი პირობა: სწორეა, ვერ მოწმდება ან კორექტირება")
       }
@@ -325,11 +325,11 @@ packageAction(e:any, i: number){
       alert("გთხოვთ დოკუმენტის ID: " + documentID + "-ის დამატებით ველებზე მონიშნოთ ერთ-ერთი პირობა: სწორეა, ვერ მოწმდება ან კორექტირება")
     }
   }
-    
-    
-     
-     
- 
+
+
+
+
+
     }
 
     checknotInBox(data: any){
