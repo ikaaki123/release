@@ -328,6 +328,11 @@ ApproveNotApproveUser(model: any): Observable<any> {
       );
   }
 
+  generateDocumentByQRCode(QRCode:any, docTypeId:any): Observable<any>{
+    let headers = this.generateHeader()
+    return this.http.get( `https://retrievalsapi.drm.ge/api/Package/GetQrCodeData?Text=${QRCode}?&docymentType=${docTypeId}`, {headers:headers});
+  }
+
 }
 
 export function toHttpParams(obj: Object): HttpParams {

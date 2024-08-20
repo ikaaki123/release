@@ -42,6 +42,8 @@ token: any;
 decodedToken: any;
 jwtHelper = new JwtHelperService();
 documentDetail:any;
+QRCode: String = '<1>315<1><2.1>დათო ციმაკურიძე<2.1><2.2>04001000119<2.2><3>1791689-13170443<3><4>13.03.2024<4><5>1<5><6>02-315-13170443-1<6> ';
+
 
 //dataSourceForDocument = itemForDocumetn
 expandedElement:any | null;
@@ -171,6 +173,7 @@ packageAction(e:any, i: number){
     this.packageService.getPackageDetail().subscribe(res => {
       this.packageInfo = res;
       this.item = res;
+      
     })
   }
 
@@ -218,12 +221,14 @@ packageAction(e:any, i: number){
     }
   }
 
-  addDocument(){
+  addDocument(fileList:any, withQr:boolean){
       let dialogRef = this.dialog.open(AddDocumentsComponent
         , {
           disableClose: true,
           width: '700px',
-          data: { fileId: this.packageInfo.fileId }
+          data: { fileId: this.packageInfo.fileId,
+                  FileListInfo: fileList,
+                  withQr: withQr}
         });
 
       dialogRef.afterClosed().subscribe(result => {
@@ -331,6 +336,13 @@ packageAction(e:any, i: number){
       if(data.notInBox){
         data.additionalInformation = null
       }
+    }
+
+    generateDocWitQR(){
+      this.packageService.generateDocumentByQRCode(this.QRCode, this.item.docymentType).subscribe(
+             (response) => {
+              this.addDocument(response, true);
+             });
     }
 }
 

@@ -18,7 +18,9 @@ export class AddDocumentsComponent implements OnInit {
   UnableToCheckComment!: string;
   NotInBox: boolean = false;
   comment!: string;
+  additionalFieldsValue: AdditionalFieldsForDocument[] = [];
   // @ts-ignore
+  items: any[];
 
   id!: any;
   value!: number;
@@ -26,29 +28,41 @@ export class AddDocumentsComponent implements OnInit {
   errorMessage!: boolean;
   errorMessageInput!: boolean;
   documentTypeIsRequired!: boolean;
+  isQr!:boolean;
 
   myControl = new FormControl();
   // options: User[] = [{name: 'Mary'}, {name: 'Shelley'}, {name: 'Igor'}];;
-  filteredOptions!: Observable<User[]>;
+  filteredOptions!: any;
   
 
   constructor(
     private dialogRef: MatDialogRef<any>,
     private service: PackageItemService,
-   @Inject(MAT_DIALOG_DATA) public data: {fileId: string}
+   @Inject(MAT_DIALOG_DATA) public data: {fileId: string,FileListInfo:any,withQr:boolean}
   ) {
 
   }
 
   ngOnInit(): void {
-    this.getDocType();
-    setTimeout(() => {
-      this.filteredOptions = this.myControl.valueChanges.pipe(
-        startWith(''),
-        map(value => (typeof value === 'string' ? value : value.name)),
-        map(name => (name ? this._filter(name) : this.documentType.slice())),
-      );
-    }, 1000)
+    if(!this.data.withQr){
+      this.getDocType();
+      setTimeout(() => {
+        this.filteredOptions = this.myControl.valueChanges.pipe(
+          startWith(''),
+          map(value => (typeof value === 'string' ? value : value.name)),
+          map(name => (name ? this._filter(name) : this.documentType.slice())),
+        );
+      }, 1000)
+    }else{
+      this.getDocType();
+      this.onChange(this.data.FileListInfo.fileDocumetTypeId)
+      this.additionalFieldsValue = this.data.FileListInfo.additionalFieldList;
+      this.additionalFilds = this.data.FileListInfo.additionalFieldList.map((x:any) => ({ id: x.id, value: x.value }));
+  
+    }
+   
+        
+        
   }
   displayFn(user: User): string {
     return user && user.name ? user.name : '';
@@ -60,23 +74,35 @@ export class AddDocumentsComponent implements OnInit {
     return this.documentType.filter((option: { name: string; }) => option.name.toLowerCase().includes(filterValue));
   }
  
+  // get fieldsToDisplay() {
+  //   return this.data.withQr ? this.additionalFieldsValue : this.documentsFields;
+  // }
 
   getDocType(){
   this.service.getDocType().subscribe(res=>{
     this.documentType = res;
+    if(this.data.withQr){
+      var t=  this.documentType.find((option:any) => option.id === this.data.FileListInfo.fileDocumetTypeId)
+    this.myControl.setValue(t.name);
+    }
   })
   }
 
   onChange(docNumber:any){
-    console.log(docNumber.id);
-    
-    if(docNumber.id == undefined){
+    var docNumberQR:any;
+    if(this.data.withQr){
+      docNumberQR = docNumber
+    }
+    else{
+      docNumberQR = docNumber.id
+    }
+    if(docNumberQR == undefined){
       this.errorMessage = false;
     }else {
-    this.service.getFildsDoc(docNumber.id).subscribe(res=>{
-      this.documentsFilds = res;
-      this.documentNumber = docNumber.id
+    this.service.getFildsDoc(docNumberQR).subscribe(res=>{
       
+      this.documentsFilds = res;
+      this.documentNumber = docNumberQR
       return false
     })}
 
@@ -91,7 +117,6 @@ export class AddDocumentsComponent implements OnInit {
 
 
   onAdd(fieldId:number, $event:any) {
-    debugger
     if (this.additionalFilds.some(e => e.id == fieldId)) {
       // @ts-ignore
       this.additionalFilds.find(e => e.id == fieldId).value = $event.target.value;
@@ -114,7 +139,6 @@ export class AddDocumentsComponent implements OnInit {
 
 
   onSubmit(){
-
    const saveDocumentJson = {
      additionalFilds: this.additionalFilds,
      fileDocumetTypeId: this.documentNumber,
@@ -159,4 +183,17 @@ export class DocAddFields {
 export interface User {
   name: string;
   id: number
+}
+
+
+export interface AdditionalFieldsForDocument {
+  id: number,
+  name: string,
+  isRequired: boolean,
+  fieldFormatTypeId: number,
+  showPopUp: boolean,
+
+
+  //-for additonal field results;
+  value: any
 }

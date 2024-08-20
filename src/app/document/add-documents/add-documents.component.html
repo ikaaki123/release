@@ -35,7 +35,7 @@
       </mat-option>
     </mat-select>
   </mat-form-field> -->
-  <form class="example-form">
+  <form class="example-form" *ngIf="!data.withQr">
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>საბუთის ტიპი</mat-label>
       <input type="text"
@@ -49,12 +49,51 @@
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
-  </form>
+  </form> 
+
+  <form class="example-form" *ngIf="data.withQr">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>საბუთის ტიპი</mat-label>
+      <input type="text"
+             placeholder="აირჩიეთ"
+             matInput
+             [formControl]="myControl"
+             [matAutocomplete]="auto">
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option" (click)="onChange(option)">
+          {{option.name}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form> 
+
+ <!-- <div mat-dialog-content>
+    <div class="ngDropdown">
+        <ng-select
+       #Selecter
+        [(ngModel)]="this.data.FileListInfo.fileDocumetTypeId"
+        name="documentTypeByFile"
+        placeholder="დოკუმენტის ტიპი:"
+        bindLabel="name"
+        bindValue="id"
+        [items]="documentType"
+        appendTo="body"
+        [searchable]="true"
+        [closeOnSelect]="true"
+        (change)="onChange($event)"
+        [clearable]="false">
+      <ng-template ng-option-tmp let-item="item">
+        <div title="{{item.name}}">{{item.name}}</div>
+      </ng-template>
+  
+      </ng-select>
+      <mat-error class="error" *ngIf="documentTypeIsRequired">დოკუმენტის ტიპი სავალდებულოა</mat-error>
+    </div>  -->
   
  
   
 <mat-error class="error" *ngIf="errorMessage">საბუთის ტიპი სავალდებულოა</mat-error>
-
+ 
 
 <!--<div *ngIf="documentsFilds != null">-->
 <!--<div *ngFor="let data of documentsFilds">-->
@@ -99,23 +138,41 @@
 <!--</div>-->
 
 
-<div class="aditionalValue">
-  <div class="additionalFields" *ngFor="let field of documentsFilds" >
+<div class="aditionalValue"  *ngIf="data.withQr">
+  <div class="additionalFields" *ngFor="let field of additionalFieldsValue" ><!-- documentsFilds -->
     <label>{{field.name}}
       <strong class="text-danger" *ngIf="field.isRequired">*</strong>
     </label>
 
     <div [ngSwitch]="field.fieldFormatTypeId" >
       <!-- <input  type="text" *ngSwitchCase="1" [required]="field.isRequired" (change)="onAdd(field.id, $event)" [ngModel]="fulladditionalValues(field.id)"> -->
-      <input  type="text" *ngSwitchCase="1" [required]="field.isRequired" (change)="onAdd(field.id, $event)">
-      <input  type="number" *ngSwitchCase="2" [required]="field.isRequired" (change)="onAdd(field.id, $event)">
-      <input  type="text" *ngSwitchCase="3" [required]="field.isRequired"  (change)="onAdd(field.id, $event)">
-      <input  type="date" *ngSwitchCase="4" [required]="field.isRequired"  (change)="onAdd(field.id, $event)">
-      <input type="checkbox" *ngSwitchCase="5" [required]="field.isRequired" (change)="onAdd(field.id, $event)">
+      <input  type="text" *ngSwitchCase="1" [required]="field.isRequired" (change)="onAdd(field.id, $event)" [ngModel]="field.value">
+      <input  type="number" *ngSwitchCase="2" [required]="field.isRequired" (change)="onAdd(field.id, $event)" [ngModel]="field.value">
+      <input  type="text" *ngSwitchCase="3" [required]="field.isRequired"  (change)="onAdd(field.id, $event)" [ngModel]="field.value">
+      <input  type="date" *ngSwitchCase="4" [required]="field.isRequired"  (change)="onAdd(field.id, $event)" [ngModel]="field.value">
+      <input type="checkbox" *ngSwitchCase="5" [required]="field.isRequired" (change)="onAdd(field.id, $event)" [ngModel]="field.value">
     </div>
   </div>
 </div>
 
+
+
+<div class="aditionalValue"  *ngIf="!data.withQr">
+  <div class="additionalFields" *ngFor="let field of documentsFilds" ><!-- documentsFilds -->
+    <label>{{field.name}}
+      <strong class="text-danger" *ngIf="field.isRequired">*</strong>
+    </label>
+
+    <div [ngSwitch]="field.fieldFormatTypeId" >
+      <!-- <input  type="text" *ngSwitchCase="1" [required]="field.isRequired" (change)="onAdd(field.id, $event)" [ngModel]="fulladditionalValues(field.id)"> -->
+      <input  type="text" *ngSwitchCase="1" [required]="field.isRequired" (change)="onAdd(field.id, $event)" [ngModel]="field.value">
+      <input  type="number" *ngSwitchCase="2" [required]="field.isRequired" (change)="onAdd(field.id, $event)" [ngModel]="field.value">
+      <input  type="text" *ngSwitchCase="3" [required]="field.isRequired"  (change)="onAdd(field.id, $event)" [ngModel]="field.value">
+      <input  type="date" *ngSwitchCase="4" [required]="field.isRequired"  (change)="onAdd(field.id, $event)" [ngModel]="field.value">
+      <input type="checkbox" *ngSwitchCase="5" [required]="field.isRequired" (change)="onAdd(field.id, $event)" [ngModel]="field.value">
+    </div>
+  </div>
+</div>
 <div mat-dialog-actions class="mt-3">
   <button mat-button (click)="onNoClick()">გაუქმება</button>
   <button class="confirm" mat-button  (click)="onSubmit()">დადასტურება</button>

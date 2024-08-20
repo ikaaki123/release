@@ -156,11 +156,51 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12 mt-2">
-      <button class="btn btn_add" mat-raised-button matTooltip="დამატება" style="background-color:white"
+      <div class="QR" style="margin-top:20px;">
+        <mat-form-field
+        appearance="outline"
+        style="width:50%"
+        >
+        <mat-label>QR კოდის გენერაციისთვის ჩადექით ველში</mat-label>
+          <input
+          [(ngModel)]="QRCode"
+          matInput
+          autofocus
+          #yourInput
+          
+          >
+        </mat-form-field>
+        <!-- <mat-form-field appearance="outline" style="width:100% !important;margin-top:10px;">
+          <textarea matInput placeholder="QR კოდის გენერაციისთვის ჩადექით ველში"
+          [(ngModel)]="QRCode"></textarea>
+        </mat-form-field> -->
+        <button
+        style="margin-left:10px;height: 45px;"
+            class="btn btn_add"
+            mat-raised-button
+            matTooltip="QR კოდით გენერაცია"
+            (click)="generateDocWitQR()"
+            >
+            QR კოდით გენერაცია
+        </button>
+
+        <!-- <button class="btn btn_add" mat-raised-button matTooltip="დამატება" style="background-color:white"
         (click)="addDocument()">
         <mat-icon>add</mat-icon>
         დოკუმენტის დამატება
-      </button>
+      </button> -->
+      <button
+        style="margin-left:10px;height: 45px;"
+            class="btn btn_add"
+            mat-raised-button
+            matTooltip="QR კოდით გენერაცია"
+            (click)="addDocument(null,false)"
+            >
+            <mat-icon>add</mat-icon>
+        დოკუმენტის დამატება
+        </button>
+    </div>
+      
     </div>
   </div>
 </div>
