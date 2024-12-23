@@ -15,6 +15,15 @@
     [(ngModel)]="comment"
   >
 </mat-form-field>
+
+<mat-form-field appearance="outline" style="width:100% !important;margin-top:10px;">
+  <mat-label>ჩანაცვლებული DocumentId</mat-label>
+  <input
+    matInput type="number"
+    name="clientName"
+    [(ngModel)]="OldDocumentId"
+  >
+</mat-form-field>
 <!-- <mat-form-field appearance="outline" style="width:100% !important;margin-top:10px;">
     <textarea matInput placeholder="დასტას კომენტარი" [(ngModel)]="UnableToCheckComment"
               ></textarea>

@@ -18,6 +18,7 @@ export class AddDocumentsComponent implements OnInit {
   UnableToCheckComment!: string;
   NotInBox: boolean = false;
   comment!: string;
+  OldDocumentId!: number;
   additionalFieldsValue: AdditionalFieldsForDocument[] = [];
   // @ts-ignore
   items: any[];
@@ -145,7 +146,9 @@ export class AddDocumentsComponent implements OnInit {
      fileId: this.data.fileId,
      //UnableToCheckComment: this.UnableToCheckComment, დასტას კომენტარი
      //NotInBox: this.NotInBox, არ დევს საქმეში
-     comment: this.comment
+     comment: this.comment,
+     OldDocumentId: this.OldDocumentId
+     
 
     }
     this.service.saveDoc(saveDocumentJson).subscribe(res=>{
