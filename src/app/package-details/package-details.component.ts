@@ -170,10 +170,12 @@ packageAction(e:any, i: number){
     this.backToPackagePage.emit(true);
   }
   getFile() {
-    
+
     this.packageService.getPackageDetail().subscribe(res => {
       this.packageInfo = res;
       this.items = res;
+      this.item = res;
+
     })
   }
 
@@ -339,11 +341,11 @@ packageAction(e:any, i: number){
     }
 
     generateDocWitQR(){
-      
+
       this.packageService.generateDocumentByQRCode(this.QRCode, this.items.documentTypeId).subscribe(
              (response) => {
               this.addDocument(response, true);
-              
+
              });
     }
 }

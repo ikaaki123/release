@@ -16,7 +16,7 @@ export class PackageItemService {
   public fileId!: number;
   token = localStorage.getItem('token');
   baseUrl: string = 'https://releaseapi.drm.ge/api';
-  
+
   packgeGridFilter:any = [];
 
   constructor(
@@ -53,7 +53,7 @@ export class PackageItemService {
   }
   searchPackage(filterParams: any,pagenation:any) {
     this.packgeGridFilter = filterParams;
-    
+
     let headers = this.generateHeader()
     let result;
     const params = toHttpParams(filterParams);
@@ -69,6 +69,7 @@ export class PackageItemService {
 
   getPackageDetail() {
     let headers = this.generateHeader()
+
     return this.http.get(`${this.baseUrl}/Package/GetReleaseFileDetails?fileId=${this.fileID}`,{headers:headers});
   }
 
@@ -155,7 +156,7 @@ fillPackageGrid(data:any) {
 
   searchErrorPackage(filterParams: any,pagenation:any) {
     this.packgeGridFilter = filterParams;
-    
+
     let headers = this.generateHeader()
     let result;
     const params = toHttpParams(filterParams);
@@ -190,7 +191,7 @@ fillFilePackageGrid(data:any) {
 
   searchErrorFile(filterParams: any,pagenation:any) {
     this.packgeGridFilter = filterParams;
-    
+
     let headers = this.generateHeader()
     let result;
     const params = toHttpParams(filterParams);
@@ -211,7 +212,7 @@ documentStatusErrorGrd(data:any) {
 
   searchdocumentStatusError(filterParams: any,pagenation:any) {
     this.packgeGridFilter = filterParams;
-    
+
     let headers = this.generateHeader()
     let result;
     const params = toHttpParams(filterParams);
@@ -228,7 +229,7 @@ documentStatusErrorGrd(data:any) {
     let headers = this.generateHeader()
     return this.http.delete( `${this.baseUrl}/Package/DeleteFileForRelease/${fileId}`, {headers:headers});
   }
-  
+
   deleteFileDocumentForRelease(documentId:number){
     let headers = this.generateHeader()
     return this.http.delete( `${this.baseUrl}/Package/DeleteFileDocumentForRelease/${documentId}`, {headers:headers});
@@ -243,7 +244,7 @@ ApproveNotApproveUser(model: any): Observable<any> {
       model,{headers: headers}
     );
   }
-  
+
   // downloadPackage(filterParams: any): Observable<Blob> {
   //   const headers = new HttpHeaders({
   //     'Content-Type': 'application/json',
