@@ -10,6 +10,7 @@ import { NewSpaceOperatorComponent } from './new-space-operator/new-space-operat
 import { PackageDelailsComponent } from './package-details/package-details.component';
 import { PackageItemsComponent } from './package-items/package-items.component';
 import { DestroyBoxComponent } from './DestroyBox/DestroyBox.component';
+import { PkgWithoutFileComponent } from './PkgWithoutFile/pkg-without-file/pkg-without-file.component';
 
 // const routes: Routes = [
 //   { path: '',   redirectTo: '/home', pathMatch: 'full' },
@@ -38,7 +39,8 @@ const routes: Routes = [
       { path: 'drawback', component: DrawbackComponent },
       { path: 'newspacemanager', component: NewSpaceManagerComponent },
       { path: 'newspaceoperator', component: NewSpaceOperatorComponent },
-      { path: 'DesrtoyBox', component:DestroyBoxComponent}
+      { path: 'DesrtoyBox', component:DestroyBoxComponent},
+      { path: 'PkgWithoutFile', component: PkgWithoutFileComponent}
     ]
   },
 ];

@@ -47,6 +47,12 @@ export class PackageItemService {
     let headers = this.generateHeader()
     return this.http.get(`${this.baseUrl}/Package/GetReleaseMainList?&pageSize=${e.pageSize}&pageNumber=${e.pageNumber}`,{headers:headers})
   }
+
+  getPackageWithoutFile(e:any){
+    let headers = this.generateHeader()
+    return this.http.get(`${this.baseUrl}/Package/GetReleaseMainEmptyList?&pageSize=${e.pageSize}&pageNumber=${e.pageNumber}`,{headers:headers})
+  }
+  
   getFileStatus(){
     let headers = this.generateHeader()
     return this.http.get(`${this.baseUrl}/Package/GetFileStatus`,{headers:headers})
@@ -58,6 +64,22 @@ export class PackageItemService {
     let result;
     const params = toHttpParams(filterParams);
     return this.http.get(`${this.baseUrl}/Package/GetReleaseMainList?&pageSize=${pagenation.pageSize}&pageNumber=${pagenation.pageNumber}`,
+      { observe: 'response', params, headers:headers})
+      .pipe(
+        map(response => {
+          result = response.body;
+          return result;
+        })
+      );
+  }
+
+  searchPackageWithoutFile(filterParams: any,pagenation:any) {
+    this.packgeGridFilter = filterParams;
+    
+    let headers = this.generateHeader()
+    let result;
+    const params = toHttpParams(filterParams);
+    return this.http.get(`${this.baseUrl}/Package/GetReleaseMainEmptyList?&pageSize=${pagenation.pageSize}&pageNumber=${pagenation.pageNumber}`,
       { observe: 'response', params, headers:headers})
       .pipe(
         map(response => {

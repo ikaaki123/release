@@ -46,6 +46,7 @@ import { FinishBoxComponent } from './new-space-operator/finish-box/finish-box.c
 import { EditPackageComponent } from './new-space-operator/edit-package/edit-package.component';
 import { DestroyBoxComponent } from './DestroyBox/DestroyBox.component';
 import { ConfirmDialogComponent } from './ConfirmDialog/ConfirmDialog.component';
+import { PkgWithoutFileComponent } from './PkgWithoutFile/pkg-without-file/pkg-without-file.component';
 
 
 
@@ -71,7 +72,8 @@ import { ConfirmDialogComponent } from './ConfirmDialog/ConfirmDialog.component'
     FinishBoxComponent,
     EditPackageComponent,
     DestroyBoxComponent,
-      ConfirmDialogComponent
+    ConfirmDialogComponent,
+    PkgWithoutFileComponent
    ],
   imports: [
     BrowserModule,
