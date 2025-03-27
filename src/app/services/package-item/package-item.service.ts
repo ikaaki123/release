@@ -52,7 +52,7 @@ export class PackageItemService {
     let headers = this.generateHeader()
     return this.http.get(`${this.baseUrl}/Package/GetReleaseMainEmptyList?&pageSize=${e.pageSize}&pageNumber=${e.pageNumber}`,{headers:headers})
   }
-  
+
   getFileStatus(){
     let headers = this.generateHeader()
     return this.http.get(`${this.baseUrl}/Package/GetFileStatus`,{headers:headers})
@@ -75,7 +75,7 @@ export class PackageItemService {
 
   searchPackageWithoutFile(filterParams: any,pagenation:any) {
     this.packgeGridFilter = filterParams;
-    
+
     let headers = this.generateHeader()
     let result;
     const params = toHttpParams(filterParams);
@@ -354,6 +354,15 @@ ApproveNotApproveUser(model: any): Observable<any> {
   generateDocumentByQRCode(QRCode:any, docTypeId:any): Observable<any>{
     let headers = this.generateHeader()
     return this.http.get( `https://retrievalsapi.drm.ge/api/Package/GetQrCodeData?Text=${QRCode}?&docymentType=${docTypeId}`, {headers:headers});
+  }
+
+  saveQrTagInDocument(QRCode:any, docTypeId:any): Observable<any>{
+    let headers = this.generateHeader()
+    let data={
+      "DocumentId":docTypeId,
+      "Value": QRCode
+    }
+    return this.http.post( `https://releaseapi.drm.ge/api/Package/save-qr-tag-in-document`,data, {headers:headers});
   }
 
 }

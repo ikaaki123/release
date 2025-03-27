@@ -43,7 +43,8 @@ decodedToken: any;
 jwtHelper = new JwtHelperService();
 documentDetail:any;
 QRCode!: String;
-
+saveQrTag!: String
+documentId!: string;
 
 //dataSourceForDocument = itemForDocumetn
 expandedElement:any | null;
@@ -83,7 +84,8 @@ expandedElement:any | null;
 }
 
 getDocuments(documentId:any){
-
+this.documentId = documentId
+  this.saveQrTag = ''
   this.packageService.getDocumet(documentId).subscribe(res=>{
    this.itemForDocuments = res;
    this.itemForDocuments = new MatTableDataSource(this.itemForDocuments.additionalFields);
@@ -348,6 +350,19 @@ packageAction(e:any, i: number){
 
              });
     }
+
+
+  saveQrTagInDocument(){
+    console.log(this.saveQrTag,this.documentId)
+    this.packageService.saveQrTagInDocument(this.saveQrTag,this.documentId).subscribe(() => {
+     this.getDocuments(this.documentId);
+     this.saveQrTag = " ";
+    })
+  }
+
+  onRowClick(t:any){
+    console.log(t)
+  }
 }
 
 
