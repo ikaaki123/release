@@ -349,6 +349,8 @@ packageAction(e:any, i: number){
               this.addDocument(response, true);
 
              });
+
+      this.QRCode = ""
     }
 
 
